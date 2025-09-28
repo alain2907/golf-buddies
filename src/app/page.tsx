@@ -80,7 +80,7 @@ export default function HomePage() {
               Everything You Need to Elevate Your Game
             </h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              From finding partners to tracking your progress, we've got you covered
+              From finding partners to tracking your progress, we&apos;ve got you covered
             </p>
           </div>
 
@@ -176,7 +176,7 @@ export default function HomePage() {
             Join thousands of golfers who never have to play alone
           </p>
           <Link href="/login" className="inline-block bg-white text-golf-green btn-golf text-lg px-10 py-4">
-            Start Playing Today - It's Free!
+            Start Playing Today - It&apos;s Free!
           </Link>
           <p className="mt-4 text-golf-sand/80 text-sm">
             No credit card required • Free forever plan available
@@ -268,7 +268,7 @@ function TestimonialCard({ quote, author, rating }: any) {
           <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
         ))}
       </div>
-      <p className="text-gray-700 mb-4 italic">"{quote}"</p>
+      <p className="text-gray-700 mb-4 italic">&quot;{quote}&quot;</p>
       <p className="font-semibold text-golf-green">- {author}</p>
     </div>
   )

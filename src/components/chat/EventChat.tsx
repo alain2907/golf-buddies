@@ -39,6 +39,7 @@ export default function EventChat({ eventId, organizerId }: EventChatProps) {
     setLoading(true)
     try {
       await sendMessage(eventId, {
+        eventId,
         userId: user.uid,
         userName: user.displayName,
         userPhoto: user.photoURL,
@@ -125,7 +126,7 @@ function MessageBubble({ message, isOwn }: { message: Message, isOwn: boolean })
         )}
         <p className="text-sm">{message.text}</p>
         <p className={`text-xs mt-1 ${isOwn ? 'text-white/70' : 'text-gray-500'}`}>
-          {format(message.timestamp.toDate(), 'HH:mm')}
+          {format(message.timestamp, 'HH:mm')}
         </p>
       </div>
     </div>
