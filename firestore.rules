@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users can read all profiles but only edit their own
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Events are readable by all authenticated users
+    match /events/{eventId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null;
+      allow update: if request.auth != null && (
+        request.auth.uid == resource.data.organizerId ||
+        request.auth.uid in resource.data.currentPlayers
+      );
+      allow delete: if request.auth != null &&
+        request.auth.uid == resource.data.organizerId;
+
+      // Messages within events
+      match /messages/{messageId} {
+        allow read: if request.auth != null;
+        allow create: if request.auth != null &&
+          request.auth.uid in get(/databases/$(database)/documents/events/$(eventId)).data.currentPlayers;
+      }
+    }
+
+    // Courses are readable by all
+    match /courses/{courseId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Admin only
+    }
+  }
+}
