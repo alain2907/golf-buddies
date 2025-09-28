@@ -4,6 +4,7 @@ import './globals.css'
 import { AuthProvider } from '@/hooks/useAuth'
 import { Toaster } from 'react-hot-toast'
 import Navigation from '@/components/navigation/Navigation'
+import EmailVerificationGuard from '@/components/auth/EmailVerificationGuard'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -62,12 +63,14 @@ export default function RootLayout({
               },
             }}
           />
-          <div className="min-h-screen flex flex-col">
-            <main className="flex-1 pb-16 md:pb-0">
-              {children}
-            </main>
-            <Navigation />
-          </div>
+          <EmailVerificationGuard>
+            <div className="min-h-screen flex flex-col">
+              <main className="flex-1 pb-16 md:pb-0">
+                {children}
+              </main>
+              <Navigation />
+            </div>
+          </EmailVerificationGuard>
         </AuthProvider>
       </body>
     </html>

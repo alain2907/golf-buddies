@@ -9,7 +9,9 @@ import {
   signInWithPopup,
   signInWithRedirect,
   getRedirectResult,
-  updateProfile as updateFirebaseProfile
+  updateProfile as updateFirebaseProfile,
+  sendEmailVerification,
+  reload
 } from 'firebase/auth'
 import { auth, googleProvider, db } from '@/lib/firebase'
 import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore'
@@ -26,6 +28,9 @@ interface AuthContextType {
   logout: () => Promise<void>
   updateProfile: (data: Partial<User>) => Promise<void>
   resetPassword: (email: string) => Promise<void>
+  sendVerificationEmail: () => Promise<void>
+  checkEmailVerification: () => Promise<boolean>
+  needsEmailVerification: boolean
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -34,6 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(null)
   const [loading, setLoading] = useState(true)
+  const [needsEmailVerification, setNeedsEmailVerification] = useState(false)
 
   // Check for redirect result on mount
   useEffect(() => {
@@ -57,20 +63,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setFirebaseUser(firebaseUser)
 
       if (firebaseUser) {
-        const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid))
-        if (userDoc.exists()) {
-          const userData = userDoc.data() as User
-          setUser(userData)
-          // Update last active
-          await updateDoc(doc(db, 'users', firebaseUser.uid), {
-            lastActive: serverTimestamp()
-          })
+        // Check email verification status
+        const emailVerified = firebaseUser.emailVerified
+        const isGoogleUser = firebaseUser.providerData.some(p => p.providerId === 'google.com')
+
+        setNeedsEmailVerification(!emailVerified && !isGoogleUser)
+
+        // Only proceed if email is verified or it's a Google user
+        if (emailVerified || isGoogleUser) {
+          const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid))
+          if (userDoc.exists()) {
+            const userData = userDoc.data() as User
+            setUser(userData)
+            // Update last active
+            await updateDoc(doc(db, 'users', firebaseUser.uid), {
+              lastActive: serverTimestamp()
+            })
+          } else {
+            // Create profile if it doesn't exist
+            await handleUserLogin(firebaseUser)
+          }
         } else {
-          // Create profile if it doesn't exist
-          await handleUserLogin(firebaseUser)
+          setUser(null)
         }
       } else {
         setUser(null)
+        setNeedsEmailVerification(false)
       }
       setLoading(false)
     })
@@ -147,8 +165,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         lastActive: serverTimestamp()
       })
 
-      setUser(userData)
-      toast.success('Account created successfully!')
+      // Send email verification
+      await sendEmailVerification(newUser)
+      setNeedsEmailVerification(true)
+
+      toast.success('Account created! Please check your email to verify your account.')
     } catch (error: any) {
       console.error('Signup error:', error)
       if (error.code === 'auth/email-already-in-use') {
@@ -250,6 +271,45 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  const sendVerificationEmail = async () => {
+    if (!firebaseUser) {
+      throw new Error('No user logged in')
+    }
+
+    try {
+      await sendEmailVerification(firebaseUser)
+      toast.success('Verification email sent! Please check your inbox.')
+    } catch (error: any) {
+      console.error('Send verification email error:', error)
+      if (error.code === 'auth/too-many-requests') {
+        throw new Error('Too many requests. Please wait before requesting another email.')
+      }
+      throw error
+    }
+  }
+
+  const checkEmailVerification = async (): Promise<boolean> => {
+    if (!firebaseUser) return false
+
+    try {
+      await reload(firebaseUser)
+      if (firebaseUser.emailVerified) {
+        setNeedsEmailVerification(false)
+        // Reload the user data
+        const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid))
+        if (userDoc.exists()) {
+          setUser(userDoc.data() as User)
+        }
+        toast.success('Email verified successfully!')
+        return true
+      }
+      return false
+    } catch (error: any) {
+      console.error('Check email verification error:', error)
+      return false
+    }
+  }
+
   return (
     <AuthContext.Provider value={{
       user,
@@ -260,7 +320,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       signInWithGoogle,
       logout,
       updateProfile,
-      resetPassword
+      resetPassword,
+      sendVerificationEmail,
+      checkEmailVerification,
+      needsEmailVerification
     }}>
       {children}
     </AuthContext.Provider>
