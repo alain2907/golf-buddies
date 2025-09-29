@@ -18,7 +18,10 @@ export default function CreateEventPage() {
     maxPlayers: 4,
     description: '',
     level: '',
-    cartRequired: false
+    cartRequired: false,
+    gameFormat: '18_holes',
+    gameType: 'friendly',
+    requiredIndex: ''
   })
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -90,13 +93,13 @@ export default function CreateEventPage() {
       }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '8px' }}>
-            <span style={{ fontSize: '36px' }}>⚽</span>
+            <span style={{ fontSize: '36px' }}>🏌️</span>
             <h1 style={{ fontSize: '32px', fontWeight: 'bold', color: '#111827', margin: 0 }}>
-              Créer un événement
+              Proposer un parcours
             </h1>
           </div>
           <p style={{ color: '#6b7280', fontSize: '16px', margin: 0 }}>
-            Organisez votre prochaine partie de golf
+            Créez votre flight et trouvez vos partenaires de jeu
           </p>
         </div>
       </div>

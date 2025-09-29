@@ -25,10 +25,10 @@ export default function SearchPage() {
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h1 style={{ fontSize: '32px', fontWeight: 'bold', color: '#111827', marginBottom: '8px' }}>
-            🔍 Rechercher une partie
+            🔍 Rejoindre un flight
           </h1>
           <p style={{ color: '#6b7280' }}>
-            Trouvez votre prochaine partie de golf parfaite
+            Trouvez des golfeurs pour votre prochaine partie
           </p>
         </div>
       </div>
