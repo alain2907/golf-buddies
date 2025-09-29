@@ -3,11 +3,19 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
 import { Home, Search, Plus, User, Calendar } from 'lucide-react'
+import { useState, useEffect } from 'react'
 
 export default function Navigation() {
   const pathname = usePathname()
   const { user } = useAuth()
+  const [mounted, setMounted] = useState(false)
 
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Protection hydratation - ne rien rendre côté serveur
+  if (!mounted) return null
   if (!user) return null
 
   const isActive = (path: string) => pathname === path

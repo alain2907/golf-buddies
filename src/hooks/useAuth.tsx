@@ -36,13 +36,22 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  // Protection hydratation: états stables côté serveur
   const [user, setUser] = useState<User | null>(null)
   const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(null)
   const [loading, setLoading] = useState(true)
   const [needsEmailVerification, setNeedsEmailVerification] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  // Protection hydratation
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Check for redirect result on mount
   useEffect(() => {
+    if (!mounted) return
+
     const checkRedirectResult = async () => {
       try {
         const result = await getRedirectResult(auth)
@@ -55,10 +64,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     }
     checkRedirectResult()
-  }, [])
+  }, [mounted])
 
   // Listen for auth state changes
   useEffect(() => {
+    if (!mounted) return
+
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       setFirebaseUser(firebaseUser)
 
@@ -94,7 +105,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     })
 
     return unsubscribe
-  }, [])
+  }, [mounted])
 
   const handleUserLogin = async (firebaseUser: FirebaseUser) => {
     const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid))
