@@ -3,10 +3,13 @@ import { useAuth } from '@/hooks/useAuth'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Footer from '@/components/Footer'
+import { useEvents } from '@/hooks/useEvents'
+import { Calendar, MapPin, Users, Clock, TrendingUp, Award, Star, ChevronRight } from 'lucide-react'
 
 export default function DashboardPage() {
   const [mounted, setMounted] = useState(false)
   const { user, loading } = useAuth()
+  const { events } = useEvents()
   const router = useRouter()
 
   useEffect(() => {
@@ -14,243 +17,521 @@ export default function DashboardPage() {
   }, [])
 
   useEffect(() => {
-    // Temporarily disable redirect for testing
-    // if (mounted && !loading && !user) {
-    //   router.push('/')
-    // }
+    if (mounted && !loading && !user) {
+      router.push('/')
+    }
   }, [user, loading, router, mounted])
 
-  // Ne rien rendre côté serveur ou pendant le chargement
-  if (!mounted) {
-    return null
-  }
-
-  if (loading) {
+  if (!mounted || loading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div>Loading...</div>
+        <div className="loading-spinner"></div>
       </div>
     )
   }
 
-  // For testing, show dashboard even without user
-  const displayName = user?.displayName || user?.email?.split('@')[0] || 'Utilisateur Test'
+  const displayName = user?.displayName || user?.email?.split('@')[0] || 'Golfeur'
+
+  // Filtrer les événements du jour et à venir
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  const myEvents = events?.filter(event =>
+    event.currentPlayers?.includes(user?.uid || '') || event.organizerId === user?.uid
+  ) || []
+
+  const upcomingEvents = myEvents.filter(event => {
+    const eventDate = new Date(event.date)
+    return eventDate >= today
+  }).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+
+  const todayEvents = events?.filter(event => {
+    const eventDate = new Date(event.date)
+    eventDate.setHours(0, 0, 0, 0)
+    return eventDate.getTime() === today.getTime() &&
+           event.currentPlayers.length < event.maxPlayers &&
+           !event.currentPlayers.includes(user?.uid || '')
+  }) || []
+
+  // Données de suggestions de golfeurs (mock pour l'instant)
+  const nearbyGolfers = [
+    { id: 1, name: 'Marc Dubois', handicap: 18, distance: '2.3 km', course: 'Golf de Saint-Cloud', avatar: 'M' },
+    { id: 2, name: 'Sophie Martin', handicap: 12, distance: '3.5 km', course: 'Golf de Fontainebleau', avatar: 'S' },
+    { id: 3, name: 'Jean Lefebvre', handicap: 24, distance: '5.1 km', course: 'Golf National', avatar: 'J' },
+    { id: 4, name: 'Pierre Moreau', handicap: 8, distance: '7.2 km', course: 'Golf de Chantilly', avatar: 'P' }
+  ]
 
   return (
-    <div style={{ minHeight: '100vh', padding: '16px', paddingBottom: '80px' }}>
-      {/* Navbar */}
-      <nav style={{
-        background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-        padding: '24px 48px',
-        marginBottom: '20px'
+    <div style={{ minHeight: '100vh', backgroundColor: '#f9fafb', paddingBottom: '80px' }}>
+      {/* Header moderne avec gradient */}
+      <div style={{
+        background: 'linear-gradient(135deg, #2D5016 0%, #4A7C2E 50%, #6B9F3F 100%)',
+        padding: '32px 24px',
+        borderRadius: '0 0 24px 24px',
+        boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
       }}>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              marginBottom: '4px'
-            }}>
-              <span style={{ fontSize: '32px' }}>🏌️</span>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <div>
               <h1 style={{
-                fontSize: '20px',
+                fontSize: '28px',
                 fontWeight: 'bold',
                 color: 'white',
-                margin: 0
+                marginBottom: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px'
               }}>
-                Sport Connect Golf
+                <span style={{ fontSize: '32px' }}>🏌️‍♂️</span>
+                Golf Buddies
               </h1>
-            </div>
-            <p style={{
-              color: 'rgba(255, 255, 255, 0.9)',
-              fontSize: '14px',
-              marginLeft: '44px',
-              margin: 0
-            }}>
-              Bonjour {displayName}
-            </p>
-          </div>
-          <button
-            onClick={() => router.push('/create')}
-            style={{
-            background: 'white',
-            color: '#4facfe',
-            border: 'none',
-            padding: '12px 24px',
-            borderRadius: '8px',
-            fontWeight: 'bold',
-            cursor: 'pointer'
-          }}>
-            Proposer un parcours
-          </button>
-        </div>
-      </nav>
-
-      {/* Contenu principal */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        {/* Prochaines parties */}
-        <div style={{ marginBottom: '32px' }}>
-          <h2 style={{ fontSize: '24px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            🏌️ Mes prochaines parties
-          </h2>
-          <div style={{
-            background: 'white',
-            padding: '24px',
-            borderRadius: '12px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-            textAlign: 'center'
-          }}>
-            <div style={{ fontSize: '48px', marginBottom: '16px' }}>⛳</div>
-            <div style={{ fontWeight: 'bold', marginBottom: '8px' }}>Aucune partie prévue</div>
-            <div style={{ color: '#666', fontSize: '14px', marginBottom: '16px' }}>
-              Créez votre première partie ou rejoignez un flight existant
+              <p style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px' }}>
+                Bonjour {displayName} 👋
+              </p>
             </div>
             <button
               onClick={() => router.push('/create')}
               style={{
-                background: 'linear-gradient(135deg, #4A7C2E 0%, #6B9F3F 100%)',
-                color: 'white',
+                background: 'white',
+                color: '#2D5016',
                 border: 'none',
                 padding: '12px 24px',
-                borderRadius: '8px',
-                fontSize: '16px',
+                borderRadius: '12px',
                 fontWeight: 'bold',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                transition: 'transform 0.2s'
               }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
             >
+              <span style={{ fontSize: '18px' }}>⛳</span>
               Proposer un parcours
             </button>
           </div>
-        </div>
 
-        {/* Actions rapides */}
-        <div style={{ marginBottom: '32px' }}>
-          <h2 style={{ fontSize: '20px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            ⚡ Actions rapides
+          {/* Stats rapides */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '12px',
+            marginTop: '20px'
+          }}>
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(10px)',
+              padding: '12px',
+              borderRadius: '12px',
+              textAlign: 'center'
+            }}>
+              <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'white' }}>{upcomingEvents.length}</div>
+              <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.8)' }}>Parties prévues</div>
+            </div>
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(10px)',
+              padding: '12px',
+              borderRadius: '12px',
+              textAlign: 'center'
+            }}>
+              <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'white' }}>{todayEvents.length}</div>
+              <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.8)' }}>Disponibles aujourd&apos;hui</div>
+            </div>
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(10px)',
+              padding: '12px',
+              borderRadius: '12px',
+              textAlign: 'center'
+            }}>
+              <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'white' }}>15</div>
+              <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.8)' }}>Index moyen</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '24px' }}>
+        {/* Prochaines parties */}
+        <section style={{ marginBottom: '32px' }}>
+          <h2 style={{
+            fontSize: '24px',
+            fontWeight: 'bold',
+            marginBottom: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}>
+            <Calendar style={{ width: '24px', height: '24px', color: '#4A7C2E' }} />
+            Mes prochaines parties
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '12px' }}>
-            <div
-              onClick={() => router.push('/create')}
-              style={{ padding: '16px', background: 'white', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', textAlign: 'center', cursor: 'pointer' }}
-            >
-              <div style={{ fontSize: '24px', marginBottom: '8px' }}>🏌️</div>
-              <div style={{ fontWeight: 'bold', fontSize: '14px' }}>Créer partie</div>
-            </div>
-            <div
-              onClick={() => router.push('/search')}
-              style={{ padding: '16px', background: 'white', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', textAlign: 'center', cursor: 'pointer' }}
-            >
-              <div style={{ fontSize: '24px', marginBottom: '8px' }}>🔍</div>
-              <div style={{ fontWeight: 'bold', fontSize: '14px' }}>Rejoindre flight</div>
-            </div>
-            <div
-              onClick={() => router.push('/courses')}
-              style={{ padding: '16px', background: 'white', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', textAlign: 'center', cursor: 'pointer' }}
-            >
-              <div style={{ fontSize: '24px', marginBottom: '8px' }}>📍</div>
-              <div style={{ fontWeight: 'bold', fontSize: '14px' }}>Parcours proches</div>
-            </div>
-          </div>
-        </div>
 
-
-        {/* Golfeurs autour de toi */}
-        <div style={{ marginBottom: '32px' }}>
-          <h3 style={{ fontSize: '20px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            👥 Golfeurs autour de toi
-          </h3>
-          <div style={{
-            background: 'white',
-            padding: '24px',
-            borderRadius: '12px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-          }}>
-            {/* Exemple de golfeur suggéré */}
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px', padding: '12px', background: '#f8f9fa', borderRadius: '8px' }}>
-              <div style={{
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                background: '#4A7C2E',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'white',
-                fontWeight: 'bold',
-                marginRight: '12px'
-              }}>M</div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: '500' }}>Marc D.</div>
-                <div style={{ fontSize: '14px', color: '#666' }}>Index 18 • Golf de Saint-Cloud</div>
-              </div>
-              <div style={{ fontSize: '12px', color: '#4A7C2E', fontWeight: 'bold' }}>2.3 km</div>
-            </div>
-
-            <div style={{ textAlign: 'center', color: '#666', fontSize: '14px' }}>
-              Complétez votre profil pour voir plus de golfeurs compatibles
-            </div>
-          </div>
-        </div>
-
-        {/* Parties ouvertes aujourd'hui */}
-        <div style={{ marginBottom: '32px' }}>
-          <h3 style={{ fontSize: '20px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            🏌️ Parties ouvertes aujourd&apos;hui
-          </h3>
-          <div style={{
-            background: 'white',
-            padding: '24px',
-            borderRadius: '12px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-          }}>
-            {/* Exemple de partie ouverte */}
-            <div style={{ padding: '16px', border: '1px solid #e5e7eb', borderRadius: '8px', marginBottom: '12px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '8px' }}>
-                <div>
-                  <div style={{ fontWeight: 'bold' }}>Golf de Fontainebleau</div>
-                  <div style={{ fontSize: '14px', color: '#666' }}>18 trous • Départ 14h30</div>
+          {upcomingEvents.length > 0 ? (
+            <div style={{ display: 'grid', gap: '12px' }}>
+              {upcomingEvents.slice(0, 3).map((event) => (
+                <div
+                  key={event.id}
+                  onClick={() => router.push(`/events/${event.id}`)}
+                  style={{
+                    background: 'white',
+                    borderRadius: '16px',
+                    padding: '20px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    border: '2px solid transparent'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = '#4A7C2E'
+                    e.currentTarget.style.transform = 'translateX(4px)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'transparent'
+                    e.currentTarget.style.transform = 'translateX(0)'
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
+                    <div style={{ flex: 1 }}>
+                      <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>
+                        {event.title}
+                      </h3>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', fontSize: '14px', color: '#6b7280' }}>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <MapPin style={{ width: '14px', height: '14px' }} />
+                          {event.courseName}
+                        </span>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <Calendar style={{ width: '14px', height: '14px' }} />
+                          {new Date(event.date).toLocaleDateString('fr-FR')}
+                        </span>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <Clock style={{ width: '14px', height: '14px' }} />
+                          {event.time}
+                        </span>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <Users style={{ width: '14px', height: '14px' }} />
+                          {event.currentPlayers.length}/{event.maxPlayers}
+                        </span>
+                      </div>
+                    </div>
+                    <ChevronRight style={{ width: '20px', height: '20px', color: '#4A7C2E' }} />
+                  </div>
                 </div>
-                <div style={{ fontSize: '12px', background: '#dcfce7', color: '#166534', padding: '4px 8px', borderRadius: '4px' }}>
-                  2/4 joueurs
-                </div>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <div style={{ fontSize: '14px', color: '#666' }}>Organisé par Thomas L. (Index 12)</div>
-                <button style={{
-                  background: '#4A7C2E',
-                  color: 'white',
-                  border: 'none',
-                  padding: '6px 12px',
-                  borderRadius: '4px',
-                  fontSize: '12px',
-                  cursor: 'pointer'
-                }}>Rejoindre</button>
-              </div>
+              ))}
             </div>
-
-            <div style={{ textAlign: 'center' }}>
+          ) : (
+            <div style={{
+              background: 'white',
+              borderRadius: '16px',
+              padding: '40px',
+              textAlign: 'center',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+            }}>
+              <div style={{ fontSize: '64px', marginBottom: '16px' }}>⛳</div>
+              <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>
+                Aucune partie prévue
+              </h3>
+              <p style={{ color: '#6b7280', marginBottom: '20px' }}>
+                Créez votre première partie ou rejoignez un flight existant
+              </p>
               <button
                 onClick={() => router.push('/search')}
                 style={{
-                  background: 'none',
-                  border: '1px solid #4A7C2E',
-                  color: '#4A7C2E',
-                  padding: '8px 16px',
-                  borderRadius: '6px',
-                  cursor: 'pointer',
-                  fontSize: '14px'
+                  background: 'linear-gradient(135deg, #4A7C2E 0%, #6B9F3F 100%)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '12px 24px',
+                  borderRadius: '8px',
+                  fontWeight: '600',
+                  cursor: 'pointer'
                 }}
               >
-                Voir toutes les parties
+                Explorer les parties
               </button>
             </div>
+          )}
+        </section>
+
+        {/* Suggestions de golfeurs */}
+        <section style={{ marginBottom: '32px' }}>
+          <h2 style={{
+            fontSize: '24px',
+            fontWeight: 'bold',
+            marginBottom: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}>
+            <Users style={{ width: '24px', height: '24px', color: '#4A7C2E' }} />
+            Golfeurs près de vous
+          </h2>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+            gap: '16px'
+          }}>
+            {nearbyGolfers.map((golfer) => (
+              <div
+                key={golfer.id}
+                style={{
+                  background: 'white',
+                  borderRadius: '16px',
+                  padding: '16px',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.12)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #4A7C2E 0%, #6B9F3F 100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontWeight: 'bold',
+                    fontSize: '18px'
+                  }}>
+                    {golfer.avatar}
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '2px' }}>
+                      {golfer.name}
+                    </h3>
+                    <div style={{ fontSize: '14px', color: '#6b7280' }}>
+                      <div>Index {golfer.handicap} • {golfer.distance}</div>
+                      <div style={{ fontSize: '13px' }}>{golfer.course}</div>
+                    </div>
+                  </div>
+                  <button
+                    style={{
+                      background: '#E8F5E9',
+                      color: '#4A7C2E',
+                      border: 'none',
+                      padding: '8px 16px',
+                      borderRadius: '8px',
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Inviter
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
+        </section>
+
+        {/* Parties ouvertes aujourd'hui */}
+        <section style={{ marginBottom: '32px' }}>
+          <h2 style={{
+            fontSize: '24px',
+            fontWeight: 'bold',
+            marginBottom: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <TrendingUp style={{ width: '24px', height: '24px', color: '#4A7C2E' }} />
+              Parties ouvertes aujourd&apos;hui
+            </span>
+            <button
+              onClick={() => router.push('/events')}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: '#4A7C2E',
+                fontSize: '14px',
+                cursor: 'pointer',
+                textDecoration: 'underline'
+              }}
+            >
+              Voir toutes
+            </button>
+          </h2>
+
+          {todayEvents.length > 0 ? (
+            <div style={{ display: 'grid', gap: '12px' }}>
+              {todayEvents.slice(0, 3).map((event) => (
+                <div
+                  key={event.id}
+                  onClick={() => router.push(`/events/${event.id}`)}
+                  style={{
+                    background: 'white',
+                    borderRadius: '16px',
+                    padding: '20px',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)'
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.12)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)'
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                      <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>
+                        {event.title}
+                      </h3>
+                      <div style={{ display: 'flex', gap: '16px', fontSize: '14px', color: '#6b7280' }}>
+                        <span>📍 {event.courseName}</span>
+                        <span>⏰ {event.time}</span>
+                        <span>👥 {event.currentPlayers.length}/{event.maxPlayers}</span>
+                      </div>
+                      <div style={{ marginTop: '8px', fontSize: '13px', color: '#9ca3af' }}>
+                        Organisé par {event.organizerName}
+                      </div>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        router.push(`/events/${event.id}`)
+                      }}
+                      style={{
+                        background: '#4A7C2E',
+                        color: 'white',
+                        border: 'none',
+                        padding: '10px 20px',
+                        borderRadius: '8px',
+                        fontWeight: '600',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Rejoindre
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{
+              background: 'white',
+              borderRadius: '16px',
+              padding: '24px',
+              textAlign: 'center',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+            }}>
+              <p style={{ color: '#6b7280' }}>
+                Aucune partie ouverte pour aujourd&apos;hui. Créez-en une !
+              </p>
+            </div>
+          )}
+        </section>
+
+        {/* Actions rapides */}
+        <section>
+          <h2 style={{
+            fontSize: '24px',
+            fontWeight: 'bold',
+            marginBottom: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}>
+            <Award style={{ width: '24px', height: '24px', color: '#4A7C2E' }} />
+            Actions rapides
+          </h2>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+            gap: '12px'
+          }}>
+            <div
+              onClick={() => router.push('/create')}
+              style={{
+                background: 'linear-gradient(135deg, #4A7C2E 0%, #6B9F3F 100%)',
+                color: 'white',
+                borderRadius: '12px',
+                padding: '20px',
+                textAlign: 'center',
+                cursor: 'pointer',
+                transition: 'transform 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              <div style={{ fontSize: '32px', marginBottom: '8px' }}>⛳</div>
+              <div style={{ fontWeight: '600' }}>Créer partie</div>
+            </div>
+
+            <div
+              onClick={() => router.push('/search')}
+              style={{
+                background: 'white',
+                borderRadius: '12px',
+                padding: '20px',
+                textAlign: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                transition: 'transform 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              <div style={{ fontSize: '32px', marginBottom: '8px' }}>🔍</div>
+              <div style={{ fontWeight: '600' }}>Chercher flight</div>
+            </div>
+
+            <div
+              onClick={() => router.push('/courses')}
+              style={{
+                background: 'white',
+                borderRadius: '12px',
+                padding: '20px',
+                textAlign: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                transition: 'transform 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              <div style={{ fontSize: '32px', marginBottom: '8px' }}>📍</div>
+              <div style={{ fontWeight: '600' }}>Parcours</div>
+            </div>
+
+            <div
+              onClick={() => router.push('/profile')}
+              style={{
+                background: 'white',
+                borderRadius: '12px',
+                padding: '20px',
+                textAlign: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                transition: 'transform 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              <div style={{ fontSize: '32px', marginBottom: '8px' }}>👤</div>
+              <div style={{ fontWeight: '600' }}>Mon profil</div>
+            </div>
+          </div>
+        </section>
       </div>
 
       <Footer />
