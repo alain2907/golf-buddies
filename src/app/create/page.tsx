@@ -43,13 +43,12 @@ export default function CreateEventPage() {
     requiredIndex: ''
   })
 
-  // Filtrer les golfs selon la recherche et la région
+  // Filtrer les golfs selon la recherche
   const filteredCourses = golfCourses.filter(course => {
     const matchesSearch = searchTerm === '' ||
       course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       course.city.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesRegion = selectedRegion === 'all' || course.region === selectedRegion
-    return matchesSearch && matchesRegion
+    return matchesSearch
   })
 
   const handleCourseSelect = (course: any) => {
