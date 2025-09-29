@@ -37,18 +37,32 @@ export default function CreateEventPage() {
     maxPlayers: 4,
     description: '',
     level: '',
+    handicapIndex: '',
     cartRequired: false,
     gameFormat: '18_holes',
-    gameType: 'friendly',
-    requiredIndex: ''
+    gameType: 'friendly'
   })
 
-  // Filtrer les golfs selon la recherche
+  // Filtrer les golfs selon la recherche et la proximité
   const filteredCourses = golfCourses.filter(course => {
     const matchesSearch = searchTerm === '' ||
       course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       course.city.toLowerCase().includes(searchTerm.toLowerCase())
+
+
     return matchesSearch
+  }).sort((a, b) => {
+    // Tri par proximité avec la ville renseignée
+    if (formData.city) {
+      const aCityMatch = a.city.toLowerCase().includes(formData.city.toLowerCase()) ||
+                        a.region.toLowerCase().includes(formData.city.toLowerCase())
+      const bCityMatch = b.city.toLowerCase().includes(formData.city.toLowerCase()) ||
+                        b.region.toLowerCase().includes(formData.city.toLowerCase())
+
+      if (aCityMatch && !bCityMatch) return -1
+      if (!aCityMatch && bCityMatch) return 1
+    }
+    return a.name.localeCompare(b.name)
   })
 
   const handleCourseSelect = (course: any) => {
@@ -133,11 +147,11 @@ export default function CreateEventPage() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '8px' }}>
             <span style={{ fontSize: '36px' }}>🏌️</span>
             <h1 style={{ fontSize: '32px', fontWeight: 'bold', color: '#111827', margin: 0 }}>
-              Proposer un parcours
+              Créer une disponibilité golf
             </h1>
           </div>
           <p style={{ color: '#6b7280', fontSize: '16px', margin: 0 }}>
-            Créez votre flight et trouvez vos partenaires de jeu
+            Proposez votre créneau et trouvez vos partenaires de jeu
           </p>
         </div>
       </div>
@@ -197,13 +211,14 @@ export default function CreateEventPage() {
                 color: '#374151',
                 marginBottom: '8px'
               }}>
-                Titre de l&apos;événement
+                <span style={{ fontSize: '16px', marginRight: '4px' }}>📝</span>
+                Titre de votre disponibilité
               </label>
               <input
                 type="text"
                 value={formData.title}
                 onChange={(e) => setFormData({...formData, title: e.target.value})}
-                placeholder="ex: Partie amicale au Golf de Saint-Cloud"
+                placeholder="ex: Recherche partenaires pour 18 trous"
                 style={{
                   width: '100%',
                   padding: '12px 16px',
@@ -399,49 +414,7 @@ export default function CreateEventPage() {
               </div>
             </div>
 
-            {/* Players */}
-            <div style={{ marginBottom: '24px' }}>
-              <label style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-                fontSize: '14px',
-                fontWeight: '500',
-                color: '#374151',
-                marginBottom: '8px'
-              }}>
-                <span style={{ fontSize: '16px' }}>👥</span>
-                Nombre maximum de joueurs
-              </label>
-              <select
-                value={formData.maxPlayers}
-                onChange={(e) => setFormData({...formData, maxPlayers: parseInt(e.target.value)})}
-                style={{
-                  width: '100%',
-                  padding: '12px 16px',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '8px',
-                  fontSize: '16px',
-                  outline: 'none',
-                  backgroundColor: 'white',
-                  transition: 'border-color 0.2s, box-shadow 0.2s'
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = '#4A7C2E'
-                  e.target.style.boxShadow = '0 0 0 2px rgba(74, 124, 46, 0.2)'
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = '#d1d5db'
-                  e.target.style.boxShadow = 'none'
-                }}
-              >
-                <option value={2}>2 joueurs</option>
-                <option value={3}>3 joueurs</option>
-                <option value={4}>4 joueurs</option>
-              </select>
-            </div>
-
-            {/* Level */}
+            {/* Format de jeu */}
             <div style={{ marginBottom: '24px' }}>
               <label style={{
                 display: 'block',
@@ -450,11 +423,12 @@ export default function CreateEventPage() {
                 color: '#374151',
                 marginBottom: '8px'
               }}>
-                Niveau souhaité
+                <span style={{ fontSize: '16px', marginRight: '4px' }}>🏌️</span>
+                Format de jeu
               </label>
               <select
-                value={formData.level}
-                onChange={(e) => setFormData({...formData, level: e.target.value})}
+                value={formData.gameFormat}
+                onChange={(e) => setFormData({...formData, gameFormat: e.target.value})}
                 style={{
                   width: '100%',
                   padding: '12px 16px',
@@ -475,13 +449,179 @@ export default function CreateEventPage() {
                 }}
                 required
               >
-                <option value="">Sélectionner un niveau</option>
-                <option value="beginner">Débutant (HCP &gt; 30)</option>
-                <option value="intermediate">Intermédiaire (HCP 15-30)</option>
-                <option value="advanced">Confirmé (HCP 5-15)</option>
-                <option value="expert">Expert (HCP &lt; 5)</option>
-                <option value="all">Tous niveaux</option>
+                <option value="9_holes">9 trous</option>
+                <option value="18_holes">18 trous</option>
+                <option value="competition_friendly">Compétition amicale</option>
+                <option value="practice_training">Entraînement practice</option>
               </select>
+            </div>
+
+            {/* Nombre de joueurs */}
+            <div style={{ marginBottom: '24px' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '8px'
+              }}>
+                <span style={{ fontSize: '16px', marginRight: '4px' }}>👥</span>
+                Nombre de joueurs recherchés
+              </label>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '12px'
+              }}>
+                {[2, 3, 4].map(num => (
+                  <label
+                    key={num}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '12px',
+                      border: formData.maxPlayers === num ? '2px solid #4A7C2E' : '1px solid #d1d5db',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      backgroundColor: formData.maxPlayers === num ? '#E8F5E9' : 'white'
+                    }}
+                  >
+                    <input
+                      type="radio"
+                      name="maxPlayers"
+                      value={num}
+                      checked={formData.maxPlayers === num}
+                      onChange={() => setFormData({...formData, maxPlayers: num})}
+                      style={{ display: 'none' }}
+                    />
+                    <span style={{
+                      fontWeight: formData.maxPlayers === num ? '600' : '400',
+                      color: formData.maxPlayers === num ? '#2D5016' : '#374151'
+                    }}>
+                      {num} joueurs
+                    </span>
+                  </label>
+                ))}
+              </div>
+              <p style={{
+                fontSize: '12px',
+                color: '#6b7280',
+                marginTop: '8px',
+                textAlign: 'center'
+              }}>
+                Vous êtes inclus dans ce nombre total
+              </p>
+            </div>
+
+            {/* Niveau et Index */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '16px',
+              marginBottom: '24px'
+            }}>
+              <div>
+                <label style={{
+                  display: 'block',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  color: '#374151',
+                  marginBottom: '8px'
+                }}>
+                  <span style={{ fontSize: '16px', marginRight: '4px' }}>🎯</span>
+                  Niveau (optionnel)
+                </label>
+                <select
+                  value={formData.level}
+                  onChange={(e) => setFormData({...formData, level: e.target.value})}
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '16px',
+                    outline: 'none',
+                    backgroundColor: 'white',
+                    transition: 'border-color 0.2s, box-shadow 0.2s'
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = '#4A7C2E'
+                    e.target.style.boxShadow = '0 0 0 2px rgba(74, 124, 46, 0.2)'
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#d1d5db'
+                    e.target.style.boxShadow = 'none'
+                  }}
+                >
+                  <option value="">Tous niveaux</option>
+                  <option value="beginner">Débutant</option>
+                  <option value="intermediate">Intermédiaire</option>
+                  <option value="advanced">Confirmé</option>
+                </select>
+              </div>
+
+              <div>
+                <label style={{
+                  display: 'block',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  color: '#374151',
+                  marginBottom: '8px'
+                }}>
+                  <span style={{ fontSize: '16px', marginRight: '4px' }}>🏆</span>
+                  Index (optionnel)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  max="54"
+                  step="0.1"
+                  value={formData.handicapIndex}
+                  onChange={(e) => setFormData({...formData, handicapIndex: e.target.value})}
+                  placeholder="ex: 18.5"
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '16px',
+                    outline: 'none',
+                    transition: 'border-color 0.2s, box-shadow 0.2s'
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = '#4A7C2E'
+                    e.target.style.boxShadow = '0 0 0 2px rgba(74, 124, 46, 0.2)'
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#d1d5db'
+                    e.target.style.boxShadow = 'none'
+                  }}
+                />
+              </div>
+            </div>
+
+            <div style={{
+              background: '#E8F5E9',
+              border: '1px solid #C1E6C3',
+              borderRadius: '8px',
+              padding: '12px',
+              marginBottom: '24px'
+            }}>
+              <p style={{
+                fontSize: '14px',
+                color: '#2D5016',
+                margin: 0,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}>
+                <span>💡</span>
+                <span>
+                  <strong>Astuce :</strong> Indiquer votre niveau et index aide à trouver des partenaires compatibles pour une meilleure expérience de jeu.
+                </span>
+              </p>
             </div>
 
             {/* Cart */}
