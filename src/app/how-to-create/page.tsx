@@ -1,5 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation'
+import Footer from '@/components/Footer'
 
 export default function HowToCreatePage() {
   const router = useRouter()
@@ -239,84 +240,7 @@ export default function HowToCreatePage() {
         </div>
       </div>
 
-      {/* Barre de navigation en bas */}
-      <nav style={{
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        background: 'white',
-        borderTop: '1px solid #e5e7eb',
-        padding: '12px 0',
-        zIndex: 50
-      }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr 1fr',
-          maxWidth: '480px',
-          margin: '0 auto'
-        }}>
-          {/* Home */}
-          <div
-            onClick={() => router.push('/dashboard')}
-            style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '4px',
-            cursor: 'pointer',
-            color: '#6b7280'
-          }}>
-            <span style={{ fontSize: '24px' }}>🏠</span>
-            <span style={{ fontSize: '12px', fontWeight: '500' }}>Home</span>
-          </div>
-
-          {/* Search */}
-          <div
-            onClick={() => router.push('/search')}
-            style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '4px',
-            cursor: 'pointer',
-            color: '#6b7280'
-          }}>
-            <span style={{ fontSize: '24px' }}>🔍</span>
-            <span style={{ fontSize: '12px', fontWeight: '500' }}>Search</span>
-          </div>
-
-          {/* Events */}
-          <div
-            onClick={() => router.push('/events')}
-            style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '4px',
-            cursor: 'pointer',
-            color: '#4facfe'
-          }}>
-            <span style={{ fontSize: '24px' }}>📅</span>
-            <span style={{ fontSize: '12px', fontWeight: '500' }}>Events</span>
-          </div>
-
-          {/* Profile */}
-          <div
-            onClick={() => router.push('/profile')}
-            style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '4px',
-            cursor: 'pointer',
-            color: '#6b7280'
-          }}>
-            <span style={{ fontSize: '24px' }}>👤</span>
-            <span style={{ fontSize: '12px', fontWeight: '500' }}>Profile</span>
-          </div>
-        </div>
-      </nav>
+      <Footer />
     </div>
   )
 }
