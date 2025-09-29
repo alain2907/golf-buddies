@@ -1,19 +1,37 @@
 'use client'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect, useRef } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
 import { useEvents } from '@/hooks/useEvents'
 import Footer from '@/components/Footer'
+import { golfCourses, getUniqueRegions } from '@/data/golf-courses'
+import { Search } from 'lucide-react'
 
 export default function CreateEventPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const { user } = useAuth()
   const { createEvent } = useEvents()
   const [loading, setLoading] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [showCourseDropdown, setShowCourseDropdown] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // Fermer le dropdown au clic extérieur
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowCourseDropdown(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
   const [formData, setFormData] = useState({
-    city: '',
+    city: searchParams.get('city') || '',
     title: '',
-    course: '',
+    course: searchParams.get('course') || '',
+    courseId: '',
     date: '',
     time: '',
     maxPlayers: 4,
@@ -24,6 +42,26 @@ export default function CreateEventPage() {
     gameType: 'friendly',
     requiredIndex: ''
   })
+
+  // Filtrer les golfs selon la recherche et la région
+  const filteredCourses = golfCourses.filter(course => {
+    const matchesSearch = searchTerm === '' ||
+      course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.city.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesRegion = selectedRegion === 'all' || course.region === selectedRegion
+    return matchesSearch && matchesRegion
+  })
+
+  const handleCourseSelect = (course: any) => {
+    setFormData({
+      ...formData,
+      course: course.name,
+      courseId: course.id,
+      city: course.city
+    })
+    setShowCourseDropdown(false)
+    setSearchTerm('')
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -44,7 +82,7 @@ export default function CreateEventPage() {
         title: formData.title,
         description: formData.description || '',
         type: 'casual_round' as const,
-        courseId: '', // We'll use courseName for now
+        courseId: formData.courseId || '',
         courseName: formData.course,
         date: eventDateTime,
         time: formData.time,
@@ -189,44 +227,94 @@ export default function CreateEventPage() {
             </div>
 
             {/* Golf Course */}
-            <div style={{ marginBottom: '24px' }}>
+            <div style={{ marginBottom: '24px', position: 'relative' }}>
               <label style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
+                display: 'block',
                 fontSize: '14px',
                 fontWeight: '500',
                 color: '#374151',
                 marginBottom: '8px'
               }}>
-                <span style={{ fontSize: '16px' }}>📍</span>
+                <span style={{ fontSize: '16px', marginRight: '4px' }}>📍</span>
                 Golf
               </label>
-              <input
-                type="text"
-                value={formData.course}
-                onChange={(e) => setFormData({...formData, course: e.target.value})}
-                placeholder="Nom du golf ou adresse"
-                style={{
-                  width: '100%',
-                  padding: '12px 16px',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '8px',
-                  fontSize: '16px',
-                  outline: 'none',
-                  transition: 'border-color 0.2s, box-shadow 0.2s'
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = '#4A7C2E'
-                  e.target.style.boxShadow = '0 0 0 2px rgba(74, 124, 46, 0.2)'
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = '#d1d5db'
-                  e.target.style.boxShadow = 'none'
-                }}
-                required
-              />
+              <div ref={dropdownRef} style={{ position: 'relative' }}>
+                <input
+                  type="text"
+                  value={formData.course}
+                  onChange={(e) => {
+                    setFormData({...formData, course: e.target.value, courseId: ''})
+                    setSearchTerm(e.target.value)
+                    setShowCourseDropdown(true)
+                  }}
+                  onFocus={() => setShowCourseDropdown(true)}
+                  placeholder="Rechercher un golf ou saisir un nom..."
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    paddingLeft: '40px',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    fontSize: '16px',
+                    outline: 'none'
+                  }}
+                  required
+                />
+                <Search style={{
+                  position: 'absolute',
+                  left: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  width: '20px',
+                  height: '20px',
+                  color: '#9ca3af'
+                }} />
+
+                {/* Dropdown des golfs */}
+                {showCourseDropdown && filteredCourses.length > 0 && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    right: 0,
+                    background: 'white',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    marginTop: '4px',
+                    maxHeight: '200px',
+                    overflowY: 'auto',
+                    zIndex: 10,
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                  }}>
+                    {filteredCourses.slice(0, 10).map(course => (
+                      <div
+                        key={course.id}
+                        onClick={() => handleCourseSelect(course)}
+                        style={{
+                          padding: '12px 16px',
+                          cursor: 'pointer',
+                          borderBottom: '1px solid #f3f4f6',
+                          transition: 'background 0.2s'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = '#f3f4f6'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
+                      >
+                        <div style={{ fontWeight: '500' }}>{course.name}</div>
+                        <div style={{ fontSize: '12px', color: '#6b7280' }}>
+                          {course.city} • {course.region} • {course.holes} trous
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              {formData.courseId && (
+                <p style={{ fontSize: '12px', color: '#4A7C2E', marginTop: '4px' }}>
+                  ✅ Golf sélectionné dans notre base de données
+                </p>
+              )}
             </div>
+
 
             {/* Date & Time */}
             <div style={{

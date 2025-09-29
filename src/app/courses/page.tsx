@@ -1,288 +1,378 @@
 'use client'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
-import { Search, MapPin, Star, Phone, Globe, Navigation } from 'lucide-react'
+import { Search, MapPin, Star, Phone, Globe, ChevronRight } from 'lucide-react'
 import Footer from '@/components/Footer'
-
-const mockCourses = [
-  {
-    id: 1,
-    name: 'Golf de Saint-Cloud',
-    location: 'Saint-Cloud, 92',
-    rating: 4.5,
-    reviews: 142,
-    holes: 18,
-    par: 72,
-    distance: '2.5 km',
-    image: '/api/placeholder/400/200',
-    phone: '01 47 01 01 85',
-    website: 'golf-saint-cloud.com',
-    price: '75€',
-    description: 'Un parcours technique au cœur de la région parisienne avec vue sur Paris.'
-  },
-  {
-    id: 2,
-    name: 'Golf de Morfontaine',
-    location: 'Morfontaine, 60',
-    rating: 4.8,
-    reviews: 89,
-    holes: 18,
-    par: 71,
-    distance: '45 km',
-    image: '/api/placeholder/400/200',
-    phone: '03 44 54 64 40',
-    website: 'golf-morfontaine.com',
-    price: '120€',
-    description: 'L&apos;un des plus beaux parcours de France, classé dans le top 10 européen.'
-  },
-  {
-    id: 3,
-    name: 'Golf de Fontainebleau',
-    location: 'Fontainebleau, 77',
-    rating: 4.3,
-    reviews: 76,
-    holes: 18,
-    par: 72,
-    distance: '35 km',
-    image: '/api/placeholder/400/200',
-    phone: '01 64 22 22 95',
-    website: 'golf-fontainebleau.com',
-    price: '65€',
-    description: 'Parcours au cœur de la forêt de Fontainebleau, technique et boisé.'
-  }
-]
+import { golfCourses, getUniqueRegions, type GolfCourse } from '@/data/golf-courses'
 
 export default function CoursesPage() {
   const router = useRouter()
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedFilter, setSelectedFilter] = useState('all')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedRegion, setSelectedRegion] = useState('all')
+  const [selectedHoles, setSelectedHoles] = useState('all')
+  const regions = getUniqueRegions()
 
-  const filteredCourses = mockCourses.filter(course =>
-    course.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    course.location.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  const filteredCourses = useMemo(() => {
+    return golfCourses.filter(course => {
+      const matchesSearch = searchTerm === '' ||
+        course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.city.toLowerCase().includes(searchTerm.toLowerCase())
+
+      const matchesRegion = selectedRegion === 'all' || course.region === selectedRegion
+      const matchesHoles = selectedHoles === 'all' ||
+        (selectedHoles === '18' && course.holes === 18) ||
+        (selectedHoles === '27' && course.holes === 27) ||
+        (selectedHoles === '36' && course.holes === 36)
+
+      return matchesSearch && matchesRegion && matchesHoles
+    })
+  }, [searchTerm, selectedRegion, selectedHoles])
+
+  const handleCourseClick = (course: GolfCourse) => {
+    // Pour l'instant, on redirige vers create avec le nom du golf pré-rempli
+    router.push(`/create?course=${encodeURIComponent(course.name)}&city=${encodeURIComponent(course.city)}`)
+  }
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f3f4f6', paddingBottom: '80px' }}>
-      {/* Header */}
+    <div style={{ minHeight: '100vh', backgroundColor: '#f9fafb', paddingBottom: '80px' }}>
+      {/* Header avec gradient */}
       <div style={{
-        background: 'white',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-        borderBottom: '1px solid #e5e7eb',
-        padding: '24px',
-        marginBottom: '32px'
+        background: 'linear-gradient(135deg, #2D5016 0%, #4A7C2E 50%, #6B9F3F 100%)',
+        padding: '32px 24px',
+        borderRadius: '0 0 24px 24px',
+        boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <h1 style={{ fontSize: '32px', fontWeight: 'bold', color: '#111827', marginBottom: '8px' }}>
-            🏌️ Golfs à proximité
+          <h1 style={{
+            fontSize: '32px',
+            fontWeight: 'bold',
+            color: 'white',
+            marginBottom: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px'
+          }}>
+            <MapPin style={{ width: '32px', height: '32px' }} />
+            Parcours de Golf
           </h1>
-          <p style={{ color: '#6b7280' }}>
-            Découvrez les meilleurs golfs de votre région
+          <p style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px' }}>
+            Découvrez {golfCourses.length} parcours prestigieux à travers la France
           </p>
+
+          {/* Barre de recherche */}
+          <div style={{
+            marginTop: '20px',
+            background: 'white',
+            borderRadius: '12px',
+            padding: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+          }}>
+            <Search style={{ width: '20px', height: '20px', color: '#9ca3af' }} />
+            <input
+              type="text"
+              placeholder="Rechercher un parcours ou une ville..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              style={{
+                flex: 1,
+                border: 'none',
+                outline: 'none',
+                fontSize: '16px',
+                padding: '4px'
+              }}
+            />
+          </div>
+
+          {/* Filtres */}
+          <div style={{
+            marginTop: '16px',
+            display: 'flex',
+            gap: '12px',
+            flexWrap: 'wrap'
+          }}>
+            <select
+              value={selectedRegion}
+              onChange={(e) => setSelectedRegion(e.target.value)}
+              style={{
+                background: 'rgba(255, 255, 255, 0.2)',
+                backdropFilter: 'blur(10px)',
+                color: 'white',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                borderRadius: '8px',
+                padding: '8px 12px',
+                fontSize: '14px',
+                cursor: 'pointer',
+                outline: 'none'
+              }}
+            >
+              <option value="all" style={{ background: '#2D5016' }}>Toutes les régions</option>
+              {regions.map(region => (
+                <option key={region} value={region} style={{ background: '#2D5016' }}>
+                  {region}
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={selectedHoles}
+              onChange={(e) => setSelectedHoles(e.target.value)}
+              style={{
+                background: 'rgba(255, 255, 255, 0.2)',
+                backdropFilter: 'blur(10px)',
+                color: 'white',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                borderRadius: '8px',
+                padding: '8px 12px',
+                fontSize: '14px',
+                cursor: 'pointer',
+                outline: 'none'
+              }}
+            >
+              <option value="all" style={{ background: '#2D5016' }}>Tous les parcours</option>
+              <option value="18" style={{ background: '#2D5016' }}>18 trous</option>
+              <option value="27" style={{ background: '#2D5016' }}>27 trous</option>
+              <option value="36" style={{ background: '#2D5016' }}>36 trous</option>
+            </select>
+
+            <div style={{
+              color: 'white',
+              fontSize: '14px',
+              padding: '8px 12px',
+              background: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: '8px'
+            }}>
+              {filteredCourses.length} parcours trouvés
+            </div>
+          </div>
         </div>
       </div>
 
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
-        {/* Search & Filters */}
-        <div style={{
-          background: 'white',
-          borderRadius: '12px',
-          boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-          padding: '24px',
-          marginBottom: '24px'
-        }}>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: '16px',
-            alignItems: 'center'
-          }}>
-            <div style={{ flex: 1, position: 'relative' }}>
-              <Search style={{
-                position: 'absolute',
-                left: '12px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                color: '#9ca3af',
-                width: '20px',
-                height: '20px'
-              }} />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Rechercher un golf..."
-                style={{
-                  width: '100%',
-                  paddingLeft: '40px',
-                  paddingRight: '16px',
-                  paddingTop: '12px',
-                  paddingBottom: '12px',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '8px',
-                  fontSize: '16px'
-                }}
-              />
-            </div>
-
-            <select
-              value={selectedFilter}
-              onChange={(e) => setSelectedFilter(e.target.value)}
-              style={{
-                padding: '12px 16px',
-                border: '1px solid #d1d5db',
-                borderRadius: '8px',
-                fontSize: '16px'
-              }}
-            >
-              <option value="all">Tous les golfs</option>
-              <option value="nearby">À proximité</option>
-              <option value="premium">Premium</option>
-              <option value="public">Public</option>
-            </select>
-          </div>
-        </div>
-
-        {/* Course Grid */}
+      {/* Liste des parcours */}
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '24px' }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-          gap: '24px'
+          gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))',
+          gap: '20px'
         }}>
-          {filteredCourses.map(course => (
-            <div key={course.id} style={{
-              background: 'white',
-              borderRadius: '12px',
-              boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-              overflow: 'hidden',
-              transition: 'box-shadow 0.2s'
-            }}>
-              {/* Course Image */}
+          {filteredCourses.map((course) => (
+            <div
+              key={course.id}
+              onClick={() => handleCourseClick(course)}
+              style={{
+                background: 'white',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                border: '2px solid transparent'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#4A7C2E'
+                e.currentTarget.style.transform = 'translateY(-2px)'
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.12)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'transparent'
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)'
+              }}
+            >
+              {/* En-tête avec gradient */}
               <div style={{
-                height: '192px',
                 background: 'linear-gradient(135deg, #4A7C2E 0%, #6B9F3F 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
+                padding: '16px 20px',
+                color: 'white'
               }}>
-                <span style={{ fontSize: '64px' }}>🏌️</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
+                  <div>
+                    <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '4px' }}>
+                      {course.name}
+                    </h3>
+                    <div style={{ fontSize: '14px', opacity: 0.9 }}>
+                      <MapPin style={{ width: '14px', height: '14px', display: 'inline', marginRight: '4px' }} />
+                      {course.city}, {course.region}
+                    </div>
+                  </div>
+                  {course.rating && (
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      background: 'rgba(255, 255, 255, 0.2)',
+                      padding: '4px 8px',
+                      borderRadius: '8px'
+                    }}>
+                      <Star style={{ width: '14px', height: '14px', fill: 'white' }} />
+                      <span style={{ fontSize: '14px', fontWeight: '600' }}>{course.rating}</span>
+                    </div>
+                  )}
+                </div>
               </div>
 
-              <div style={{ padding: '24px' }}>
-                {/* Course Header */}
+              {/* Corps de la carte */}
+              <div style={{ padding: '20px' }}>
+                {/* Informations techniques */}
                 <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  marginBottom: '8px'
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(3, 1fr)',
+                  gap: '12px',
+                  marginBottom: '16px',
+                  paddingBottom: '16px',
+                  borderBottom: '1px solid #e5e7eb'
                 }}>
-                  <h3 style={{ fontWeight: '600', fontSize: '18px', color: '#111827' }}>{course.name}</h3>
-                  <div style={{ color: '#4A7C2E', fontWeight: 'bold' }}>{course.price}</div>
-                </div>
-
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  color: '#6b7280',
-                  marginBottom: '8px'
-                }}>
-                  <MapPin style={{ width: '16px', height: '16px', marginRight: '4px' }} />
-                  <span style={{ fontSize: '14px' }}>{course.location}</span>
-                  <span style={{ margin: '0 8px' }}>•</span>
-                  <Navigation style={{ width: '16px', height: '16px', marginRight: '4px' }} />
-                  <span style={{ fontSize: '14px' }}>{course.distance}</span>
-                </div>
-
-                {/* Rating */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  marginBottom: '12px'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        style={{
-                          width: '16px',
-                          height: '16px',
-                          color: i < Math.floor(course.rating) ? '#fbbf24' : '#d1d5db',
-                          fill: i < Math.floor(course.rating) ? '#fbbf24' : 'none'
-                        }}
-                      />
-                    ))}
+                  <div style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: '20px', fontWeight: '600', color: '#2D5016' }}>
+                      {course.holes}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#6b7280' }}>Trous</div>
                   </div>
-                  <span style={{
-                    marginLeft: '8px',
-                    fontSize: '14px',
-                    color: '#6b7280'
-                  }}>
-                    {course.rating} ({course.reviews} avis)
-                  </span>
-                </div>
-
-                {/* Course Info */}
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  fontSize: '14px',
-                  color: '#6b7280',
-                  marginBottom: '12px'
-                }}>
-                  <span>{course.holes} trous</span>
-                  <span>Par {course.par}</span>
+                  <div style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: '20px', fontWeight: '600', color: '#2D5016' }}>
+                      Par {course.par}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#6b7280' }}>Par</div>
+                  </div>
+                  <div style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: '20px', fontWeight: '600', color: '#2D5016' }}>
+                      {course.distance}m
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#6b7280' }}>Distance</div>
+                  </div>
                 </div>
 
                 {/* Description */}
-                <p style={{
-                  fontSize: '14px',
-                  color: '#6b7280',
-                  marginBottom: '16px'
-                }}>{course.description}</p>
+                {course.description && (
+                  <p style={{
+                    fontSize: '14px',
+                    color: '#4b5563',
+                    lineHeight: '1.5',
+                    marginBottom: '16px'
+                  }}>
+                    {course.description}
+                  </p>
+                )}
 
-                {/* Contact */}
+                {/* Facilities */}
                 <div style={{
                   display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  fontSize: '14px',
-                  color: '#9ca3af',
+                  flexWrap: 'wrap',
+                  gap: '6px',
                   marginBottom: '16px'
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Phone style={{ width: '16px', height: '16px', marginRight: '4px' }} />
-                    <span>{course.phone}</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Globe style={{ width: '16px', height: '16px', marginRight: '4px' }} />
-                    <span>{course.website}</span>
-                  </div>
+                  {course.facilities.slice(0, 4).map((facility, index) => (
+                    <span
+                      key={index}
+                      style={{
+                        fontSize: '12px',
+                        padding: '4px 8px',
+                        background: '#E8F5E9',
+                        color: '#2D5016',
+                        borderRadius: '6px'
+                      }}
+                    >
+                      {facility}
+                    </span>
+                  ))}
+                  {course.facilities.length > 4 && (
+                    <span style={{
+                      fontSize: '12px',
+                      padding: '4px 8px',
+                      color: '#6b7280'
+                    }}>
+                      +{course.facilities.length - 4} autres
+                    </span>
+                  )}
                 </div>
 
                 {/* Actions */}
-                <div style={{ display: 'flex', gap: '8px' }}>
-                  <button style={{
-                    flex: 1,
-                    background: 'linear-gradient(135deg, #4A7C2E 0%, #6B9F3F 100%)',
-                    color: 'white',
-                    padding: '8px 16px',
-                    borderRadius: '8px',
-                    fontWeight: '500',
-                    border: 'none',
-                    cursor: 'pointer'
-                  }}>
-                    Réserver
-                  </button>
-                  <button style={{
-                    background: '#f3f4f6',
-                    color: '#374151',
-                    padding: '8px 16px',
-                    borderRadius: '8px',
-                    fontWeight: '500',
-                    border: 'none',
-                    cursor: 'pointer'
-                  }}>
-                    Infos
+                <div style={{
+                  display: 'flex',
+                  gap: '8px',
+                  marginTop: '16px'
+                }}>
+                  {course.phone && (
+                    <a
+                      href={`tel:${course.phone}`}
+                      onClick={(e) => e.stopPropagation()}
+                      style={{
+                        flex: 1,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '6px',
+                        padding: '8px',
+                        border: '1px solid #e5e7eb',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        color: '#4b5563',
+                        textDecoration: 'none',
+                        transition: 'all 0.2s'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#f3f4f6'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'transparent'
+                      }}
+                    >
+                      <Phone style={{ width: '14px', height: '14px' }} />
+                      Appeler
+                    </a>
+                  )}
+                  {course.website && (
+                    <a
+                      href={course.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      style={{
+                        flex: 1,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '6px',
+                        padding: '8px',
+                        border: '1px solid #e5e7eb',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        color: '#4b5563',
+                        textDecoration: 'none',
+                        transition: 'all 0.2s'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#f3f4f6'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'transparent'
+                      }}
+                    >
+                      <Globe style={{ width: '14px', height: '14px' }} />
+                      Site web
+                    </a>
+                  )}
+                  <button
+                    style={{
+                      flex: 1,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '6px',
+                      padding: '8px',
+                      background: '#4A7C2E',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Créer partie
+                    <ChevronRight style={{ width: '14px', height: '14px' }} />
                   </button>
                 </div>
               </div>
@@ -290,63 +380,29 @@ export default function CoursesPage() {
           ))}
         </div>
 
-        {/* No Results */}
         {filteredCourses.length === 0 && (
           <div style={{
+            textAlign: 'center',
+            padding: '60px 20px',
             background: 'white',
-            borderRadius: '12px',
-            boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-            padding: '48px',
-            textAlign: 'center'
+            borderRadius: '16px',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
           }}>
-            <div style={{ fontSize: '64px', marginBottom: '16px' }}>🔍</div>
-            <h3 style={{
-              fontSize: '20px',
-              fontWeight: '600',
-              color: '#111827',
-              marginBottom: '8px'
-            }}>
-              Aucun golf trouvé
+            <MapPin style={{
+              width: '64px',
+              height: '64px',
+              color: '#9ca3af',
+              margin: '0 auto',
+              marginBottom: '16px'
+            }} />
+            <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '8px' }}>
+              Aucun parcours trouvé
             </h3>
             <p style={{ color: '#6b7280' }}>
-              Essayez de modifier vos critères de recherche.
+              Essayez de modifier vos critères de recherche
             </p>
           </div>
         )}
-
-        {/* Add Course CTA */}
-        <div style={{
-          marginTop: '32px',
-          background: 'rgba(74, 124, 46, 0.1)',
-          borderRadius: '12px',
-          padding: '24px',
-          textAlign: 'center'
-        }}>
-          <h3 style={{
-            fontWeight: '600',
-            color: '#4A7C2E',
-            marginBottom: '8px'
-          }}>
-            Votre golf n&apos;est pas listé ?
-          </h3>
-          <p style={{
-            color: '#6b7280',
-            marginBottom: '16px'
-          }}>
-            Aidez-nous à enrichir notre base de données en ajoutant votre golf préféré.
-          </p>
-          <button style={{
-            background: 'linear-gradient(135deg, #4A7C2E 0%, #6B9F3F 100%)',
-            color: 'white',
-            border: 'none',
-            padding: '8px 24px',
-            borderRadius: '8px',
-            fontWeight: '500',
-            cursor: 'pointer'
-          }}>
-            Ajouter un golf
-          </button>
-        </div>
       </div>
 
       <Footer />
