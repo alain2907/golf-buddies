@@ -40,38 +40,38 @@ export default function RootLayout({
       <body className={inter.className}>
         <AuthProvider>
           <Toaster
-            position="top-center"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: '#333',
-                color: '#fff',
-                borderRadius: '12px',
-                padding: '16px',
+          position="top-center"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: '#333',
+              color: '#fff',
+              borderRadius: '12px',
+              padding: '16px',
+            },
+            success: {
+              iconTheme: {
+                primary: '#4A7C2E',
+                secondary: '#fff',
               },
-              success: {
-                iconTheme: {
-                  primary: '#4A7C2E',
-                  secondary: '#fff',
-                },
+            },
+            error: {
+              iconTheme: {
+                primary: '#EF4444',
+                secondary: '#fff',
               },
-              error: {
-                iconTheme: {
-                  primary: '#EF4444',
-                  secondary: '#fff',
-                },
-              },
-            }}
-          />
-          <EmailVerificationGuard>
-            <div className="min-h-screen flex flex-col">
-              <main className="flex-1 pb-16 md:pb-0">
-                {children}
-              </main>
-              <Navigation />
-            </div>
-          </EmailVerificationGuard>
-        </AuthProvider>
+            },
+          }}
+        />
+        <EmailVerificationGuard>
+          <div className="min-h-screen flex flex-col">
+            <main className="flex-1 pb-16 md:pb-0">
+              {children}
+            </main>
+            <Navigation />
+          </div>
+        </EmailVerificationGuard>
+      </AuthProvider>
       </body>
     </html>
   )

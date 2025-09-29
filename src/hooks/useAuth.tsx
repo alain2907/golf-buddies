@@ -203,16 +203,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         await handleUserLogin(result.user)
         toast.success('Welcome!')
       } catch (popupError: any) {
+        console.error('Popup error details:', popupError)
+
         if (popupError.code === 'auth/popup-blocked') {
           // Fall back to redirect
           await signInWithRedirect(auth, googleProvider)
+        } else if (popupError.code === 'auth/unauthorized-domain') {
+          toast.error('Ce domaine n\'est pas autorisé. Veuillez ajouter ce domaine dans Firebase Console.')
+          throw popupError
+        } else if (popupError.code === 'auth/operation-not-allowed') {
+          toast.error('Google Sign-in n\'est pas activé dans Firebase. Veuillez l\'activer dans la console Firebase.')
+          throw popupError
         } else {
           throw popupError
         }
       }
     } catch (error: any) {
       console.error('Google signin error:', error)
-      toast.error('Google sign-in failed. Please try again.')
+
+      // Check for specific error types
+      if (error.message?.includes('Illegal url')) {
+        toast.error('Erreur de configuration Firebase. Veuillez vérifier les paramètres dans la console Firebase.')
+      } else if (error.code === 'auth/configuration-not-found') {
+        toast.error('Google Sign-in n\'est pas configuré correctement dans Firebase.')
+      } else {
+        toast.error('Erreur de connexion Google. Veuillez réessayer.')
+      }
       throw error
     }
   }
