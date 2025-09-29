@@ -330,7 +330,7 @@ export default function EventPage() {
         </div>
       </div>
 
-      {/* Barre de navigation en bas */}
+      {/* Bottom Navigation Bar */}
       <nav style={{
         position: 'fixed',
         bottom: 0,
@@ -379,7 +379,7 @@ export default function EventPage() {
 
           {/* Events */}
           <div
-            onClick={() => router.push('/search')}
+            onClick={() => router.push('/events')}
             style={{
             display: 'flex',
             flexDirection: 'column',
