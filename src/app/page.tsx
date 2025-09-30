@@ -219,7 +219,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="border-t border-golf-light/30 pt-8 text-center text-sm text-golf-fairway/80">
-            © 2024 Golf Buddies. Tous droits réservés.
+            © 2025 Golf Buddies. Tous droits réservés.
           </div>
         </div>
       </footer>
