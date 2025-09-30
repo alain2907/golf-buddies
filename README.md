@@ -189,4 +189,4 @@ For issues or questions, please open an issue on GitHub.
 
 ---
 
-Built with ❤️ by Golf Buddies Team
+Built with ❤️ by Golf Buddies Team 🏌️
