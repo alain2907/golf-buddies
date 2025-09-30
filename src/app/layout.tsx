@@ -5,6 +5,7 @@ import { AuthProvider } from '@/hooks/useAuth'
 import { Toaster } from 'react-hot-toast'
 import EmailVerificationGuard from '@/components/auth/EmailVerificationGuard'
 import HydrationGuard from '@/components/HydrationGuard'
+import Navigation from '@/components/Navigation'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -73,6 +74,7 @@ export default function RootLayout({
             />
             <EmailVerificationGuard>
               <div className="min-h-screen flex flex-col">
+                <Navigation />
                 <main className="flex-1 pb-16 md:pb-0">{children}</main>
               </div>
             </EmailVerificationGuard>

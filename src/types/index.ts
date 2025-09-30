@@ -19,7 +19,9 @@ export interface User {
     roundsPlayed: number
     averageScore: number
     bestScore: number
+    coursesVisited: string[] // Array of course IDs visited
   }
+  badges?: Badge[]
 }
 
 export interface GolfEvent {
@@ -118,4 +120,19 @@ export interface Notification {
   eventId?: string
   read: boolean
   createdAt: Date
+}
+
+export interface Badge {
+  id: string
+  name: string
+  description: string
+  icon: string
+  earned: boolean
+  earnedDate?: Date
+  category: 'participation' | 'achievement' | 'social' | 'skill'
+  condition: {
+    type: 'rounds_played' | 'courses_visited' | 'first_event' | 'best_score' | 'events_organized'
+    threshold?: number
+    target?: number
+  }
 }

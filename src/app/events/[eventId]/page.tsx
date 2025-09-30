@@ -4,6 +4,7 @@ import { useEvent } from '@/hooks/useEvents'
 import { useAuth } from '@/hooks/useAuth'
 import { useState } from 'react'
 import Footer from '@/components/Footer'
+import { MessageSection } from '@/components/MessageSection'
 
 export default function EventPage() {
   const params = useParams()
@@ -328,6 +329,11 @@ export default function EventPage() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Section Messagerie avec Modération */}
+        <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 16px' }}>
+          <MessageSection event={event} />
         </div>
       </div>
 

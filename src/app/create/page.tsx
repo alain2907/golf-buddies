@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
 import { useEvents } from '@/hooks/useEvents'
+import { useNotifications } from '@/hooks/useNotifications'
+import { processEventCompatibility } from '@/services/compatibilityService'
 import Footer from '@/components/Footer'
 import { golfCourses, getUniqueRegions } from '@/data/golf-courses'
 import { Search } from 'lucide-react'
@@ -12,6 +14,7 @@ export default function CreateEventPage() {
   const searchParams = useSearchParams()
   const { user } = useAuth()
   const { createEvent } = useEvents()
+  const { scheduleEventReminders } = useNotifications()
   const [loading, setLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [showCourseDropdown, setShowCourseDropdown] = useState(false)
@@ -40,7 +43,11 @@ export default function CreateEventPage() {
     handicapIndex: '',
     cartRequired: false,
     gameFormat: '18_holes',
-    gameType: 'friendly'
+    gameType: 'friendly',
+    playStyle: 'stroke_play',
+    challenges: [] as string[],
+    inviteMode: 'community',
+    teeTime: ''
   })
 
   // Filtrer les golfs selon la recherche et la proximité
@@ -117,10 +124,38 @@ export default function CreateEventPage() {
         },
         status: 'upcoming' as const,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        // Nouveaux champs ajoutés
+        gameFormat: formData.gameFormat,
+        playStyle: formData.playStyle,
+        challenges: formData.challenges,
+        inviteMode: formData.inviteMode,
+        handicapIndex: formData.handicapIndex ? parseFloat(formData.handicapIndex) : undefined
       }
 
       const eventId = await createEvent(eventData)
+
+      // Programmer les rappels automatiques pour l'organisateur
+      try {
+        await scheduleEventReminders(
+          user.uid,
+          eventId,
+          formData.title,
+          eventDateTime
+        )
+      } catch (error) {
+        console.error('Error scheduling reminders:', error)
+        // Ne pas bloquer la création de l'événement si les rappels échouent
+      }
+
+      // Détecter et notifier les événements compatibles
+      try {
+        const createdEvent = { ...eventData, id: eventId }
+        await processEventCompatibility(createdEvent)
+      } catch (error) {
+        console.error('Error processing compatibility:', error)
+        // Ne pas bloquer la création de l'événement si la détection échoue
+      }
 
       // Redirect to the created event
       router.push(`/events/${eventId}`)
@@ -386,10 +421,9 @@ export default function CreateEventPage() {
                   marginBottom: '8px'
                 }}>
                   <span style={{ fontSize: '16px' }}>⏰</span>
-                  Heure
+                  Tee Time
                 </label>
-                <input
-                  type="time"
+                <select
                   value={formData.time}
                   onChange={(e) => setFormData({...formData, time: e.target.value})}
                   style={{
@@ -399,6 +433,7 @@ export default function CreateEventPage() {
                     borderRadius: '8px',
                     fontSize: '16px',
                     outline: 'none',
+                    backgroundColor: 'white',
                     transition: 'border-color 0.2s, box-shadow 0.2s'
                   }}
                   onFocus={(e) => {
@@ -410,7 +445,32 @@ export default function CreateEventPage() {
                     e.target.style.boxShadow = 'none'
                   }}
                   required
-                />
+                >
+                  <option value="">Choisir un créneau</option>
+                  <option value="07:00">07:00 - Départ matinal</option>
+                  <option value="07:30">07:30</option>
+                  <option value="08:00">08:00</option>
+                  <option value="08:30">08:30</option>
+                  <option value="09:00">09:00</option>
+                  <option value="09:30">09:30</option>
+                  <option value="10:00">10:00</option>
+                  <option value="10:30">10:30</option>
+                  <option value="11:00">11:00</option>
+                  <option value="11:30">11:30</option>
+                  <option value="12:00">12:00</option>
+                  <option value="12:30">12:30</option>
+                  <option value="13:00">13:00</option>
+                  <option value="13:30">13:30</option>
+                  <option value="14:00">14:00</option>
+                  <option value="14:30">14:30</option>
+                  <option value="15:00">15:00</option>
+                  <option value="15:30">15:30</option>
+                  <option value="16:00">16:00</option>
+                  <option value="16:30">16:30</option>
+                  <option value="17:00">17:00</option>
+                  <option value="17:30">17:30</option>
+                  <option value="18:00">18:00 - Dernier départ</option>
+                </select>
               </div>
             </div>
 
@@ -454,6 +514,71 @@ export default function CreateEventPage() {
                 <option value="competition_friendly">Compétition amicale</option>
                 <option value="practice_training">Entraînement practice</option>
               </select>
+            </div>
+
+            {/* Type de jeu */}
+            <div style={{ marginBottom: '24px' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '8px'
+              }}>
+                <span style={{ fontSize: '16px', marginRight: '4px' }}>🎯</span>
+                Type de jeu
+              </label>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '12px'
+              }}>
+                {[
+                  { value: 'stroke_play', label: 'Stroke Play', desc: 'Compter tous les coups' },
+                  { value: 'match_play', label: 'Match Play', desc: 'Trou par trou' },
+                  { value: 'friendly', label: 'Partie amicale', desc: 'Décontracté' }
+                ].map(type => (
+                  <label
+                    key={type.value}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      padding: '16px 12px',
+                      border: formData.playStyle === type.value ? '2px solid #4A7C2E' : '1px solid #d1d5db',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      backgroundColor: formData.playStyle === type.value ? '#E8F5E9' : 'white'
+                    }}
+                  >
+                    <input
+                      type="radio"
+                      name="playStyle"
+                      value={type.value}
+                      checked={formData.playStyle === type.value}
+                      onChange={() => setFormData({...formData, playStyle: type.value})}
+                      style={{ display: 'none' }}
+                    />
+                    <span style={{
+                      fontWeight: formData.playStyle === type.value ? '600' : '500',
+                      color: formData.playStyle === type.value ? '#2D5016' : '#374151',
+                      fontSize: '14px',
+                      textAlign: 'center',
+                      marginBottom: '4px'
+                    }}>
+                      {type.label}
+                    </span>
+                    <span style={{
+                      fontSize: '12px',
+                      color: '#6b7280',
+                      textAlign: 'center'
+                    }}>
+                      {type.desc}
+                    </span>
+                  </label>
+                ))}
+              </div>
             </div>
 
             {/* Nombre de joueurs */}
@@ -648,6 +773,231 @@ export default function CreateEventPage() {
               }}>
                 Voiturette obligatoire
               </label>
+            </div>
+
+            {/* Challenges et règles optionnels */}
+            <div style={{ marginBottom: '24px' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '8px'
+              }}>
+                <span style={{ fontSize: '16px', marginRight: '4px' }}>🏆</span>
+                Challenges et règles spéciales (optionnel)
+              </label>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: '12px',
+                marginBottom: '12px'
+              }}>
+                {[
+                  { value: 'longest_drive', label: '🚀 Concours de drive', desc: 'Plus long drive' },
+                  { value: 'closest_pin', label: '🎯 Proche du drapeau', desc: 'Approche la plus proche' },
+                  { value: 'putting_contest', label: '⛳ Concours de putting', desc: 'Meilleur putteur' },
+                  { value: 'scramble', label: '🤝 Scramble', desc: 'Jeu en équipe' },
+                  { value: 'skins_game', label: '💰 Skins Game', desc: 'Chaque trou un prix' },
+                  { value: 'nassau', label: '🏌️ Nassau', desc: '3 paris en 1' }
+                ].map(challenge => (
+                  <label
+                    key={challenge.value}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '12px',
+                      border: formData.challenges.includes(challenge.value) ? '2px solid #4A7C2E' : '1px solid #d1d5db',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      backgroundColor: formData.challenges.includes(challenge.value) ? '#E8F5E9' : 'white'
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={formData.challenges.includes(challenge.value)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setFormData({...formData, challenges: [...formData.challenges, challenge.value]})
+                        } else {
+                          setFormData({...formData, challenges: formData.challenges.filter(c => c !== challenge.value)})
+                        }
+                      }}
+                      style={{ display: 'none' }}
+                    />
+                    <div style={{ flex: 1 }}>
+                      <div style={{
+                        fontWeight: formData.challenges.includes(challenge.value) ? '600' : '500',
+                        color: formData.challenges.includes(challenge.value) ? '#2D5016' : '#374151',
+                        fontSize: '14px',
+                        marginBottom: '2px'
+                      }}>
+                        {challenge.label}
+                      </div>
+                      <div style={{
+                        fontSize: '12px',
+                        color: '#6b7280'
+                      }}>
+                        {challenge.desc}
+                      </div>
+                    </div>
+                    {formData.challenges.includes(challenge.value) && (
+                      <span style={{ color: '#4A7C2E', fontSize: '16px' }}>✓</span>
+                    )}
+                  </label>
+                ))}
+              </div>
+              {formData.challenges.length > 0 && (
+                <div style={{
+                  background: '#FEF3C7',
+                  border: '1px solid #F59E0B',
+                  borderRadius: '8px',
+                  padding: '12px',
+                  marginTop: '12px'
+                }}>
+                  <p style={{
+                    fontSize: '14px',
+                    color: '#92400E',
+                    margin: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                  }}>
+                    <span>⚡</span>
+                    <span>
+                      Challenges sélectionnés : {formData.challenges.length}. N'oubliez pas de préciser les détails dans la description !
+                    </span>
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Mode d'invitation */}
+            <div style={{ marginBottom: '24px' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '14px',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '8px'
+              }}>
+                <span style={{ fontSize: '16px', marginRight: '4px' }}>👥</span>
+                Qui peut rejoindre votre partie ?
+              </label>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '12px'
+              }}>
+                {[
+                  {
+                    value: 'friends',
+                    label: '👥 Mes amis uniquement',
+                    desc: 'Invitation privée à vos contacts',
+                    icon: '🔒'
+                  },
+                  {
+                    value: 'community',
+                    label: '🌍 Ouvert à la communauté',
+                    desc: 'Visible par tous les golfeurs',
+                    icon: '🌟'
+                  }
+                ].map(mode => (
+                  <label
+                    key={mode.value}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      padding: '16px',
+                      border: formData.inviteMode === mode.value ? '2px solid #4A7C2E' : '1px solid #d1d5db',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      backgroundColor: formData.inviteMode === mode.value ? '#E8F5E9' : 'white'
+                    }}
+                  >
+                    <input
+                      type="radio"
+                      name="inviteMode"
+                      value={mode.value}
+                      checked={formData.inviteMode === mode.value}
+                      onChange={() => setFormData({...formData, inviteMode: mode.value})}
+                      style={{ display: 'none' }}
+                    />
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      marginBottom: '8px'
+                    }}>
+                      <span style={{ fontSize: '20px' }}>{mode.icon}</span>
+                      <span style={{
+                        fontWeight: formData.inviteMode === mode.value ? '600' : '500',
+                        color: formData.inviteMode === mode.value ? '#2D5016' : '#374151',
+                        fontSize: '14px'
+                      }}>
+                        {mode.label}
+                      </span>
+                    </div>
+                    <span style={{
+                      fontSize: '12px',
+                      color: '#6b7280',
+                      textAlign: 'left'
+                    }}>
+                      {mode.desc}
+                    </span>
+                  </label>
+                ))}
+              </div>
+
+              {formData.inviteMode === 'friends' && (
+                <div style={{
+                  background: '#EBF8FF',
+                  border: '1px solid #3B82F6',
+                  borderRadius: '8px',
+                  padding: '12px',
+                  marginTop: '12px'
+                }}>
+                  <p style={{
+                    fontSize: '14px',
+                    color: '#1E40AF',
+                    margin: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                  }}>
+                    <span>📧</span>
+                    <span>
+                      Vous pourrez inviter vos amis par email ou via l'application après la création de l'événement.
+                    </span>
+                  </p>
+                </div>
+              )}
+
+              {formData.inviteMode === 'community' && (
+                <div style={{
+                  background: '#F0FDF4',
+                  border: '1px solid #22C55E',
+                  borderRadius: '8px',
+                  padding: '12px',
+                  marginTop: '12px'
+                }}>
+                  <p style={{
+                    fontSize: '14px',
+                    color: '#15803D',
+                    margin: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                  }}>
+                    <span>🌟</span>
+                    <span>
+                      Votre partie sera visible dans la recherche publique. Parfait pour rencontrer de nouveaux partenaires !
+                    </span>
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Description */}

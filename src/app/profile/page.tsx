@@ -3,10 +3,13 @@ import { useAuth } from '@/hooks/useAuth'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Footer from '@/components/Footer'
+import { evaluateUserBadges, getEarnedBadges } from '@/lib/badges'
+import ProfileEditModal from '@/components/ProfileEditModal'
 
 export default function ProfilePage() {
   const [mounted, setMounted] = useState(false)
-  const { user, loading, logout } = useAuth()
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const { user, loading, logout, resetPassword } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
@@ -36,6 +39,21 @@ export default function ProfilePage() {
   // For testing, show profile even without user
   const displayName = user?.displayName || user?.email?.split('@')[0] || 'Utilisateur Test'
   const email = user?.email || 'test@example.com'
+
+  // Dynamic user data
+  const handicap = user?.handicap || 18
+  const homeClub = user?.homeClub || 'Golf de Saint-Cloud'
+  const stats = user?.stats || {
+    roundsPlayed: 0,
+    averageScore: 0,
+    bestScore: 0,
+    coursesVisited: []
+  }
+
+  // Calculate badges
+  const userBadges = user ? evaluateUserBadges(user) : []
+  const earnedBadges = userBadges.filter(badge => badge.earned)
+  const availableBadges = userBadges.filter(badge => !badge.earned)
 
   const handleLogout = async () => {
     try {
@@ -127,7 +145,7 @@ export default function ProfilePage() {
             {email}
           </div>
           <div style={{ fontSize: '16px', color: '#4A7C2E', fontWeight: 'bold' }}>
-            Index: 18 • Golf de Saint-Cloud
+            Index: {handicap} • {homeClub}
           </div>
         </div>
 
@@ -146,35 +164,35 @@ export default function ProfilePage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '12px' }}>
             <div style={{ textAlign: 'center', padding: '16px', background: '#f8f9fa', borderRadius: '8px' }}>
               <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#4A7C2E', marginBottom: '4px' }}>
-                23
+                {stats.roundsPlayed}
               </div>
               <div style={{ fontSize: '12px', color: '#666' }}>Parties via l'app</div>
             </div>
 
             <div style={{ textAlign: 'center', padding: '16px', background: '#f8f9fa', borderRadius: '8px' }}>
               <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#4A7C2E', marginBottom: '4px' }}>
-                87
+                {stats.averageScore || '--'}
               </div>
               <div style={{ fontSize: '12px', color: '#666' }}>Score moyen</div>
             </div>
 
             <div style={{ textAlign: 'center', padding: '16px', background: '#f8f9fa', borderRadius: '8px' }}>
               <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#4A7C2E', marginBottom: '4px' }}>
-                79
+                {stats.bestScore || '--'}
               </div>
               <div style={{ fontSize: '12px', color: '#666' }}>Meilleur score</div>
             </div>
 
             <div style={{ textAlign: 'center', padding: '16px', background: '#f8f9fa', borderRadius: '8px' }}>
               <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#4A7C2E', marginBottom: '4px' }}>
-                12
+                {stats.coursesVisited.length}
               </div>
               <div style={{ fontSize: '12px', color: '#666' }}>Parcours visités</div>
             </div>
 
             <div style={{ textAlign: 'center', padding: '16px', background: '#f8f9fa', borderRadius: '8px' }}>
               <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#4A7C2E', marginBottom: '4px' }}>
-                18.2
+                {handicap}
               </div>
               <div style={{ fontSize: '12px', color: '#666' }}>Index actuel</div>
             </div>
@@ -196,32 +214,32 @@ export default function ProfilePage() {
           <div style={{ display: 'grid', gap: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #eee' }}>
               <span style={{ fontWeight: '500' }}>Club d'attache</span>
-              <span style={{ color: '#666' }}>Golf de Saint-Cloud</span>
+              <span style={{ color: '#666' }}>{homeClub}</span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #eee' }}>
               <span style={{ fontWeight: '500' }}>Tee time préféré</span>
-              <span style={{ color: '#666' }}>Matin (8h-11h)</span>
+              <span style={{ color: '#666' }}>{user?.preferences?.preferredTeeTime === 'morning' ? 'Matin (8h-11h)' : user?.preferences?.preferredTeeTime === 'afternoon' ? 'Après-midi (12h-16h)' : 'Soirée (16h-19h)'}</span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #eee' }}>
               <span style={{ fontWeight: '500' }}>Marche/Voiturette</span>
-              <span style={{ color: '#666' }}>Marche préférée</span>
+              <span style={{ color: '#666' }}>{user?.preferences?.walkingOrCart === 'walking' ? 'Marche préférée' : user?.preferences?.walkingOrCart === 'cart' ? 'Voiturette préférée' : 'Les deux'}</span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #eee' }}>
-              <span style={{ fontWeight: '500' }}>Format préféré</span>
-              <span style={{ color: '#666' }}>18 trous</span>
+              <span style={{ fontWeight: '500' }}>Style de jeu</span>
+              <span style={{ color: '#666' }}>{user?.preferences?.playStyle === 'competitive' ? 'Compétitif' : user?.preferences?.playStyle === 'casual' ? 'Décontracté' : 'Entraînement'}</span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #eee' }}>
-              <span style={{ fontWeight: '500' }}>Niveau recherché</span>
-              <span style={{ color: '#666' }}>Index 15-25</span>
+              <span style={{ fontWeight: '500' }}>Index personnel</span>
+              <span style={{ color: '#666' }}>{handicap}</span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0' }}>
               <span style={{ fontWeight: '500' }}>Notifications</span>
-              <span style={{ color: '#666' }}>Activées</span>
+              <span style={{ color: '#666' }}>{user?.preferences?.notifications ? 'Activées' : 'Désactivées'}</span>
             </div>
           </div>
         </div>
@@ -239,42 +257,62 @@ export default function ProfilePage() {
           </h3>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px' }}>
-            <div style={{
-              padding: '12px',
-              background: '#dcfce7',
-              border: '1px solid #4A7C2E',
-              borderRadius: '8px',
-              textAlign: 'center'
-            }}>
-              <div style={{ fontSize: '24px', marginBottom: '4px' }}>🏌️</div>
-              <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#4A7C2E' }}>Premier Flight</div>
-              <div style={{ fontSize: '12px', color: '#666' }}>Première partie organisée</div>
-            </div>
+            {/* Show earned badges first */}
+            {earnedBadges.map(badge => (
+              <div key={badge.id} style={{
+                padding: '12px',
+                background: badge.category === 'participation' ? '#dcfce7' :
+                           badge.category === 'achievement' ? '#fef3c7' :
+                           badge.category === 'skill' ? '#dbeafe' : '#f3e8ff',
+                border: `1px solid ${badge.category === 'participation' ? '#4A7C2E' :
+                                   badge.category === 'achievement' ? '#f59e0b' :
+                                   badge.category === 'skill' ? '#2563eb' : '#7c3aed'}`,
+                borderRadius: '8px',
+                textAlign: 'center'
+              }}>
+                <div style={{ fontSize: '24px', marginBottom: '4px' }}>{badge.icon}</div>
+                <div style={{
+                  fontSize: '14px',
+                  fontWeight: 'bold',
+                  color: badge.category === 'participation' ? '#4A7C2E' :
+                        badge.category === 'achievement' ? '#f59e0b' :
+                        badge.category === 'skill' ? '#2563eb' : '#7c3aed'
+                }}>{badge.name}</div>
+                <div style={{ fontSize: '12px', color: '#666' }}>{badge.description}</div>
+              </div>
+            ))}
 
-            <div style={{
-              padding: '12px',
-              background: '#fef3c7',
-              border: '1px solid #f59e0b',
-              borderRadius: '8px',
-              textAlign: 'center'
-            }}>
-              <div style={{ fontSize: '24px', marginBottom: '4px' }}>🌍</div>
-              <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#f59e0b' }}>Explorateur</div>
-              <div style={{ fontSize: '12px', color: '#666' }}>10+ parcours visités</div>
-            </div>
+            {/* Show some unearned badges */}
+            {availableBadges.slice(0, 3).map(badge => (
+              <div key={badge.id} style={{
+                padding: '12px',
+                background: '#f3f4f6',
+                border: '1px solid #d1d5db',
+                borderRadius: '8px',
+                textAlign: 'center',
+                opacity: 0.6
+              }}>
+                <div style={{ fontSize: '24px', marginBottom: '4px' }}>{badge.icon}</div>
+                <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#666' }}>{badge.name}</div>
+                <div style={{ fontSize: '12px', color: '#666' }}>{badge.description}</div>
+              </div>
+            ))}
 
-            <div style={{
-              padding: '12px',
-              background: '#f3f4f6',
-              border: '1px solid #d1d5db',
-              borderRadius: '8px',
-              textAlign: 'center',
-              opacity: 0.6
-            }}>
-              <div style={{ fontSize: '24px', marginBottom: '4px' }}>🎯</div>
-              <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#666' }}>Eagle</div>
-              <div style={{ fontSize: '12px', color: '#666' }}>Réaliser un eagle</div>
-            </div>
+            {/* Show message if no badges */}
+            {earnedBadges.length === 0 && (
+              <div style={{
+                padding: '20px',
+                background: '#f3f4f6',
+                border: '1px solid #d1d5db',
+                borderRadius: '8px',
+                textAlign: 'center',
+                gridColumn: '1 / -1'
+              }}>
+                <div style={{ fontSize: '24px', marginBottom: '8px' }}>🏆</div>
+                <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#666', marginBottom: '4px' }}>Aucun badge pour le moment</div>
+                <div style={{ fontSize: '14px', color: '#666' }}>Jouez des parties pour débloquer vos premiers badges !</div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -291,66 +329,85 @@ export default function ProfilePage() {
           </h3>
 
           <div style={{ display: 'grid', gap: '12px' }}>
-            <button style={{
-              background: '#f8f9fa',
-              border: '1px solid #e9ecef',
-              padding: '16px',
-              borderRadius: '8px',
-              fontSize: '16px',
-              cursor: 'pointer',
-              textAlign: 'left',
-              transition: 'background-color 0.2s'
-            }}
-            onMouseOver={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#e9ecef'}
-            onMouseOut={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#f8f9fa'}
+            <button
+              onClick={() => setIsEditModalOpen(true)}
+              style={{
+                background: '#f8f9fa',
+                border: '1px solid #e9ecef',
+                padding: '16px',
+                borderRadius: '8px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                textAlign: 'left',
+                transition: 'background-color 0.2s'
+              }}
+              onMouseOver={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#e9ecef'}
+              onMouseOut={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#f8f9fa'}
             >
               🏌️ Modifier mon profil golfeur
             </button>
 
-            <button style={{
-              background: '#f8f9fa',
-              border: '1px solid #e9ecef',
-              padding: '16px',
-              borderRadius: '8px',
-              fontSize: '16px',
-              cursor: 'pointer',
-              textAlign: 'left',
-              transition: 'background-color 0.2s'
-            }}
-            onMouseOver={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#e9ecef'}
-            onMouseOut={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#f8f9fa'}
+            <button
+              onClick={() => setIsEditModalOpen(true)}
+              style={{
+                background: '#f8f9fa',
+                border: '1px solid #e9ecef',
+                padding: '16px',
+                borderRadius: '8px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                textAlign: 'left',
+                transition: 'background-color 0.2s'
+              }}
+              onMouseOver={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#e9ecef'}
+              onMouseOut={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#f8f9fa'}
             >
               🏅 Mettre à jour mon index
             </button>
 
-            <button style={{
-              background: '#f8f9fa',
-              border: '1px solid #e9ecef',
-              padding: '16px',
-              borderRadius: '8px',
-              fontSize: '16px',
-              cursor: 'pointer',
-              textAlign: 'left',
-              transition: 'background-color 0.2s'
-            }}
-            onMouseOver={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#e9ecef'}
-            onMouseOut={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#f8f9fa'}
+            <button
+              onClick={() => router.push('/flights')}
+              style={{
+                background: '#f8f9fa',
+                border: '1px solid #e9ecef',
+                padding: '16px',
+                borderRadius: '8px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                textAlign: 'left',
+                transition: 'background-color 0.2s'
+              }}
+              onMouseOver={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#e9ecef'}
+              onMouseOut={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#f8f9fa'}
             >
-              📧 Notifications de flights
+              🏌️ Mes Flights
             </button>
 
-            <button style={{
-              background: '#f8f9fa',
-              border: '1px solid #e9ecef',
-              padding: '16px',
-              borderRadius: '8px',
-              fontSize: '16px',
-              cursor: 'pointer',
-              textAlign: 'left',
-              transition: 'background-color 0.2s'
-            }}
-            onMouseOver={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#e9ecef'}
-            onMouseOut={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#f8f9fa'}
+            <button
+              onClick={async () => {
+                const email = user?.email
+                if (email) {
+                  try {
+                    await resetPassword(email)
+                  } catch (error) {
+                    console.error('Reset password error:', error)
+                  }
+                } else {
+                  alert('Email non trouvé')
+                }
+              }}
+              style={{
+                background: '#f8f9fa',
+                border: '1px solid #e9ecef',
+                padding: '16px',
+                borderRadius: '8px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                textAlign: 'left',
+                transition: 'background-color 0.2s'
+              }}
+              onMouseOver={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#e9ecef'}
+              onMouseOut={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#f8f9fa'}
             >
               🔒 Changer mot de passe
             </button>
@@ -359,6 +416,15 @@ export default function ProfilePage() {
       </div>
 
       <Footer />
+
+      {/* Profile Edit Modal */}
+      {user && (
+        <ProfileEditModal
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          user={user}
+        />
+      )}
     </div>
   )
 }

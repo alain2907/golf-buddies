@@ -127,8 +127,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         stats: {
           roundsPlayed: 0,
           averageScore: 0,
-          bestScore: 0
-        }
+          bestScore: 0,
+          coursesVisited: []
+        },
+        badges: []
       }
 
       await setDoc(doc(db, 'users', firebaseUser.uid), {
@@ -166,8 +168,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         stats: {
           roundsPlayed: 0,
           averageScore: 0,
-          bestScore: 0
-        }
+          bestScore: 0,
+          coursesVisited: []
+        },
+        badges: []
       }
 
       await setDoc(doc(db, 'users', newUser.uid), {
