@@ -16,23 +16,23 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Golf Buddies - Find Your Perfect Golf Partner',
+  title: 'Golf Buddies - Trouvez votre partenaire de golf parfait',
   description:
-    'Connect with golfers, join rounds, organize tournaments, and improve your game',
+    'Connectez-vous avec des golfeurs, rejoignez des parties, organisez des tournois et améliorez votre jeu',
   keywords:
-    'golf, golf partners, tee times, golf rounds, golf tournaments, golf app',
+    'golf, partenaires golf, réservation golf, parties golf, tournois golf, app golf, golfeurs france',
   authors: [{ name: 'Golf Buddies Team' }],
   openGraph: {
-    title: 'Golf Buddies - Find Your Perfect Golf Partner',
-    description: 'Connect with golfers, join rounds, and improve your game',
+    title: 'Golf Buddies - Trouvez votre partenaire de golf parfait',
+    description: 'Connectez-vous avec des golfeurs, rejoignez des parties et améliorez votre jeu',
     type: 'website',
-    locale: 'en_US',
+    locale: 'fr_FR',
     siteName: 'Golf Buddies',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Golf Buddies',
-    description: 'Find your perfect golf partner',
+    description: 'Trouvez votre partenaire de golf parfait',
   },
   themeColor: '#2D5016',
   manifest: '/manifest.json',
@@ -44,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <body className={inter.className}>
         <AuthProvider>
           <HydrationGuard>
