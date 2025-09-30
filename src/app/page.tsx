@@ -42,18 +42,18 @@ export default function HomePage() {
               Golf Buddies
             </h1>
             <p className="text-xl md:text-2xl mb-8 opacity-95 max-w-2xl mx-auto">
-              Find Your Perfect Golf Partner & Never Play Alone Again
+              Trouvez votre partenaire de golf parfait et ne jouez plus jamais seul
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/login" className="btn-golf bg-white text-golf-green hover:bg-gray-100 px-8 py-4 text-lg">
-                Get Started Free
+                Commencer gratuitement
               </Link>
               <Link href="/search" className="btn-golf bg-transparent border-2 border-white hover:bg-white/10 px-8 py-4 text-lg">
-                Browse Events
+                Parcourir les events
               </Link>
             </div>
             <p className="mt-8 text-golf-sand/80 text-sm">
-              Join 10,000+ golfers already using Golf Buddies
+              Rejoignez plus de 10 000 golfeurs qui utilisent déjà Golf Buddies
             </p>
           </div>
         </div>
@@ -64,10 +64,10 @@ export default function HomePage() {
       <section className="py-12 bg-white border-b">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <StatCard number="10,000+" label="Active Golfers" />
-            <StatCard number="5,000+" label="Rounds Played" />
-            <StatCard number="500+" label="Golf Courses" />
-            <StatCard number="4.9★" label="User Rating" />
+            <StatCard number="10,000+" label="Golfeurs actifs" />
+            <StatCard number="5,000+" label="Parties jouées" />
+            <StatCard number="500+" label="Parcours de golf" />
+            <StatCard number="4.9★" label="Note utilisateurs" />
           </div>
         </div>
       </section>
@@ -77,48 +77,48 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4 gradient-text">
-              Everything You Need to Elevate Your Game
+              Tout ce dont vous avez besoin pour améliorer votre jeu
             </h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              From finding partners to tracking your progress, we&apos;ve got you covered
+              De la recherche de partenaires au suivi de vos progrès, nous nous occupons de tout
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <FeatureCard
               icon={<Users className="w-8 h-8" />}
-              title="Smart Matching"
-              description="Our algorithm pairs you with golfers at your skill level for the perfect round"
+              title="Matching intelligent"
+              description="Notre algorithme vous associe avec des golfeurs de votre niveau pour la partie parfaite"
               gradient="from-blue-500 to-blue-600"
             />
             <FeatureCard
               icon={<Calendar className="w-8 h-8" />}
-              title="Easy Scheduling"
-              description="Book tee times, organize rounds, and manage your golf calendar effortlessly"
+              title="Planification facile"
+              description="Réservez des créneaux, organisez des parties et gérez votre calendrier golf sans effort"
               gradient="from-green-500 to-green-600"
             />
             <FeatureCard
               icon={<Trophy className="w-8 h-8" />}
-              title="Tournaments"
-              description="Join local tournaments, compete with friends, and win prizes"
+              title="Tournois"
+              description="Rejoignez des tournois locaux, affrontez vos amis et gagnez des prix"
               gradient="from-yellow-500 to-yellow-600"
             />
             <FeatureCard
               icon={<MapPin className="w-8 h-8" />}
-              title="Course Discovery"
-              description="Explore new courses, read reviews, and find hidden gems near you"
+              title="Découverte de parcours"
+              description="Explorez de nouveaux parcours, lisez les avis et trouvez des perles cachées près de chez vous"
               gradient="from-purple-500 to-purple-600"
             />
             <FeatureCard
               icon={<TrendingUp className="w-8 h-8" />}
-              title="Track Progress"
-              description="Monitor your handicap, stats, and improvement over time"
+              title="Suivi des progrès"
+              description="Surveillez votre handicap, vos statistiques et votre amélioration au fil du temps"
               gradient="from-red-500 to-red-600"
             />
             <FeatureCard
               icon={<Zap className="w-8 h-8" />}
-              title="Instant Chat"
-              description="Communicate with your playing partners in real-time"
+              title="Chat instantané"
+              description="Communiquez avec vos partenaires de jeu en temps réel"
               gradient="from-indigo-500 to-indigo-600"
             />
           </div>
@@ -129,13 +129,13 @@ export default function HomePage() {
       <section className="py-20 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-12">
-            How It Works
+            Comment ça marche
           </h2>
           <div className="grid md:grid-cols-4 gap-8">
-            <StepCard step="1" title="Sign Up" description="Create your free account in seconds" />
-            <StepCard step="2" title="Set Preferences" description="Tell us your skill level and availability" />
-            <StepCard step="3" title="Find Partners" description="Browse events or get matched automatically" />
-            <StepCard step="4" title="Play Golf!" description="Meet at the course and enjoy your round" />
+            <StepCard step="1" title="Inscription" description="Créez votre compte gratuit en quelques secondes" />
+            <StepCard step="2" title="Définir les préférences" description="Indiquez-nous votre niveau et vos disponibilités" />
+            <StepCard step="3" title="Trouver des partenaires" description="Parcourez les événements ou soyez associé automatiquement" />
+            <StepCard step="4" title="Jouez au golf !" description="Retrouvez-vous sur le parcours et profitez de votre partie" />
           </div>
         </div>
       </section>
@@ -144,21 +144,21 @@ export default function HomePage() {
       <section className="py-20 px-4 bg-gradient-to-br from-golf-fairway/10 to-golf-sky/10">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-12">
-            What Golfers Are Saying
+            Ce que disent les golfeurs
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             <TestimonialCard
-              quote="Golf Buddies transformed my game. I've met amazing partners and my handicap has dropped by 5 strokes!"
+              quote="Golf Buddies a transformé mon jeu. J'ai rencontré des partenaires formidables et mon handicap a baissé de 5 coups !"
               author="Sarah M."
               rating={5}
             />
             <TestimonialCard
-              quote="As someone new to the area, this app helped me find a great golf community. Highly recommend!"
+              quote="En tant que nouveau dans la région, cette app m'a aidé à trouver une super communauté golf. Je recommande vivement !"
               author="John D."
               rating={5}
             />
             <TestimonialCard
-              quote="The tournament feature is fantastic. I've won two local events through the app!"
+              quote="La fonctionnalité tournoi est fantastique. J'ai gagné deux événements locaux grâce à l'app !"
               author="Mike R."
               rating={5}
             />
@@ -170,16 +170,16 @@ export default function HomePage() {
       <section className="bg-gradient-to-r from-golf-green to-golf-light py-20">
         <div className="max-w-4xl mx-auto text-center px-4">
           <h2 className="text-4xl font-bold mb-4 text-white">
-            Ready to Transform Your Golf Experience?
+            Prêt à transformer votre expérience golf ?
           </h2>
           <p className="text-xl mb-8 text-golf-sand">
-            Join thousands of golfers who never have to play alone
+            Rejoignez des milliers de golfeurs qui n'ont plus jamais à jouer seuls
           </p>
           <Link href="/login" className="inline-block bg-white text-golf-green btn-golf text-lg px-10 py-4">
-            Start Playing Today - It&apos;s Free!
+            Commencez à jouer aujourd'hui - C'est gratuit !
           </Link>
           <p className="mt-4 text-golf-sand/80 text-sm">
-            No credit card required • Free forever plan available
+            Aucune carte de crédit requise • Plan gratuit à vie disponible
           </p>
         </div>
       </section>
@@ -191,35 +191,35 @@ export default function HomePage() {
             <div>
               <h3 className="font-bold mb-4">Golf Buddies</h3>
               <p className="text-golf-fairway/80 text-sm">
-                Your ultimate golf companion app
+                Votre application compagnon golf ultime
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-3">Features</h4>
+              <h4 className="font-semibold mb-3">Fonctionnalités</h4>
               <ul className="space-y-2 text-sm text-golf-fairway/80">
-                <li><Link href="/search" className="hover:text-white">Find Partners</Link></li>
-                <li><Link href="/create" className="hover:text-white">Create Events</Link></li>
-                <li><Link href="/courses" className="hover:text-white">Courses</Link></li>
+                <li><Link href="/search" className="hover:text-white">Trouver des partenaires</Link></li>
+                <li><Link href="/create" className="hover:text-white">Créer des événements</Link></li>
+                <li><Link href="/courses" className="hover:text-white">Parcours</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-3">Support</h4>
               <ul className="space-y-2 text-sm text-golf-fairway/80">
-                <li><a href="#" className="hover:text-white">Help Center</a></li>
-                <li><a href="#" className="hover:text-white">Contact Us</a></li>
+                <li><a href="#" className="hover:text-white">Centre d'aide</a></li>
+                <li><a href="#" className="hover:text-white">Nous contacter</a></li>
                 <li><a href="#" className="hover:text-white">FAQ</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-3">Legal</h4>
+              <h4 className="font-semibold mb-3">Légal</h4>
               <ul className="space-y-2 text-sm text-golf-fairway/80">
-                <li><Link href="/settings/privacy" className="hover:text-white">Privacy Policy</Link></li>
-                <li><Link href="/settings/terms" className="hover:text-white">Terms of Service</Link></li>
+                <li><Link href="/settings/privacy" className="hover:text-white">Politique de confidentialité</Link></li>
+                <li><Link href="/settings/terms" className="hover:text-white">Conditions d'utilisation</Link></li>
               </ul>
             </div>
           </div>
           <div className="border-t border-golf-light/30 pt-8 text-center text-sm text-golf-fairway/80">
-            © 2024 Golf Buddies. All rights reserved.
+            © 2024 Golf Buddies. Tous droits réservés.
           </div>
         </div>
       </footer>
