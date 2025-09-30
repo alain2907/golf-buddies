@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Calendar, Users, Trophy, MapPin, Clock, Target, TrendingUp, Zap, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import styles from './landing.module.css'
+import SiteFooter from '@/components/SiteFooter'
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -190,6 +191,9 @@ export default function LandingPage() {
           </p>
         </div>
       </div>
+
+      {/* Footer avec informations légales */}
+      <SiteFooter />
     </div>
   )
 }
