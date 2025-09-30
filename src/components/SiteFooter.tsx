@@ -4,12 +4,27 @@ import Link from 'next/link';
 
 export default function SiteFooter() {
   return (
-    <footer className="bg-black text-gray-300 px-6 py-10 mt-10">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+    <footer
+      className="w-full mt-10"
+      style={{
+        backgroundColor: '#000000',
+        color: '#d1d5db',
+        padding: '2.5rem 1.5rem'
+      }}
+    >
+      <div
+        className="mx-auto grid gap-10"
+        style={{
+          maxWidth: '72rem',
+          gridTemplateColumns: 'repeat(1, minmax(0, 1fr))'
+        }}
+      >
         {/* Colonne 1 */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4">Golf Buddies</h3>
-          <p className="text-sm leading-relaxed">
+          <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#ffffff', marginBottom: '1rem' }}>
+            Golf Buddies
+          </h3>
+          <p style={{ fontSize: '0.875rem', lineHeight: '1.5' }}>
             La plateforme qui connecte les passionnés de golf pour créer
             des rencontres sportives et partager des moments inoubliables.
           </p>
@@ -17,31 +32,90 @@ export default function SiteFooter() {
 
         {/* Colonne 2 */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4">Plateforme</h3>
-          <ul className="space-y-2 text-sm">
-            <li><Link href="/search" className="hover:text-white">Découvrir des événements</Link></li>
-            <li><Link href="/dashboard" className="hover:text-white">Mon tableau de bord</Link></li>
-            <li><Link href="/profile" className="hover:text-white">Mon profil</Link></li>
-            <li><Link href="/help" className="hover:text-white">Centre d'aide</Link></li>
+          <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#ffffff', marginBottom: '1rem' }}>
+            Plateforme
+          </h3>
+          <ul style={{ listStyle: 'none', padding: 0 }}>
+            <li style={{ marginBottom: '0.5rem' }}>
+              <Link href="/search" style={{ fontSize: '0.875rem', color: '#d1d5db', textDecoration: 'none' }}>
+                Découvrir des événements
+              </Link>
+            </li>
+            <li style={{ marginBottom: '0.5rem' }}>
+              <Link href="/dashboard" style={{ fontSize: '0.875rem', color: '#d1d5db', textDecoration: 'none' }}>
+                Mon tableau de bord
+              </Link>
+            </li>
+            <li style={{ marginBottom: '0.5rem' }}>
+              <Link href="/profile" style={{ fontSize: '0.875rem', color: '#d1d5db', textDecoration: 'none' }}>
+                Mon profil
+              </Link>
+            </li>
+            <li style={{ marginBottom: '0.5rem' }}>
+              <Link href="/help" style={{ fontSize: '0.875rem', color: '#d1d5db', textDecoration: 'none' }}>
+                Centre d'aide
+              </Link>
+            </li>
           </ul>
         </div>
 
         {/* Colonne 3 */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4">Légal</h3>
-          <ul className="space-y-2 text-sm">
-            <li><Link href="/settings/terms" className="hover:text-white">Conditions générales</Link></li>
-            <li><Link href="/settings/privacy" className="hover:text-white">Politique de confidentialité</Link></li>
-            <li><Link href="/settings/cookies" className="hover:text-white">Politique des cookies</Link></li>
-            <li><Link href="/settings/legal" className="hover:text-white">Mentions légales</Link></li>
+          <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#ffffff', marginBottom: '1rem' }}>
+            Légal
+          </h3>
+          <ul style={{ listStyle: 'none', padding: 0 }}>
+            <li style={{ marginBottom: '0.5rem' }}>
+              <Link href="/settings/terms" style={{ fontSize: '0.875rem', color: '#d1d5db', textDecoration: 'none' }}>
+                Conditions générales
+              </Link>
+            </li>
+            <li style={{ marginBottom: '0.5rem' }}>
+              <Link href="/settings/privacy" style={{ fontSize: '0.875rem', color: '#d1d5db', textDecoration: 'none' }}>
+                Politique de confidentialité
+              </Link>
+            </li>
+            <li style={{ marginBottom: '0.5rem' }}>
+              <Link href="/settings/cookies" style={{ fontSize: '0.875rem', color: '#d1d5db', textDecoration: 'none' }}>
+                Politique des cookies
+              </Link>
+            </li>
+            <li style={{ marginBottom: '0.5rem' }}>
+              <Link href="/settings/legal" style={{ fontSize: '0.875rem', color: '#d1d5db', textDecoration: 'none' }}>
+                Mentions légales
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
 
       {/* Bas du footer */}
-      <div className="mt-8 border-t border-gray-700 pt-4 text-center text-xs text-gray-400">
+      <div
+        style={{
+          marginTop: '2rem',
+          paddingTop: '1rem',
+          borderTop: '1px solid #374151',
+          textAlign: 'center',
+          fontSize: '0.75rem',
+          color: '#9ca3af'
+        }}
+      >
         © 2025 Golf Buddies. Tous droits réservés. | contact@golfbuddies.fr
       </div>
+
+      {/* CSS responsive inline */}
+      <style jsx>{`
+        @media (min-width: 640px) {
+          .footer-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+        @media (min-width: 1024px) {
+          .footer-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+          }
+        }
+      `}</style>
     </footer>
   );
 }
