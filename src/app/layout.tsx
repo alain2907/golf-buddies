@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast'
 import EmailVerificationGuard from '@/components/auth/EmailVerificationGuard'
 import HydrationGuard from '@/components/HydrationGuard'
 import Navigation from '@/components/Navigation'
+import PWAInstaller from '@/components/PWAInstaller'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -45,6 +46,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
+      <head>
+        <link rel="apple-touch-icon" href="/icon-192x192.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Golf Buddies" />
+      </head>
       <body className={inter.className}>
         <AuthProvider>
           <HydrationGuard>
@@ -77,6 +84,7 @@ export default function RootLayout({
                 <Navigation />
                 <main className="flex-1 pb-16 md:pb-0">{children}</main>
               </div>
+              <PWAInstaller />
             </EmailVerificationGuard>
           </HydrationGuard>
         </AuthProvider>

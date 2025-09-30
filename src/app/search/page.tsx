@@ -3,6 +3,7 @@ import { useState, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
 import { useEvents } from '@/hooks/useEvents'
+import { useEventsWithFriends } from '@/hooks/useEventsWithFriends'
 import { Search, MapPin, Calendar, Users, Clock, Target, Filter, ChevronRight, Star } from 'lucide-react'
 import Footer from '@/components/Footer'
 import { golfCourses } from '@/data/golf-courses'
@@ -10,7 +11,11 @@ import { golfCourses } from '@/data/golf-courses'
 export default function SearchPage() {
   const router = useRouter()
   const { user } = useAuth()
-  const { events, joinEvent } = useEvents()
+  const { events: allEvents, joinEvent } = useEvents()
+  const { events: friendFilteredEvents } = useEventsWithFriends()
+
+  // Utiliser les événements filtrés par amis si l'utilisateur est connecté
+  const events = user ? friendFilteredEvents : allEvents
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedFilters, setSelectedFilters] = useState({
     date: '',

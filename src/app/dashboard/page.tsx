@@ -530,6 +530,23 @@ export default function DashboardPage() {
               <div style={{ fontSize: '32px', marginBottom: '8px' }}>👤</div>
               <div style={{ fontWeight: '600' }}>Mon profil</div>
             </div>
+            <div
+              onClick={() => router.push('/friends')}
+              style={{
+                background: 'white',
+                borderRadius: '12px',
+                padding: '20px',
+                textAlign: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                transition: 'transform 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              <div style={{ fontSize: '32px', marginBottom: '8px' }}>👥</div>
+              <div style={{ fontWeight: '600' }}>Mes amis</div>
+            </div>
           </div>
         </section>
       </div>

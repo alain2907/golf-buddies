@@ -3,13 +3,15 @@ import { useAuth } from '@/hooks/useAuth'
 import NotificationCenter from './NotificationCenter'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { LogOut, User, Settings } from 'lucide-react'
+import { LogOut, User, Settings, Menu, X } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
+import styles from './Navigation.module.css'
 
 export default function Navigation() {
   const { user, logout } = useAuth()
   const router = useRouter()
   const [showUserMenu, setShowUserMenu] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const userMenuRef = useRef<HTMLDivElement>(null)
 
   // Fermer le menu utilisateur au clic extérieur
@@ -32,179 +34,57 @@ export default function Navigation() {
   }
 
   return (
-    <nav style={{
-      background: 'white',
-      borderBottom: '1px solid #e5e7eb',
-      boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-      position: 'sticky',
-      top: 0,
-      zIndex: 100
-    }}>
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '0 16px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        height: '64px'
-      }}>
+    <nav className={styles.nav}>
+      <div className={styles.container}>
         {/* Logo */}
-        <Link
-          href="/dashboard"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            textDecoration: 'none',
-            color: '#111827'
-          }}
-        >
-          <span style={{ fontSize: '24px' }}>🏌️</span>
-          <span style={{
-            fontSize: '20px',
-            fontWeight: '700',
-            color: '#2D5016'
-          }}>
-            Golf Buddies
-          </span>
+        <Link href="/dashboard" className={styles.logo}>
+          <span className={styles.logoIcon}>🏌️</span>
+          <span className={styles.logoText}>Golf Buddies</span>
         </Link>
 
-        {/* Navigation principale */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '24px'
-        }}>
-          <Link
-            href="/dashboard"
-            style={{
-              textDecoration: 'none',
-              color: '#6b7280',
-              fontSize: '14px',
-              fontWeight: '500',
-              transition: 'color 0.2s'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = '#2D5016'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = '#6b7280'
-            }}
-          >
-            Accueil
-          </Link>
-          <Link
-            href="/search"
-            style={{
-              textDecoration: 'none',
-              color: '#6b7280',
-              fontSize: '14px',
-              fontWeight: '500',
-              transition: 'color 0.2s'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.color = '#2D5016'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.color = '#6b7280'
-            }}
-          >
-            Rechercher
-          </Link>
-          <Link
-            href="/create"
-            style={{
-              background: 'linear-gradient(135deg, #4A7C2E 0%, #6B9F3F 100%)',
-              color: 'white',
-              padding: '8px 16px',
-              borderRadius: '8px',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: '500',
-              transition: 'all 0.2s'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-1px)'
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(74, 124, 46, 0.3)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-              e.currentTarget.style.boxShadow = 'none'
-            }}
-          >
-            Créer une partie
-          </Link>
+        {/* Desktop Navigation */}
+        <div className={styles.desktopNav}>
+          <ul className={styles.navLinks}>
+            <li><Link href="/dashboard" className={styles.navLink}>Accueil</Link></li>
+            <li><Link href="/search" className={styles.navLink}>Rechercher</Link></li>
+            <li><Link href="/create" className={styles.signupButton}>Créer une partie</Link></li>
+          </ul>
         </div>
 
-        {/* Actions utilisateur */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px'
-        }}>
-          {/* Centre de notifications */}
+        {/* Mobile Menu Button */}
+        <button
+          className={styles.mobileMenuButton}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        {/* User Actions */}
+        <div className={styles.userSection}>
           <NotificationCenter />
 
-          {/* Menu utilisateur */}
           <div ref={userMenuRef} style={{ position: 'relative' }}>
             <button
               onClick={() => setShowUserMenu(!showUserMenu)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '8px 12px',
-                border: 'none',
-                background: showUserMenu ? '#f3f4f6' : 'transparent',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                transition: 'background 0.2s'
-              }}
-              onMouseEnter={(e) => {
-                if (!showUserMenu) {
-                  e.currentTarget.style.background = '#f3f4f6'
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!showUserMenu) {
-                  e.currentTarget.style.background = 'transparent'
-                }
-              }}
+              className={styles.userButton}
             >
               {user?.photoURL ? (
                 <img
                   src={user.photoURL}
                   alt={user.displayName || 'User'}
-                  style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%'
-                  }}
+                  className={styles.userAvatar}
                 />
               ) : (
-                <div style={{
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '50%',
-                  background: '#4A7C2E',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white',
-                  fontSize: '14px',
-                  fontWeight: '600'
-                }}>
+                <div className={styles.userAvatarPlaceholder}>
                   {user?.displayName?.[0] || user?.email?.[0] || 'U'}
                 </div>
               )}
-              <span style={{
-                fontSize: '14px',
-                color: '#374151',
-                fontWeight: '500'
-              }}>
-                {user?.displayName || user?.email}
-              </span>
+              <div className={styles.userInfo}>
+                <span className={styles.userName}>
+                  {user?.displayName || user?.email}
+                </span>
+              </div>
             </button>
 
             {/* Dropdown menu utilisateur */}
@@ -273,6 +153,75 @@ export default function Navigation() {
                 </button>
               </div>
             )}
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        <div className={`${styles.mobileNav} ${mobileMenuOpen ? styles.open : ''}`}>
+          <div className={styles.mobileNavLinks}>
+            <Link
+              href="/dashboard"
+              className={styles.navLink}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Accueil
+            </Link>
+            <Link
+              href="/search"
+              className={styles.navLink}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Rechercher
+            </Link>
+            <Link
+              href="/create"
+              className={styles.signupButton}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Créer une partie
+            </Link>
+          </div>
+
+          <div className={styles.mobileUserSection}>
+            <div className={styles.mobileUserInfo}>
+              {user?.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt={user.displayName || 'User'}
+                  className={styles.userAvatar}
+                />
+              ) : (
+                <div className={styles.userAvatarPlaceholder}>
+                  {user?.displayName?.[0] || user?.email?.[0] || 'U'}
+                </div>
+              )}
+              <span className={styles.userName}>
+                {user?.displayName || user?.email}
+              </span>
+            </div>
+
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false)
+                router.push('/profile')
+              }}
+              className={styles.mobileNotificationButton}
+            >
+              <User size={16} />
+              Mon profil
+            </button>
+
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false)
+                handleLogout()
+              }}
+              className={styles.mobileNotificationButton}
+              style={{ color: '#ef4444' }}
+            >
+              <LogOut size={16} />
+              Se déconnecter
+            </button>
           </div>
         </div>
       </div>

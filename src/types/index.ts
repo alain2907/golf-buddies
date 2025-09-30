@@ -39,6 +39,7 @@ export interface GolfEvent {
   organizerId: string
   organizerName: string
   organizerPhoto?: string
+  inviteMode: 'community' | 'friends'
   requirements: {
     handicapMax?: number
     handicapMin?: number
@@ -135,4 +136,24 @@ export interface Badge {
     threshold?: number
     target?: number
   }
+}
+
+export interface FriendRequest {
+  id: string
+  fromUserId: string
+  fromUserName: string
+  fromUserPhoto?: string
+  toUserId: string
+  toUserName: string
+  toUserPhoto?: string
+  status: 'pending' | 'accepted' | 'rejected'
+  createdAt: Date
+  respondedAt?: Date
+}
+
+export interface Friendship {
+  id: string
+  users: [string, string] // Array of two user IDs
+  createdAt: Date
+  lastInteraction?: Date
 }

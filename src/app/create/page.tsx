@@ -6,7 +6,7 @@ import { useEvents } from '@/hooks/useEvents'
 import { useNotifications } from '@/hooks/useNotifications'
 import { processEventCompatibility } from '@/services/compatibilityService'
 import Footer from '@/components/Footer'
-import { golfCourses, getUniqueRegions } from '@/data/golf-courses'
+import { golfCourses } from '@/data/golf-courses'
 import { Search } from 'lucide-react'
 
 export default function CreateEventPage() {
@@ -129,7 +129,7 @@ export default function CreateEventPage() {
         gameFormat: formData.gameFormat,
         playStyle: formData.playStyle,
         challenges: formData.challenges,
-        inviteMode: formData.inviteMode,
+        inviteMode: formData.inviteMode as 'community' | 'friends',
         handicapIndex: formData.handicapIndex ? parseFloat(formData.handicapIndex) : undefined
       }
 
@@ -150,7 +150,7 @@ export default function CreateEventPage() {
 
       // Détecter et notifier les événements compatibles
       try {
-        const createdEvent = { ...eventData, id: eventId }
+        const createdEvent = { ...eventData, id: eventId, inviteMode: formData.inviteMode as 'community' | 'friends' }
         await processEventCompatibility(createdEvent)
       } catch (error) {
         console.error('Error processing compatibility:', error)
