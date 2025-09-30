@@ -4,134 +4,43 @@ import Link from 'next/link';
 
 export default function SiteFooter() {
   return (
-    <footer style={{backgroundColor: '#000000'}} className="text-white w-full">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {/* Description */}
-          <div className="sm:col-span-2 lg:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-xl sm:text-2xl">🏌️</span>
-              <h2 className="text-xl sm:text-2xl font-bold">Golf Buddies</h2>
-            </div>
-            <p className="text-gray-300 text-sm sm:text-base leading-relaxed max-w-md">
-              La plateforme golf qui connecte les passionnés pour créer des parties de golf et partager des moments inoubliables sur les plus beaux parcours.
-            </p>
-          </div>
-
-          {/* Plateforme */}
-          <div className="sm:col-span-1">
-            <h3 className="font-semibold text-base sm:text-lg mb-3 sm:mb-4">Plateforme</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  href="/search"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Découvrir des parties
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/dashboard"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Mon tableau de bord
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/profile"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Mon profil
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/help"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Centre d'aide
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Légal */}
-          <div className="sm:col-span-1">
-            <h3 className="font-semibold text-base sm:text-lg mb-3 sm:mb-4">Légal</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  href="/settings/terms"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  CGU
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/settings/privacy"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Confidentialité
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/settings/cookies"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Cookies
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/settings/legal"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Mentions légales
-                </Link>
-              </li>
-            </ul>
-          </div>
+    <footer className="bg-black text-gray-300 px-6 py-10 mt-10">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        {/* Colonne 1 */}
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-4">Golf Buddies</h3>
+          <p className="text-sm leading-relaxed">
+            La plateforme qui connecte les passionnés de golf pour créer
+            des rencontres sportives et partager des moments inoubliables.
+          </p>
         </div>
 
-        {/* Séparateur */}
-        <div className="border-t border-gray-800 mt-6 sm:mt-8 pt-6 sm:pt-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Contact */}
-            <div>
-              <h3 className="font-semibold text-base sm:text-lg mb-3 sm:mb-4">Contact</h3>
-              <div className="space-y-1 sm:space-y-2 text-sm text-gray-300">
-                <p><strong className="text-white">CORBERA 10 SAS</strong></p>
-                <p>71 rue Jean de Bernardy</p>
-                <p>13001 Marseille, France</p>
-                <p>SIREN : 529 138 919</p>
-                <p>
-                  Email: <a
-                    href="mailto:contact@smaaks.fr"
-                    className="text-green-400 hover:text-green-300 transition-colors"
-                  >
-                    contact@smaaks.fr
-                  </a>
-                </p>
-              </div>
-            </div>
-
-            {/* Copyright */}
-            <div className="flex flex-col justify-end">
-              <div className="text-center lg:text-right">
-                <p className="text-sm text-gray-400">
-                  © {new Date().getFullYear()} Golf Buddies - CORBERA 10 SAS
-                </p>
-                <p className="text-xs text-gray-500 mt-1">
-                  Tous droits réservés
-                </p>
-              </div>
-            </div>
-          </div>
+        {/* Colonne 2 */}
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-4">Plateforme</h3>
+          <ul className="space-y-2 text-sm">
+            <li><Link href="/search" className="hover:text-white">Découvrir des événements</Link></li>
+            <li><Link href="/dashboard" className="hover:text-white">Mon tableau de bord</Link></li>
+            <li><Link href="/profile" className="hover:text-white">Mon profil</Link></li>
+            <li><Link href="/help" className="hover:text-white">Centre d'aide</Link></li>
+          </ul>
         </div>
+
+        {/* Colonne 3 */}
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-4">Légal</h3>
+          <ul className="space-y-2 text-sm">
+            <li><Link href="/settings/terms" className="hover:text-white">Conditions générales</Link></li>
+            <li><Link href="/settings/privacy" className="hover:text-white">Politique de confidentialité</Link></li>
+            <li><Link href="/settings/cookies" className="hover:text-white">Politique des cookies</Link></li>
+            <li><Link href="/settings/legal" className="hover:text-white">Mentions légales</Link></li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Bas du footer */}
+      <div className="mt-8 border-t border-gray-700 pt-4 text-center text-xs text-gray-400">
+        © 2025 Golf Buddies. Tous droits réservés. | contact@golfbuddies.fr
       </div>
     </footer>
   );
