@@ -7,6 +7,7 @@ import EmailVerificationGuard from '@/components/auth/EmailVerificationGuard'
 import HydrationGuard from '@/components/HydrationGuard'
 import Navigation from '@/components/Navigation'
 import PWAInstaller from '@/components/PWAInstaller'
+import SiteFooter from '@/components/SiteFooter'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -83,6 +84,7 @@ export default function RootLayout({
               <div className="min-h-screen flex flex-col">
                 <Navigation />
                 <main className="flex-1 pb-16 md:pb-0">{children}</main>
+                <SiteFooter />
               </div>
               <PWAInstaller />
             </EmailVerificationGuard>

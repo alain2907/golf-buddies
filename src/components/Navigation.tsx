@@ -126,6 +126,30 @@ export default function Navigation() {
                   <User style={{ width: '16px', height: '16px' }} />
                   Mon profil
                 </Link>
+                <Link
+                  href="/settings"
+                  onClick={() => setShowUserMenu(false)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '12px 16px',
+                    textDecoration: 'none',
+                    color: '#374151',
+                    fontSize: '14px',
+                    transition: 'background 0.2s',
+                    borderBottom: '1px solid #f3f4f6'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#f9fafb'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'transparent'
+                  }}
+                >
+                  <Settings style={{ width: '16px', height: '16px' }} />
+                  Paramètres
+                </Link>
                 <button
                   onClick={handleLogout}
                   style={{
