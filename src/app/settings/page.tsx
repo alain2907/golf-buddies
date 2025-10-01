@@ -7,19 +7,58 @@ export default function SettingsPage() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-golf-fairway/10 to-golf-sky/20 pb-20">
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #f5f5f5 0%, #e8f5e9 100%)',
+      paddingBottom: '80px'
+    }}>
       {/* Header */}
-      <div className="bg-gradient-to-r from-golf-green via-golf-light to-golf-fairway shadow-2xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-20">
-            <button
-              onClick={() => router.back()}
-              className="text-white hover:bg-white/20 mr-4 px-4 py-2 rounded-lg transition-colors"
-            >
-              ← Retour
-            </button>
-            <h1 className="text-2xl font-bold text-white">
-              ⚙️ Paramètres et Informations Légales
+      <div style={{
+        background: 'linear-gradient(135deg, #2D5016 0%, #4A7C2E 100%)',
+        paddingTop: '20px',
+        paddingBottom: '20px',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 20px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px'
+        }}>
+          <button
+            onClick={() => router.back()}
+            style={{
+              background: 'rgba(255, 255, 255, 0.2)',
+              color: 'white',
+              border: 'none',
+              padding: '12px 20px',
+              borderRadius: '12px',
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontWeight: '500',
+              transition: 'all 0.2s',
+              backdropFilter: 'blur(10px)'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)'}
+            onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)'}
+          >
+            ← Retour
+          </button>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px'
+          }}>
+            <span style={{ fontSize: '24px' }}>⚙️</span>
+            <h1 style={{
+              fontSize: '24px',
+              fontWeight: 'bold',
+              color: 'white',
+              margin: 0
+            }}>
+              Paramètres et Informations Légales
             </h1>
           </div>
         </div>
