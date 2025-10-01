@@ -207,7 +207,7 @@ export default function EventPage() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '16px', marginBottom: '24px' }}>
                 <div>
                   <div style={{ fontSize: '14px', color: '#6b7280', marginBottom: '4px' }}>📍 Parcours</div>
-                  <div style={{ fontSize: '16px', fontWeight: '500' }}>{event.courseName}</div>
+                  <div style={{ fontSize: '16px', fontWeight: '500', wordBreak: 'break-word', overflowWrap: 'anywhere' }}>{event.courseName}</div>
                 </div>
                 <div>
                   <div style={{ fontSize: '14px', color: '#6b7280', marginBottom: '4px' }}>📅 Date & Heure</div>
