@@ -172,14 +172,14 @@ export default function EventPage() {
             ← Retour
           </button>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '8px', flexWrap: 'wrap' }}>
             <span style={{ fontSize: '36px' }}>⚽</span>
-            <h1 style={{ fontSize: '32px', fontWeight: 'bold', color: '#111827', margin: 0 }}>
+            <h1 style={{ fontSize: 'clamp(20px, 5vw, 32px)', fontWeight: 'bold', color: '#111827', margin: 0 }}>
               {event.title}
             </h1>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', color: '#6b7280' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', color: '#6b7280', flexWrap: 'wrap', fontSize: 'clamp(12px, 3vw, 14px)' }}>
             <span>📍 {event.location.city}</span>
             <span>📅 {eventDate.toLocaleDateString('fr-FR')}</span>
             <span>⏰ {event.time}</span>
@@ -188,8 +188,8 @@ export default function EventPage() {
         </div>
       </div>
 
-      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 24px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '32px' }}>
+      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 16px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '24px' }}>
           {/* Main Content */}
           <div>
             {/* Event Details */}
@@ -197,14 +197,14 @@ export default function EventPage() {
               background: 'white',
               borderRadius: '12px',
               boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-              padding: '32px',
+              padding: 'clamp(16px, 4vw, 32px)',
               marginBottom: '24px'
             }}>
-              <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '24px', color: '#111827' }}>
+              <h2 style={{ fontSize: 'clamp(18px, 4vw, 24px)', fontWeight: 'bold', marginBottom: '24px', color: '#111827' }}>
                 Détails de l&apos;événement
               </h2>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px', marginBottom: '24px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '16px', marginBottom: '24px' }}>
                 <div>
                   <div style={{ fontSize: '14px', color: '#6b7280', marginBottom: '4px' }}>📍 Parcours</div>
                   <div style={{ fontSize: '16px', fontWeight: '500' }}>{event.courseName}</div>
@@ -246,7 +246,7 @@ export default function EventPage() {
                 background: 'white',
                 borderRadius: '12px',
                 boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-                padding: '24px',
+                padding: 'clamp(16px, 4vw, 24px)',
                 cursor: 'pointer',
                 transition: 'all 0.2s'
               }}
