@@ -240,12 +240,25 @@ export default function EventPage() {
             </div>
 
             {/* Organizer */}
-            <div style={{
-              background: 'white',
-              borderRadius: '12px',
-              boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-              padding: '24px'
-            }}>
+            <div
+              onClick={() => router.push(`/profile/${event.organizerId}`)}
+              style={{
+                background: 'white',
+                borderRadius: '12px',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                padding: '24px',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)'
+                e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.15)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)'
+              }}
+            >
               <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '16px', color: '#111827' }}>
                 Organisateur
               </h3>
@@ -272,10 +285,11 @@ export default function EventPage() {
                     {event.organizerName.charAt(0).toUpperCase()}
                   </div>
                 )}
-                <div>
+                <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '16px', fontWeight: '500' }}>{event.organizerName}</div>
                   <div style={{ fontSize: '14px', color: '#6b7280' }}>Organisateur</div>
                 </div>
+                <div style={{ color: '#9ca3af' }}>→</div>
               </div>
             </div>
           </div>
