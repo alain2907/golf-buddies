@@ -72,7 +72,7 @@ export default function SearchPage() {
     }
 
     try {
-      await joinEvent(eventId, user.uid)
+      await joinEvent(eventId, user.uid, user.displayName, user.photoURL, user.handicap)
       router.push(`/events/${eventId}`)
     } catch (error: any) {
       alert('Erreur lors de la demande de participation: ' + error.message)
@@ -330,7 +330,7 @@ export default function SearchPage() {
         {availableEvents.length > 0 ? (
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 400px), 1fr))',
             gap: '20px'
           }}>
             {availableEvents.map((event) => (

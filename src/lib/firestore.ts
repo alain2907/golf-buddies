@@ -69,10 +69,16 @@ export const deleteEvent = async (eventId: string) => {
   return deleteDoc(doc(db, 'events', eventId))
 }
 
-export const joinEvent = async (eventId: string, userId: string) => {
-  return updateDoc(doc(db, 'events', eventId), {
-    currentPlayers: arrayUnion(userId),
-    updatedAt: serverTimestamp()
+export const joinEvent = async (eventId: string, userId: string, userName: string, userPhoto?: string, userHandicap?: number) => {
+  // Créer une demande de participation
+  await addDoc(collection(db, 'joinRequests'), {
+    eventId,
+    userId,
+    userName,
+    userPhoto: userPhoto || null,
+    userHandicap: userHandicap || null,
+    status: 'pending',
+    createdAt: serverTimestamp()
   })
 }
 
@@ -80,6 +86,29 @@ export const leaveEvent = async (eventId: string, userId: string) => {
   return updateDoc(doc(db, 'events', eventId), {
     currentPlayers: arrayRemove(userId),
     updatedAt: serverTimestamp()
+  })
+}
+
+// Accepter une demande de participation
+export const acceptJoinRequest = async (requestId: string, eventId: string, userId: string) => {
+  // Ajouter le joueur à l'événement
+  await updateDoc(doc(db, 'events', eventId), {
+    currentPlayers: arrayUnion(userId),
+    updatedAt: serverTimestamp()
+  })
+
+  // Mettre à jour le statut de la demande
+  await updateDoc(doc(db, 'joinRequests', requestId), {
+    status: 'accepted',
+    respondedAt: serverTimestamp()
+  })
+}
+
+// Refuser une demande de participation
+export const rejectJoinRequest = async (requestId: string) => {
+  await updateDoc(doc(db, 'joinRequests', requestId), {
+    status: 'rejected',
+    respondedAt: serverTimestamp()
   })
 }
 
@@ -162,7 +191,14 @@ export const subscribeToEvent = (
 ) => {
   return onSnapshot(doc(db, 'events', eventId), (doc) => {
     if (doc.exists()) {
-      callback({ id: doc.id, ...doc.data() } as GolfEvent)
+      const data = doc.data()
+      callback({
+        id: doc.id,
+        ...data,
+        date: data.date?.toDate() || new Date(),
+        createdAt: data.createdAt?.toDate() || new Date(),
+        updatedAt: data.updatedAt?.toDate() || new Date()
+      } as GolfEvent)
     } else {
       callback(null)
     }

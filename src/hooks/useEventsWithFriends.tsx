@@ -54,7 +54,8 @@ export function useEventsWithFriends() {
         // Filtrer les événements selon leur mode d'invitation
         const visibleEvents = allEvents.filter(event => {
           // Les événements communautaires sont visibles par tous
-          if (event.inviteMode === 'community') {
+          // Si inviteMode n'est pas défini, on considère que c'est 'community' par défaut
+          if (!event.inviteMode || event.inviteMode === 'community') {
             return true
           }
 

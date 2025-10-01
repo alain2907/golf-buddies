@@ -39,10 +39,16 @@ export function useEvents() {
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
-        const eventsData = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        })) as GolfEvent[]
+        const eventsData = snapshot.docs.map(doc => {
+          const data = doc.data()
+          return {
+            id: doc.id,
+            ...data,
+            date: data.date?.toDate() || new Date(),
+            createdAt: data.createdAt?.toDate() || new Date(),
+            updatedAt: data.updatedAt?.toDate() || new Date()
+          }
+        }) as GolfEvent[]
         setEvents(eventsData)
         setLoading(false)
         setError(null)
@@ -85,9 +91,9 @@ export function useEvents() {
     }
   }
 
-  const joinEvent = async (eventId: string, userId: string) => {
+  const joinEvent = async (eventId: string, userId: string, userName: string, userPhoto?: string, userHandicap?: number) => {
     try {
-      await joinEventDb(eventId, userId)
+      await joinEventDb(eventId, userId, userName, userPhoto, userHandicap)
     } catch (err: any) {
       setError(err.message)
       throw err
@@ -177,10 +183,16 @@ export function useUserEvents(userId: string | undefined) {
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
-        const eventsData = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        })) as GolfEvent[]
+        const eventsData = snapshot.docs.map(doc => {
+          const data = doc.data()
+          return {
+            id: doc.id,
+            ...data,
+            date: data.date?.toDate() || new Date(),
+            createdAt: data.createdAt?.toDate() || new Date(),
+            updatedAt: data.updatedAt?.toDate() || new Date()
+          }
+        }) as GolfEvent[]
         setEvents(eventsData)
         setLoading(false)
         setError(null)

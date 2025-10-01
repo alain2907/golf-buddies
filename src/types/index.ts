@@ -138,6 +138,18 @@ export interface Badge {
   }
 }
 
+export interface JoinRequest {
+  id: string
+  eventId: string
+  userId: string
+  userName: string
+  userPhoto?: string
+  userHandicap?: number
+  status: 'pending' | 'accepted' | 'rejected'
+  createdAt: Date
+  respondedAt?: Date
+}
+
 export interface FriendRequest {
   id: string
   fromUserId: string

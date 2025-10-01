@@ -468,7 +468,7 @@ export default function FriendsPage() {
 
           {activeTab === 'search' && (
             <div>
-              <div style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>
+              <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', flexWrap: 'wrap' }}>
                 <input
                   type="text"
                   placeholder="Rechercher des golfeurs par nom..."
@@ -476,7 +476,8 @@ export default function FriendsPage() {
                   onChange={(e) => setSearchTerm(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
                   style={{
-                    flex: 1,
+                    flex: '1 1 200px',
+                    minWidth: '200px',
                     padding: '12px 16px',
                     borderRadius: '12px',
                     border: '1px solid #d1d5db',
@@ -498,7 +499,8 @@ export default function FriendsPage() {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',
-                    opacity: (searchLoading || !searchTerm.trim()) ? 0.5 : 1
+                    opacity: (searchLoading || !searchTerm.trim()) ? 0.5 : 1,
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   <Search style={{ width: '18px', height: '18px' }} />

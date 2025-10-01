@@ -98,7 +98,7 @@ export default function CreateEventPage() {
       const eventDateTime = new Date(`${formData.date}T${formData.time}`)
 
       // Create the event data matching GolfEvent interface
-      const eventData = {
+      const eventData: any = {
         title: formData.title,
         description: formData.description || '',
         type: 'casual_round' as const,
@@ -129,8 +129,12 @@ export default function CreateEventPage() {
         gameFormat: formData.gameFormat,
         playStyle: formData.playStyle,
         challenges: formData.challenges,
-        inviteMode: formData.inviteMode as 'community' | 'friends',
-        handicapIndex: formData.handicapIndex ? parseFloat(formData.handicapIndex) : undefined
+        inviteMode: formData.inviteMode as 'community' | 'friends'
+      }
+
+      // Ajouter handicapIndex seulement s'il est défini
+      if (formData.handicapIndex) {
+        eventData.handicapIndex = parseFloat(formData.handicapIndex)
       }
 
       const eventId = await createEvent(eventData)
@@ -368,7 +372,7 @@ export default function CreateEventPage() {
             {/* Date & Time */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
               gap: '16px',
               marginBottom: '24px'
             }}>
@@ -530,7 +534,7 @@ export default function CreateEventPage() {
               </label>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
                 gap: '12px'
               }}>
                 {[
@@ -595,7 +599,7 @@ export default function CreateEventPage() {
               </label>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
                 gap: '12px'
               }}>
                 {[2, 3, 4].map(num => (
@@ -610,7 +614,8 @@ export default function CreateEventPage() {
                       borderRadius: '8px',
                       cursor: 'pointer',
                       transition: 'all 0.2s',
-                      backgroundColor: formData.maxPlayers === num ? '#E8F5E9' : 'white'
+                      backgroundColor: formData.maxPlayers === num ? '#E8F5E9' : 'white',
+                      fontSize: '14px'
                     }}
                   >
                     <input
@@ -623,7 +628,8 @@ export default function CreateEventPage() {
                     />
                     <span style={{
                       fontWeight: formData.maxPlayers === num ? '600' : '400',
-                      color: formData.maxPlayers === num ? '#2D5016' : '#374151'
+                      color: formData.maxPlayers === num ? '#2D5016' : '#374151',
+                      whiteSpace: 'nowrap'
                     }}>
                       {num} joueurs
                     </span>
@@ -643,7 +649,7 @@ export default function CreateEventPage() {
             {/* Niveau et Index */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
               gap: '16px',
               marginBottom: '24px'
             }}>
@@ -887,20 +893,20 @@ export default function CreateEventPage() {
               </label>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
                 gap: '12px'
               }}>
                 {[
                   {
                     value: 'friends',
-                    label: '👥 Mes amis uniquement',
-                    desc: 'Invitation privée à vos contacts',
+                    label: 'Mes amis uniquement',
+                    desc: 'Invitation privée',
                     icon: '🔒'
                   },
                   {
                     value: 'community',
-                    label: '🌍 Ouvert à la communauté',
-                    desc: 'Visible par tous les golfeurs',
+                    label: 'Ouvert à tous',
+                    desc: 'Visible par tous',
                     icon: '🌟'
                   }
                 ].map(mode => (
@@ -909,7 +915,7 @@ export default function CreateEventPage() {
                     style={{
                       display: 'flex',
                       flexDirection: 'column',
-                      padding: '16px',
+                      padding: '16px 12px',
                       border: formData.inviteMode === mode.value ? '2px solid #4A7C2E' : '1px solid #d1d5db',
                       borderRadius: '8px',
                       cursor: 'pointer',
@@ -929,9 +935,9 @@ export default function CreateEventPage() {
                       display: 'flex',
                       alignItems: 'center',
                       gap: '8px',
-                      marginBottom: '8px'
+                      marginBottom: '6px'
                     }}>
-                      <span style={{ fontSize: '20px' }}>{mode.icon}</span>
+                      <span style={{ fontSize: '18px' }}>{mode.icon}</span>
                       <span style={{
                         fontWeight: formData.inviteMode === mode.value ? '600' : '500',
                         color: formData.inviteMode === mode.value ? '#2D5016' : '#374151',
@@ -941,7 +947,7 @@ export default function CreateEventPage() {
                       </span>
                     </div>
                     <span style={{
-                      fontSize: '12px',
+                      fontSize: '11px',
                       color: '#6b7280',
                       textAlign: 'left'
                     }}>

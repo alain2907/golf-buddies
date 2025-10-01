@@ -1,5 +1,6 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Bell, X, Check, CheckCheck, Trash2 } from 'lucide-react'
 import { useNotifications } from '@/hooks/useNotifications'
 import { formatDistanceToNow } from 'date-fns'
@@ -12,6 +13,7 @@ interface NotificationCenterProps {
 export default function NotificationCenter({ className = '' }: NotificationCenterProps) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
   const {
     notifications,
     unreadCount,
@@ -55,9 +57,15 @@ export default function NotificationCenter({ className = '' }: NotificationCente
     }
   }
 
-  const handleNotificationClick = async (notificationId: string, read: boolean) => {
+  const handleNotificationClick = async (notificationId: string, read: boolean, eventId?: string) => {
     if (!read) {
       await markAsRead(notificationId)
+    }
+
+    // Naviguer vers l'événement si disponible
+    if (eventId) {
+      setIsOpen(false)
+      router.push(`/events/${eventId}`)
     }
   }
 
@@ -203,11 +211,11 @@ export default function NotificationCenter({ className = '' }: NotificationCente
               notifications.map((notification) => (
                 <div
                   key={notification.id}
-                  onClick={() => handleNotificationClick(notification.id, notification.read)}
+                  onClick={() => handleNotificationClick(notification.id, notification.read, notification.eventId)}
                   style={{
                     padding: '16px 20px',
                     borderBottom: '1px solid #f3f4f6',
-                    cursor: 'pointer',
+                    cursor: notification.eventId ? 'pointer' : 'default',
                     background: notification.read ? 'white' : '#f0f9ff',
                     transition: 'background 0.2s',
                     position: 'relative'

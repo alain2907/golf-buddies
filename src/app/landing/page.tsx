@@ -84,42 +84,18 @@ export default function LandingPage() {
               Parcourir les events
             </Link>
           </div>
-          <p className={styles.heroNote}>
-            Rejoignez plus de 10 000 golfeurs qui utilisent déjà Golf Buddies
-          </p>
         </div>
       </div>
 
-      {/* Stats Cards */}
-      <div className={styles.statsSection}>
-        <div className={styles.statsGrid}>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>10,000+</div>
-            <div className={styles.statLabel}>Golfeurs actifs</div>
-          </div>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>5,000+</div>
-            <div className={styles.statLabel}>Parties jouées</div>
-          </div>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>500+</div>
-            <div className={styles.statLabel}>Parcours de golf</div>
-          </div>
-          <div className={styles.statCard}>
-            <div className={styles.statNumber}>4.9★</div>
-            <div className={styles.statLabel}>Note utilisateurs</div>
-          </div>
-        </div>
-      </div>
 
       {/* Features Grid */}
       <div className={styles.featuresSection}>
         <div className={styles.featuresHeader}>
           <h2 className={styles.featuresTitle}>
-            Tout ce dont vous avez besoin pour améliorer votre jeu
+            Les fonctionnalités de Golf Buddies
           </h2>
           <p className={styles.featuresSubtitle}>
-            De la recherche de partenaires au suivi de vos progrès, nous nous occupons de tout
+            Trouvez des partenaires de golf et organisez vos parties facilement
           </p>
         </div>
 
@@ -128,48 +104,24 @@ export default function LandingPage() {
             <div className={styles.featureIcon} style={{ background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)' }}>
               <Users style={{ width: '32px', height: '32px' }} />
             </div>
-            <h3 className={styles.featureTitle}>Matching intelligent</h3>
-            <p className={styles.featureDescription}>Notre algorithme vous associe avec des golfeurs de votre niveau pour la partie parfaite</p>
+            <h3 className={styles.featureTitle}>Trouvez des partenaires</h3>
+            <p className={styles.featureDescription}>Connectez-vous avec d&apos;autres golfeurs et organisez des parties ensemble</p>
           </div>
 
           <div className={styles.featureCard}>
             <div className={styles.featureIcon} style={{ background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}>
               <Calendar style={{ width: '32px', height: '32px' }} />
             </div>
-            <h3 className={styles.featureTitle}>Planification facile</h3>
-            <p className={styles.featureDescription}>Réservez des créneaux, organisez des parties et gérez votre calendrier golf sans effort</p>
-          </div>
-
-          <div className={styles.featureCard}>
-            <div className={styles.featureIcon} style={{ background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)' }}>
-              <Trophy style={{ width: '32px', height: '32px' }} />
-            </div>
-            <h3 className={styles.featureTitle}>Tournois</h3>
-            <p className={styles.featureDescription}>Rejoignez des tournois locaux, affrontez vos amis et gagnez des prix</p>
-          </div>
-
-          <div className={styles.featureCard}>
-            <div className={styles.featureIcon} style={{ background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)' }}>
-              <MapPin style={{ width: '32px', height: '32px' }} />
-            </div>
-            <h3 className={styles.featureTitle}>Découverte de parcours</h3>
-            <p className={styles.featureDescription}>Explorez de nouveaux parcours, lisez les avis et trouvez des perles cachées près de chez vous</p>
-          </div>
-
-          <div className={styles.featureCard}>
-            <div className={styles.featureIcon} style={{ background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)' }}>
-              <TrendingUp style={{ width: '32px', height: '32px' }} />
-            </div>
-            <h3 className={styles.featureTitle}>Suivi des progrès</h3>
-            <p className={styles.featureDescription}>Surveillez votre handicap, vos statistiques et votre amélioration au fil du temps</p>
+            <h3 className={styles.featureTitle}>Créez des événements</h3>
+            <p className={styles.featureDescription}>Organisez vos parties de golf et invitez d&apos;autres joueurs à vous rejoindre</p>
           </div>
 
           <div className={styles.featureCard}>
             <div className={styles.featureIcon} style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' }}>
               <Zap style={{ width: '32px', height: '32px' }} />
             </div>
-            <h3 className={styles.featureTitle}>Chat instantané</h3>
-            <p className={styles.featureDescription}>Communiquez avec vos partenaires de jeu en temps réel</p>
+            <h3 className={styles.featureTitle}>Chat de groupe</h3>
+            <p className={styles.featureDescription}>Communiquez avec les participants de vos événements via la messagerie intégrée</p>
           </div>
         </div>
       </div>
@@ -181,7 +133,7 @@ export default function LandingPage() {
             Prêt à transformer votre expérience golf ?
           </h2>
           <p className={styles.ctaSubtitle}>
-            Rejoignez des milliers de golfeurs qui n'ont plus jamais à jouer seuls
+            Trouvez facilement des partenaires pour vos prochaines parties de golf
           </p>
           <Link href="/login" className={styles.ctaButton}>
             Commencez à jouer aujourd'hui - C'est gratuit !

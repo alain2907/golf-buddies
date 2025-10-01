@@ -53,13 +53,6 @@ export default function DashboardPage() {
            !event.currentPlayers.includes(user?.uid || '')
   }) || []
 
-  // Données de suggestions de golfeurs (mock pour l'instant)
-  const nearbyGolfers = [
-    { id: 1, name: 'Marc Dubois', handicap: 18, distance: '2.3 km', course: 'Golf de Saint-Cloud', avatar: 'M' },
-    { id: 2, name: 'Sophie Martin', handicap: 12, distance: '3.5 km', course: 'Golf de Fontainebleau', avatar: 'S' },
-    { id: 3, name: 'Jean Lefebvre', handicap: 24, distance: '5.1 km', course: 'Golf National', avatar: 'J' },
-    { id: 4, name: 'Pierre Moreau', handicap: 8, distance: '7.2 km', course: 'Golf de Chantilly', avatar: 'P' }
-  ]
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#f9fafb', paddingBottom: '80px' }}>
@@ -116,7 +109,7 @@ export default function DashboardPage() {
           {/* Stats rapides */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
+            gridTemplateColumns: 'repeat(2, 1fr)',
             gap: '12px',
             marginTop: '20px'
           }}>
@@ -139,16 +132,6 @@ export default function DashboardPage() {
             }}>
               <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'white' }}>{todayEvents.length}</div>
               <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.8)' }}>Disponibles aujourd&apos;hui</div>
-            </div>
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.15)',
-              backdropFilter: 'blur(10px)',
-              padding: '12px',
-              borderRadius: '12px',
-              textAlign: 'center'
-            }}>
-              <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'white' }}>15</div>
-              <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.8)' }}>Index moyen</div>
             </div>
           </div>
         </div>
@@ -253,89 +236,6 @@ export default function DashboardPage() {
               </button>
             </div>
           )}
-        </section>
-
-        {/* Suggestions de golfeurs */}
-        <section style={{ marginBottom: '32px' }}>
-          <h2 style={{
-            fontSize: '24px',
-            fontWeight: 'bold',
-            marginBottom: '16px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px'
-          }}>
-            <Users style={{ width: '24px', height: '24px', color: '#4A7C2E' }} />
-            Golfeurs près de vous
-          </h2>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-            gap: '16px'
-          }}>
-            {nearbyGolfers.map((golfer) => (
-              <div
-                key={golfer.id}
-                style={{
-                  background: 'white',
-                  borderRadius: '16px',
-                  padding: '16px',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)'
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.12)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)'
-                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)'
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #4A7C2E 0%, #6B9F3F 100%)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontWeight: 'bold',
-                    fontSize: '18px'
-                  }}>
-                    {golfer.avatar}
-                  </div>
-                  <div style={{ flex: 1 }}>
-                    <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '2px' }}>
-                      {golfer.name}
-                    </h3>
-                    <div style={{ fontSize: '14px', color: '#6b7280' }}>
-                      <div>Index {golfer.handicap} • {golfer.distance}</div>
-                      <div style={{ fontSize: '13px' }}>{golfer.course}</div>
-                    </div>
-                  </div>
-                  <button
-                    style={{
-                      background: '#E8F5E9',
-                      color: '#4A7C2E',
-                      border: 'none',
-                      padding: '8px 16px',
-                      borderRadius: '8px',
-                      fontSize: '14px',
-                      fontWeight: '500',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Inviter
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
         </section>
 
         {/* Parties ouvertes aujourd'hui */}

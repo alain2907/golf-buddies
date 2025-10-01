@@ -2,6 +2,7 @@
 import { useParams, useRouter } from 'next/navigation'
 import { useEvent } from '@/hooks/useEvents'
 import { useAuth } from '@/hooks/useAuth'
+import { useJoinRequests, useUserJoinRequest } from '@/hooks/useJoinRequests'
 import { useState } from 'react'
 import Footer from '@/components/Footer'
 import { MessageSection } from '@/components/MessageSection'
@@ -12,6 +13,8 @@ export default function EventPage() {
   const eventId = params.eventId as string
   const { event, loading, error } = useEvent(eventId)
   const { user } = useAuth()
+  const { requests, acceptRequest, rejectRequest } = useJoinRequests(eventId)
+  const { request: userRequest } = useUserJoinRequest(eventId, user?.uid)
   const [joinLoading, setJoinLoading] = useState(false)
 
   if (loading) {
@@ -92,6 +95,49 @@ export default function EventPage() {
   const hasJoined = user ? event.currentPlayers.includes(user.uid) : false
   const isFull = event.currentPlayers.length >= event.maxPlayers
   const eventDate = new Date(event.date)
+
+  const handleJoinEvent = async () => {
+    if (!user) {
+      router.push('/login')
+      return
+    }
+
+    setJoinLoading(true)
+    try {
+      const { joinEvent, leaveEvent } = await import('@/lib/firestore')
+      const { addDoc, collection, serverTimestamp } = await import('firebase/firestore')
+      const { db } = await import('@/lib/firebase')
+
+      if (hasJoined) {
+        await leaveEvent(eventId, user.uid)
+      } else {
+        // Créer la demande
+        await joinEvent(eventId, user.uid, user.displayName, user.photoURL, user.handicap)
+
+        // Envoyer une notification à l'organisateur
+        await addDoc(collection(db, 'notifications'), {
+          userId: event.organizerId,
+          type: 'join_request',
+          title: 'Nouvelle demande de participation',
+          message: `${user.displayName} souhaite rejoindre "${event.title}"`,
+          eventId: eventId,
+          data: {
+            requesterId: user.uid,
+            requesterName: user.displayName,
+            requesterPhoto: user.photoURL
+          },
+          read: false,
+          createdAt: serverTimestamp()
+        })
+
+        alert('Votre demande a été envoyée à l\'organisateur !')
+      }
+    } catch (error: any) {
+      alert('Erreur: ' + error.message)
+    } finally {
+      setJoinLoading(false)
+    }
+  }
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#f3f4f6', paddingBottom: '80px' }}>
@@ -252,43 +298,241 @@ export default function EventPage() {
               </div>
 
               {user && !isOrganizer && (
-                <button
-                  disabled={joinLoading || (!hasJoined && isFull)}
-                  style={{
-                    width: '100%',
-                    background: hasJoined
-                      ? '#ef4444'
-                      : (isFull ? '#9ca3af' : 'linear-gradient(135deg, #4A7C2E 0%, #6B9F3F 100%)'),
-                    color: 'white',
-                    border: 'none',
-                    padding: '16px',
-                    borderRadius: '8px',
-                    fontSize: '16px',
-                    fontWeight: '500',
-                    cursor: (joinLoading || (!hasJoined && isFull)) ? 'not-allowed' : 'pointer',
-                    transition: 'all 0.2s'
-                  }}
-                >
-                  {joinLoading ? 'Chargement...' :
-                   hasJoined ? 'Se désinscrire' :
-                   isFull ? 'Complet' : 'Rejoindre'}
-                </button>
+                <>
+                  {userRequest ? (
+                    <div style={{
+                      background: '#FEF3C7',
+                      border: '1px solid #F59E0B',
+                      borderRadius: '8px',
+                      padding: '16px',
+                      textAlign: 'center'
+                    }}>
+                      <div style={{ fontSize: '24px', marginBottom: '8px' }}>⏳</div>
+                      <div style={{ fontSize: '14px', color: '#92400E', fontWeight: '500' }}>
+                        Demande en attente
+                      </div>
+                      <div style={{ fontSize: '12px', color: '#92400E', marginTop: '4px' }}>
+                        L'organisateur doit valider votre participation
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={handleJoinEvent}
+                      disabled={joinLoading || (!hasJoined && isFull)}
+                      style={{
+                        width: '100%',
+                        background: hasJoined
+                          ? '#ef4444'
+                          : (isFull ? '#9ca3af' : 'linear-gradient(135deg, #4A7C2E 0%, #6B9F3F 100%)'),
+                        color: 'white',
+                        border: 'none',
+                        padding: '16px',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        fontWeight: '500',
+                        cursor: (joinLoading || (!hasJoined && isFull)) ? 'not-allowed' : 'pointer',
+                        transition: 'all 0.2s'
+                      }}
+                    >
+                      {joinLoading ? 'Chargement...' :
+                       hasJoined ? 'Se désinscrire' :
+                       isFull ? 'Complet' : 'Rejoindre'}
+                    </button>
+                  )}
+                </>
               )}
 
               {isOrganizer && (
-                <div style={{
-                  background: '#dbeafe',
-                  border: '1px solid #93c5fd',
-                  borderRadius: '8px',
-                  padding: '12px',
-                  textAlign: 'center'
-                }}>
-                  <span style={{ color: '#1e40af', fontSize: '14px', fontWeight: '500' }}>
-                    🎯 Vous êtes l&apos;organisateur
-                  </span>
-                </div>
-              )}
+                <>
+                  <div style={{
+                    background: '#dbeafe',
+                    border: '1px solid #93c5fd',
+                    borderRadius: '8px',
+                    padding: '12px',
+                    textAlign: 'center',
+                    marginBottom: '12px'
+                  }}>
+                    <span style={{ color: '#1e40af', fontSize: '14px', fontWeight: '500' }}>
+                      🎯 Vous êtes l&apos;organisateur
+                    </span>
+                  </div>
 
+                  <div style={{ display: 'flex', gap: '8px', flexDirection: 'column' }}>
+                    <button
+                      onClick={() => router.push(`/events/${event.id}/edit`)}
+                      style={{
+                        width: '100%',
+                        background: 'white',
+                        border: '2px solid #4A7C2E',
+                        color: '#4A7C2E',
+                        padding: '12px',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#E8F5E9'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'white'
+                      }}
+                    >
+                      ✏️ Modifier l&apos;événement
+                    </button>
+
+                    <button
+                      onClick={async () => {
+                        if (window.confirm('Êtes-vous sûr de vouloir supprimer cet événement ? Cette action est irréversible.')) {
+                          try {
+                            const { deleteEvent } = await import('@/lib/firestore')
+                            await deleteEvent(event.id)
+                            alert('Événement supprimé avec succès')
+                            router.push('/dashboard')
+                          } catch (error) {
+                            alert('Erreur lors de la suppression')
+                          }
+                        }
+                      }}
+                      style={{
+                        width: '100%',
+                        background: 'white',
+                        border: '2px solid #ef4444',
+                        color: '#ef4444',
+                        padding: '12px',
+                        borderRadius: '8px',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#fee2e2'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'white'
+                      }}
+                    >
+                      🗑️ Supprimer l&apos;événement
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Demandes en attente (organisateur uniquement) */}
+            {isOrganizer && requests.length > 0 && (
+              <div style={{
+                background: 'white',
+                borderRadius: '12px',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                padding: '24px',
+                marginBottom: '24px'
+              }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '16px', color: '#111827' }}>
+                  Demandes en attente ({requests.length})
+                </h3>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  {requests.map(request => (
+                    <div
+                      key={request.id}
+                      style={{
+                        background: '#f9fafb',
+                        borderRadius: '8px',
+                        padding: '16px',
+                        border: '1px solid #e5e7eb'
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                        {request.userPhoto ? (
+                          <img
+                            src={request.userPhoto}
+                            alt={request.userName}
+                            style={{ width: '40px', height: '40px', borderRadius: '50%' }}
+                          />
+                        ) : (
+                          <div style={{
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '50%',
+                            background: '#4A7C2E',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: 'white',
+                            fontSize: '16px',
+                            fontWeight: 'bold'
+                          }}>
+                            {request.userName.charAt(0).toUpperCase()}
+                          </div>
+                        )}
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontSize: '16px', fontWeight: '500' }}>{request.userName}</div>
+                          {request.userHandicap && (
+                            <div style={{ fontSize: '12px', color: '#6b7280' }}>Index: {request.userHandicap}</div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        <button
+                          onClick={async () => {
+                            try {
+                              await acceptRequest(request.id, eventId, request.userId, request.userName, event.title)
+                              alert(`${request.userName} a été ajouté à l'événement`)
+                            } catch (error) {
+                              alert('Erreur lors de l\'acceptation')
+                            }
+                          }}
+                          style={{
+                            flex: 1,
+                            background: '#4A7C2E',
+                            color: 'white',
+                            border: 'none',
+                            padding: '8px',
+                            borderRadius: '6px',
+                            fontSize: '14px',
+                            fontWeight: '500',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          ✅ Accepter
+                        </button>
+                        <button
+                          onClick={async () => {
+                            if (window.confirm(`Refuser la demande de ${request.userName} ?`)) {
+                              try {
+                                await rejectRequest(request.id, request.userId, event.title)
+                                alert('Demande refusée')
+                              } catch (error) {
+                                alert('Erreur lors du refus')
+                              }
+                            }
+                          }}
+                          style={{
+                            flex: 1,
+                            background: '#ef4444',
+                            color: 'white',
+                            border: 'none',
+                            padding: '8px',
+                            borderRadius: '6px',
+                            fontSize: '14px',
+                            fontWeight: '500',
+                            cursor: 'pointer'
+                          }}
+                        >
+                          ❌ Refuser
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div>
               {!user && (
                 <div style={{
                   background: '#fef3c7',
