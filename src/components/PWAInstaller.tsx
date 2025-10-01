@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { X, Download, Smartphone, ChevronRight, Globe, Info } from 'lucide-react'
 import styles from './PWAInstaller.module.css'
+import { detectTWA } from '@/utils/twaDetector'
 
 interface BrowserInfo {
   name: string
@@ -111,8 +112,11 @@ export default function PWAInstaller() {
     const browser = detectBrowser()
     setBrowserInfo(browser)
 
-    // Vérifier si déjà installé
-    if (window.matchMedia('(display-mode: standalone)').matches) {
+    // Vérifier si déjà installé (PWA ou TWA)
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+    const isTWA = detectTWA()
+
+    if (isStandalone || isTWA) {
       setIsInstalled(true)
       return
     }
