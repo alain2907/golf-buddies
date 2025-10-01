@@ -6,8 +6,37 @@ const withPWA = withPWAInit({
   skipWaiting: true,
   disable: process.env.NODE_ENV === 'development',
   fallbacks: {
-    document: '/offline.html'
-  }
+    document: '/offline.html',
+    // Fallback pour les images
+    image: '/logo-golf.png',
+    // Fallback pour les autres ressources
+    font: '/offline.html',
+  },
+  // Configuration de cache robuste pour Android
+  runtimeCaching: [
+    {
+      // Pages de l'app : toujours vérifier le réseau d'abord
+      urlPattern: /^https?:\/\/[^/]+\/(dashboard|profile|events|flights|friends|search|courses|settings).*/,
+      handler: 'NetworkOnly', // Ne pas mettre en cache les pages principales
+      options: {
+        cacheName: 'pages-cache',
+      },
+    },
+    {
+      // API et assets : NetworkFirst avec fallback
+      urlPattern: /^https?.*/,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'offlineCache',
+        expiration: {
+          maxEntries: 200,
+        },
+        networkTimeoutSeconds: 10,
+      },
+    },
+  ],
+  // S'assurer que offline.html est bien précaché
+  publicExcludes: ['!offline.html'],
 })
 
 /** @type {import('next').NextConfig} */

@@ -1,0 +1,25 @@
+{
+  "name": "pwa-offline-package",
+  "version": "1.0.0",
+  "description": "Package générique PWA et mode hors connexion pour Next.js/React",
+  "main": "index.ts",
+  "keywords": [
+    "pwa",
+    "offline",
+    "next.js",
+    "react",
+    "service-worker",
+    "cache",
+    "indexeddb"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "next": ">=13.0.0"
+  },
+  "dependencies": {
+    "next-pwa": "^5.6.0"
+  }
+}
