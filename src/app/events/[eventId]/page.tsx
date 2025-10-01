@@ -3,6 +3,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { useEvent } from '@/hooks/useEvents'
 import { useAuth } from '@/hooks/useAuth'
 import { useJoinRequests, useUserJoinRequest } from '@/hooks/useJoinRequests'
+import { useEventParticipants } from '@/hooks/useEventParticipants'
 import { useState } from 'react'
 import Footer from '@/components/Footer'
 import { MessageSection } from '@/components/MessageSection'
@@ -15,6 +16,7 @@ export default function EventPage() {
   const { user } = useAuth()
   const { requests, acceptRequest, rejectRequest } = useJoinRequests(eventId)
   const { request: userRequest } = useUserJoinRequest(eventId, user?.uid)
+  const { participants } = useEventParticipants(event?.currentPlayers || [])
   const [joinLoading, setJoinLoading] = useState(false)
 
   if (loading) {
@@ -561,6 +563,100 @@ export default function EventPage() {
                 </div>
               )}
             </div>
+
+            {/* Liste des participants */}
+            {participants.length > 0 && (
+              <div style={{
+                background: 'white',
+                borderRadius: '12px',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                padding: '24px',
+                marginBottom: '24px'
+              }}>
+                <h3 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '16px', color: '#111827' }}>
+                  Participants ({participants.length}/{event.maxPlayers})
+                </h3>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  {participants.map((participant) => (
+                    <div
+                      key={participant.uid}
+                      onClick={() => router.push(`/profile/${participant.uid}`)}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        padding: '12px',
+                        background: '#f9fafb',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s',
+                        border: '1px solid #e5e7eb'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#f3f4f6'
+                        e.currentTarget.style.borderColor = '#4A7C2E'
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = '#f9fafb'
+                        e.currentTarget.style.borderColor = '#e5e7eb'
+                      }}
+                    >
+                      {participant.photoURL ? (
+                        <img
+                          src={participant.photoURL}
+                          alt={participant.displayName}
+                          style={{
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '50%',
+                            objectFit: 'cover'
+                          }}
+                        />
+                      ) : (
+                        <div style={{
+                          width: '40px',
+                          height: '40px',
+                          borderRadius: '50%',
+                          background: '#4A7C2E',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: 'white',
+                          fontSize: '16px',
+                          fontWeight: 'bold'
+                        }}>
+                          {participant.displayName.charAt(0).toUpperCase()}
+                        </div>
+                      )}
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: '14px', fontWeight: '500', color: '#111827' }}>
+                          {participant.displayName}
+                          {participant.uid === event.organizerId && (
+                            <span style={{
+                              marginLeft: '8px',
+                              fontSize: '12px',
+                              color: '#4A7C2E',
+                              background: '#E8F5E9',
+                              padding: '2px 8px',
+                              borderRadius: '4px'
+                            }}>
+                              Organisateur
+                            </span>
+                          )}
+                        </div>
+                        {participant.handicap !== undefined && (
+                          <div style={{ fontSize: '12px', color: '#6b7280' }}>
+                            Index: {participant.handicap}
+                          </div>
+                        )}
+                      </div>
+                      <div style={{ color: '#9ca3af' }}>→</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Event Status */}
             <div style={{
