@@ -32,17 +32,22 @@ export function MessageSection({ event }: MessageSectionProps) {
     setLoading(true)
     const unsubscribe = MessageModerationService.subscribeToEventMessages(event.id, (msgs) => {
       // Pour l'organisateur, montrer TOUS les messages (même masqués)
-      // Pour les autres, filtrer les messages masqués
-      const filteredMessages = isOrganizer
+      // Pour les autres, filtrer les messages masqués ET les messages des utilisateurs bloqués
+      let filteredMessages = isOrganizer
         ? msgs // Montrer tous les messages pour l'organisateur
         : msgs.filter(msg => msg.status === 'visible') // Montrer seulement visibles pour les autres
+
+      // Filtrer les messages des utilisateurs bloqués
+      if (user && user.blockedUsers && user.blockedUsers.length > 0) {
+        filteredMessages = filteredMessages.filter(msg => !user.blockedUsers!.includes(msg.userId))
+      }
 
       setMessages(filteredMessages)
       setLoading(false)
     })
 
     return () => unsubscribe()
-  }, [event.id, isOrganizer])
+  }, [event.id, isOrganizer, user])
 
   const handleSendMessage = async () => {
     if (!user || !newMessage.trim() || !canSendMessage) return

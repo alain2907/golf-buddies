@@ -27,6 +27,25 @@ export default function SettingsPage() {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Utilisateurs bloqués */}
+          <Link
+            href="/settings/blocked"
+            className="bg-white/80 backdrop-blur-sm rounded-xl shadow-xl border border-golf-fairway/20 p-6 hover:shadow-2xl transition-all duration-300 group"
+          >
+            <div className="flex items-center gap-4 mb-4">
+              <div className="bg-red-100 p-3 rounded-lg group-hover:bg-red-200 transition-colors">
+                <span className="text-2xl">🚫</span>
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-gray-900">Utilisateurs bloqués</h2>
+                <p className="text-gray-600 text-sm">Gérer les utilisateurs bloqués</p>
+              </div>
+            </div>
+            <p className="text-gray-700">
+              Consultez et gérez la liste des utilisateurs que vous avez bloqués.
+            </p>
+          </Link>
+
           {/* Politique de Confidentialité */}
           <Link
             href="/settings/privacy"

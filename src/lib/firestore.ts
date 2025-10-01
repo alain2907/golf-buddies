@@ -70,6 +70,24 @@ export const deleteEvent = async (eventId: string) => {
 }
 
 export const joinEvent = async (eventId: string, userId: string, userName: string, userPhoto?: string, userHandicap?: number) => {
+  // Vérifier si l'utilisateur est bloqué par l'organisateur
+  const eventDoc = await getDoc(doc(db, 'events', eventId))
+  if (!eventDoc.exists()) {
+    throw new Error('Événement introuvable')
+  }
+
+  const event = eventDoc.data()
+  const organizerId = event.organizerId
+
+  // Récupérer le profil de l'organisateur pour vérifier les utilisateurs bloqués
+  const organizerDoc = await getDoc(doc(db, 'users', organizerId))
+  if (organizerDoc.exists()) {
+    const organizerData = organizerDoc.data() as User
+    if (organizerData.blockedUsers && organizerData.blockedUsers.includes(userId)) {
+      throw new Error('Vous ne pouvez pas rejoindre cet événement')
+    }
+  }
+
   // Créer une demande de participation
   await addDoc(collection(db, 'joinRequests'), {
     eventId,

@@ -9,6 +9,7 @@ export interface User {
   bio?: string
   createdAt: Date
   lastActive?: Date
+  blockedUsers?: string[] // Array of blocked user IDs
   preferences: {
     playStyle: 'competitive' | 'casual' | 'practice'
     preferredTeeTime: 'morning' | 'afternoon' | 'evening'

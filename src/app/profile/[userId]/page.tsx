@@ -6,8 +6,10 @@ import { db } from '@/lib/firebase'
 import { User } from '@/types'
 import { useAuth } from '@/hooks/useAuth'
 import { useFriends } from '@/hooks/useFriends'
+import { UserBlockingService } from '@/lib/userBlocking'
 import Footer from '@/components/Footer'
-import { MapPin, Calendar, Award, TrendingUp, ChevronLeft } from 'lucide-react'
+import toast from 'react-hot-toast'
+import { MapPin, Calendar, Award, TrendingUp, ChevronLeft, Ban, ShieldOff } from 'lucide-react'
 
 export default function PublicProfilePage() {
   const params = useParams()
@@ -18,6 +20,7 @@ export default function PublicProfilePage() {
   const [profileUser, setProfileUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const [friendshipStatus, setFriendshipStatus] = useState<'none' | 'pending_sent' | 'pending_received' | 'friends'>('none')
+  const [isBlocked, setIsBlocked] = useState(false)
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -34,6 +37,10 @@ export default function PublicProfilePage() {
           if (currentUser) {
             const status = await getFriendshipStatus(userId)
             setFriendshipStatus(status)
+
+            // Check if user is blocked
+            const blocked = await UserBlockingService.isUserBlocked(currentUser.uid, userId)
+            setIsBlocked(blocked)
           }
         }
       } catch (error) {
@@ -57,6 +64,32 @@ export default function PublicProfilePage() {
       setFriendshipStatus('pending_sent')
     } catch (error: any) {
       alert(error.message)
+    }
+  }
+
+  const handleBlockUser = async () => {
+    if (!currentUser) return
+
+    if (confirm(`Êtes-vous sûr de vouloir bloquer ${profileUser?.displayName} ?`)) {
+      try {
+        await UserBlockingService.blockUser(currentUser.uid, userId)
+        setIsBlocked(true)
+        toast.success('Utilisateur bloqué')
+      } catch (error: any) {
+        toast.error(error.message || 'Erreur lors du blocage')
+      }
+    }
+  }
+
+  const handleUnblockUser = async () => {
+    if (!currentUser) return
+
+    try {
+      await UserBlockingService.unblockUser(currentUser.uid, userId)
+      setIsBlocked(false)
+      toast.success('Utilisateur débloqué')
+    } catch (error: any) {
+      toast.error(error.message || 'Erreur lors du déblocage')
     }
   }
 
@@ -213,7 +246,7 @@ export default function PublicProfilePage() {
             </div>
 
             {!isOwnProfile && currentUser && (
-              <div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'flex-end' }}>
                 {friendshipStatus === 'none' && (
                   <button
                     onClick={handleFriendRequest}
@@ -254,6 +287,67 @@ export default function PublicProfilePage() {
                   }}>
                     ✓ Amis
                   </div>
+                )}
+
+                {/* Block/Unblock Button */}
+                {isBlocked ? (
+                  <button
+                    onClick={handleUnblockUser}
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.2)',
+                      color: 'white',
+                      border: '1px solid rgba(255, 255, 255, 0.3)',
+                      padding: '8px 16px',
+                      borderRadius: '8px',
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      transition: 'all 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)'
+                    }}
+                  >
+                    <ShieldOff style={{ width: '14px', height: '14px' }} />
+                    Débloquer
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleBlockUser}
+                    style={{
+                      background: 'transparent',
+                      color: 'rgba(255, 255, 255, 0.7)',
+                      border: '1px solid rgba(255, 255, 255, 0.3)',
+                      padding: '8px 16px',
+                      borderRadius: '8px',
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      transition: 'all 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)'
+                      e.currentTarget.style.color = 'white'
+                      e.currentTarget.style.borderColor = '#ef4444'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'transparent'
+                      e.currentTarget.style.color = 'rgba(255, 255, 255, 0.7)'
+                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'
+                    }}
+                  >
+                    <Ban style={{ width: '14px', height: '14px' }} />
+                    Bloquer
+                  </button>
                 )}
               </div>
             )}
