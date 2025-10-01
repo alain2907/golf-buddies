@@ -64,8 +64,21 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Contenu */}
+      <div style={{
+        maxWidth: '1000px',
+        margin: '0 auto',
+        padding: '32px 20px'
+      }}>
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          borderRadius: '20px',
+          padding: '40px',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+          border: '1px solid rgba(255, 255, 255, 0.2)'
+        }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Utilisateurs bloqués */}
           <Link
             href="/settings/blocked"
@@ -181,35 +194,54 @@ export default function SettingsPage() {
           </Link>
         </div>
 
-        {/* Contact */}
-        <div className="mt-8 bg-white/80 backdrop-blur-sm rounded-xl shadow-xl border border-golf-fairway/20 p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-            <span>📧</span>
-            Contact
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="font-semibold text-gray-800 mb-2">CORBERA 10 SAS</h3>
-              <p className="text-gray-700 text-sm">
-                71 rue Jean de Bernardy<br/>
-                13001 Marseille, France<br/>
-                SIREN : 529 138 919
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-gray-800 mb-2">Support</h3>
-              <p className="text-gray-700 text-sm">
-                Email : <a href="mailto:contact@smaaks.fr" className="text-golf-green hover:underline">contact@smaaks.fr</a><br/>
-                Réponse sous 24h en moyenne
-              </p>
+          {/* Contact */}
+          <div className="mt-8 bg-white/80 backdrop-blur-sm rounded-xl shadow-xl border border-golf-fairway/20 p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <span>📧</span>
+              Contact
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="font-semibold text-gray-800 mb-2">CORBERA 10 SAS</h3>
+                <p className="text-gray-700 text-sm">
+                  71 rue Jean de Bernardy<br/>
+                  13001 Marseille, France<br/>
+                  SIREN : 529 138 919
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-800 mb-2">Support</h3>
+                <p className="text-gray-700 text-sm">
+                  Email : <a href="mailto:contact@smaaks.fr" className="text-golf-green hover:underline">contact@smaaks.fr</a><br/>
+                  Réponse sous 24h en moyenne
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-8 flex justify-center">
+        {/* Bouton de retour */}
+        <div style={{
+          marginTop: '32px',
+          display: 'flex',
+          justifyContent: 'center'
+        }}>
           <button
-            onClick={() => router.back()}
-            className="bg-golf-green hover:bg-golf-light text-white px-8 py-3 rounded-lg transition-colors font-medium"
+            onClick={() => router.push('/dashboard')}
+            style={{
+              background: 'linear-gradient(135deg, #2D5016 0%, #4A7C2E 100%)',
+              color: 'white',
+              border: 'none',
+              padding: '16px 32px',
+              borderRadius: '12px',
+              fontSize: '16px',
+              fontWeight: '500',
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+              boxShadow: '0 4px 12px rgba(45, 80, 22, 0.3)'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
           >
             ← Retour
           </button>
