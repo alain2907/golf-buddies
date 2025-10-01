@@ -121,6 +121,25 @@ export default function SettingsPage() {
               Informations légales sur CORBERA 10 SAS, éditeur de Golf Buddies, et hébergement des données.
             </p>
           </Link>
+
+          {/* Suppression de compte */}
+          <Link
+            href="/settings/delete-account"
+            className="bg-white/80 backdrop-blur-sm rounded-xl shadow-xl border border-red-300 p-6 hover:shadow-2xl transition-all duration-300 group"
+          >
+            <div className="flex items-center gap-4 mb-4">
+              <div className="bg-red-100 p-3 rounded-lg group-hover:bg-red-200 transition-colors">
+                <span className="text-2xl">🗑️</span>
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-gray-900">Supprimer mon compte</h2>
+                <p className="text-gray-600 text-sm">Action irréversible</p>
+              </div>
+            </div>
+            <p className="text-gray-700">
+              Supprimez définitivement votre compte et toutes vos données associées.
+            </p>
+          </Link>
         </div>
 
         {/* Contact */}

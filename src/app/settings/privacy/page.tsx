@@ -146,7 +146,40 @@ export default function PrivacyPolicy() {
               Vos données sont conservées pendant la durée nécessaire aux finalités du traitement et conformément aux obligations légales. En cas de suppression de compte, vos données sont effacées sous 30 jours.
             </p>
 
-            <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: '#1a1a1a', marginTop: '32px', marginBottom: '16px' }}>6. Contact</h2>
+            <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: '#1a1a1a', marginTop: '32px', marginBottom: '16px' }}>6. Suppression de compte</h2>
+            <div style={{
+              background: 'rgba(239, 68, 68, 0.1)',
+              padding: '20px',
+              borderRadius: '12px',
+              border: '1px solid rgba(239, 68, 68, 0.3)',
+              marginBottom: '24px'
+            }}>
+              <p style={{ marginBottom: '12px', fontWeight: '600' }}>Vous pouvez supprimer votre compte à tout moment :</p>
+              <button
+                onClick={() => router.push('/settings/delete-account')}
+                style={{
+                  background: 'linear-gradient(135deg, #DC2626 0%, #EF4444 100%)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '12px 24px',
+                  borderRadius: '8px',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  boxShadow: '0 2px 8px rgba(239, 68, 68, 0.3)'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+              >
+                🗑️ Supprimer mon compte
+              </button>
+              <p style={{ marginTop: '12px', fontSize: '14px', color: '#666' }}>
+                Attention : cette action est irréversible et supprimera toutes vos données.
+              </p>
+            </div>
+
+            <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: '#1a1a1a', marginTop: '32px', marginBottom: '16px' }}>7. Contact</h2>
             <div style={{
               background: 'rgba(45, 80, 22, 0.1)',
               padding: '20px',
