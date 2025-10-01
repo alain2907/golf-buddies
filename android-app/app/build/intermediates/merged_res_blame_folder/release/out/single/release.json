@@ -1,0 +1,50 @@
+[
+    {
+        "merged": "com.golf.buddies.app-merged_res-32:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.golf.buddies.app-main-33:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.golf.buddies.app-merged_res-32:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "com.golf.buddies.app-main-33:/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.golf.buddies.app-merged_res-32:/xml_data_extraction_rules.xml.flat",
+        "source": "com.golf.buddies.app-main-33:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.golf.buddies.app-merged_res-32:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.golf.buddies.app-main-33:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.golf.buddies.app-merged_res-32:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.golf.buddies.app-main-33:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.golf.buddies.app-merged_res-32:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.golf.buddies.app-main-33:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.golf.buddies.app-merged_res-32:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.golf.buddies.app-main-33:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.golf.buddies.app-merged_res-32:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.golf.buddies.app-main-33:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.golf.buddies.app-merged_res-32:/xml_backup_rules.xml.flat",
+        "source": "com.golf.buddies.app-main-33:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.golf.buddies.app-merged_res-32:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.golf.buddies.app-main-33:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.golf.buddies.app-merged_res-32:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.golf.buddies.app-main-33:/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.golf.buddies.app-merged_res-32:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "com.golf.buddies.app-main-33:/mipmap-xxxhdpi/ic_launcher_round.png"
+    }
+]

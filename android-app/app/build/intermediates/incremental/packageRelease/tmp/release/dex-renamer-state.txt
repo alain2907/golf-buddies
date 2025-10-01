@@ -1,0 +1,4 @@
+#Wed Oct 01 10:51:22 CEST 2025
+base.0=/Users/alainnataf/smaaks/Golf/golf-buddies/android-app/app/build/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
