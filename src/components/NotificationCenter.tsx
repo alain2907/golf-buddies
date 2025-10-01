@@ -36,6 +36,12 @@ export default function NotificationCenter({ className = '' }: NotificationCente
 
   const getNotificationIcon = (type: string) => {
     switch (type) {
+      case 'join_request':
+        return '👋'
+      case 'join_request_accepted':
+        return '✅'
+      case 'join_request_rejected':
+        return '❌'
       case 'new_compatible_event':
         return '🎯'
       case 'event_reminder_24h':

@@ -1,11 +1,13 @@
 'use client'
 
 import { useRouter, usePathname } from 'next/navigation'
+import { useNotifications } from '@/hooks/useNotifications'
 import styles from './Footer.module.css'
 
 export default function Footer() {
   const router = useRouter()
   const pathname = usePathname()
+  const { unreadCount } = useNotifications()
 
   // Déterminer quelle section est active
   const isHome = pathname === '/dashboard'
