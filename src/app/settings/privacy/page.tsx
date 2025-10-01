@@ -27,7 +27,7 @@ export default function PrivacyPolicy() {
           gap: '16px'
         }}>
           <button
-            onClick={() => router.back()}
+            onClick={() => router.push('/settings')}
             style={{
               background: 'rgba(255, 255, 255, 0.2)',
               color: 'white',
@@ -167,7 +167,7 @@ export default function PrivacyPolicy() {
           justifyContent: 'center'
         }}>
           <button
-            onClick={() => router.back()}
+            onClick={() => router.push('/settings')}
             style={{
               background: 'linear-gradient(135deg, #2D5016 0%, #4A7C2E 100%)',
               color: 'white',
