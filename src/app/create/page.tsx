@@ -335,12 +335,12 @@ export default function CreateEventPage() {
                     border: '1px solid #d1d5db',
                     borderRadius: '8px',
                     marginTop: '4px',
-                    maxHeight: '200px',
+                    maxHeight: '400px',
                     overflowY: 'auto',
                     zIndex: 10,
                     boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
                   }}>
-                    {filteredCourses.slice(0, 10).map(course => (
+                    {filteredCourses.map(course => (
                       <div
                         key={course.id}
                         onClick={() => handleCourseSelect(course)}
