@@ -244,21 +244,34 @@ export default function LoginPage() {
         </form>
 
         {/* Link to Signup */}
-        <div style={{ marginTop: '24px', textAlign: 'center' }}>
+        <div style={{
+          marginTop: '24px',
+          textAlign: 'center',
+          padding: '16px',
+          background: '#f0f9ff',
+          borderRadius: '8px',
+          border: '1px solid #bfdbfe'
+        }}>
+          <p style={{ margin: '0 0 8px 0', color: '#1e40af', fontSize: '14px' }}>
+            Pas encore de compte ?
+          </p>
           <button
             onClick={() => router.push('/signup')}
             style={{
-              color: '#4facfe',
-              fontWeight: '500',
-              background: 'none',
+              color: 'white',
+              background: '#10b981',
+              fontWeight: '600',
+              padding: '10px 24px',
               border: 'none',
+              borderRadius: '6px',
               cursor: 'pointer',
-              transition: 'color 0.2s'
+              fontSize: '15px',
+              transition: 'background 0.2s'
             }}
-            onMouseOver={(e) => (e.target as HTMLButtonElement).style.color = '#3b82f6'}
-            onMouseOut={(e) => (e.target as HTMLButtonElement).style.color = '#4facfe'}
+            onMouseOver={(e) => (e.target as HTMLButtonElement).style.background = '#059669'}
+            onMouseOut={(e) => (e.target as HTMLButtonElement).style.background = '#10b981'}
           >
-            Pas encore de compte ? S&apos;inscrire
+            Créer un compte
           </button>
         </div>
 

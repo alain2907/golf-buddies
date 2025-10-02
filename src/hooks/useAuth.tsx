@@ -197,16 +197,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signIn = async (email: string, password: string) => {
     try {
       await signInWithEmailAndPassword(auth, email, password)
-      toast.success('Welcome back!')
+      toast.success('Bienvenue !')
     } catch (error: any) {
       console.error('Signin error:', error)
-      if (error.code === 'auth/user-not-found') {
-        throw new Error('No account found with this email')
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+        throw new Error('Aucun compte trouvé avec cet email. Voulez-vous créer un compte ?')
       }
-      if (error.code === 'auth/wrong-password') {
-        throw new Error('Incorrect password')
+      if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-login-credentials') {
+        throw new Error('Email ou mot de passe incorrect')
       }
-      throw error
+      if (error.code === 'auth/invalid-email') {
+        throw new Error('Adresse email invalide')
+      }
+      throw new Error('Erreur de connexion. Veuillez réessayer.')
     }
   }
 
