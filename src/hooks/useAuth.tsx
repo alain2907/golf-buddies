@@ -184,13 +184,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await sendEmailVerification(newUser)
       setNeedsEmailVerification(true)
 
-      toast.success('Account created! Please check your email to verify your account.')
+      toast.success('Compte créé ! Vérifiez votre email pour activer votre compte.')
     } catch (error: any) {
       console.error('Signup error:', error)
       if (error.code === 'auth/email-already-in-use') {
-        throw new Error('This email is already registered')
+        throw new Error('Cet email est déjà enregistré')
       }
-      throw error
+      throw new Error('Erreur lors de la création du compte')
     }
   }
 
@@ -307,18 +307,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const sendVerificationEmail = async () => {
     if (!firebaseUser) {
-      throw new Error('No user logged in')
+      throw new Error('Aucun utilisateur connecté')
     }
 
     try {
       await sendEmailVerification(firebaseUser)
-      toast.success('Verification email sent! Please check your inbox.')
+      toast.success('Email de vérification envoyé ! Consultez votre boîte de réception.')
     } catch (error: any) {
       console.error('Send verification email error:', error)
       if (error.code === 'auth/too-many-requests') {
-        throw new Error('Too many requests. Please wait before requesting another email.')
+        throw new Error('Trop de demandes. Veuillez patienter avant de renvoyer un email.')
       }
-      throw error
+      throw new Error('Erreur lors de l\'envoi de l\'email')
     }
   }
 
@@ -334,7 +334,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (userDoc.exists()) {
           setUser(userDoc.data() as User)
         }
-        toast.success('Email verified successfully!')
+        toast.success('Email vérifié avec succès !')
         return true
       }
       return false

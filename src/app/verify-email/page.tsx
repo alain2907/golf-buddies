@@ -57,12 +57,12 @@ export default function VerifyEmailPage() {
 
           {/* Title */}
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Verify Your Email
+            Vérifiez votre email
           </h1>
 
           {/* Subtitle */}
           <p className="text-gray-600 mb-6">
-            We&apos;ve sent a verification email to
+            Nous avons envoyé un email de vérification à
           </p>
 
           {/* Email */}
@@ -74,11 +74,11 @@ export default function VerifyEmailPage() {
 
           {/* Instructions */}
           <div className="text-left bg-blue-50 rounded-lg p-4 mb-6">
-            <h3 className="font-medium text-blue-900 mb-2">Next steps:</h3>
+            <h3 className="font-medium text-blue-900 mb-2">Étapes suivantes :</h3>
             <ol className="text-sm text-blue-800 space-y-1">
-              <li>1. Check your email inbox</li>
-              <li>2. Click the verification link</li>
-              <li>3. Return here and click &quot;I&apos;ve verified&quot;</li>
+              <li>1. Consultez votre boîte de réception</li>
+              <li>2. Cliquez sur le lien de vérification</li>
+              <li>3. Revenez ici et cliquez sur &quot;J&apos;ai vérifié&quot;</li>
             </ol>
           </div>
 
@@ -92,12 +92,12 @@ export default function VerifyEmailPage() {
               {isChecking ? (
                 <>
                   <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                  Checking...
+                  Vérification...
                 </>
               ) : (
                 <>
                   <CheckCircle className="w-4 h-4 mr-2" />
-                  I&apos;ve verified my email
+                  J&apos;ai vérifié mon email
                 </>
               )}
             </button>
@@ -107,13 +107,13 @@ export default function VerifyEmailPage() {
               disabled={isSending}
               className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSending ? 'Sending...' : 'Resend verification email'}
+              {isSending ? 'Envoi...' : 'Renvoyer l\'email de vérification'}
             </button>
           </div>
 
           {/* Help text */}
           <p className="text-sm text-gray-500 mt-6">
-            Didn&apos;t receive the email? Check your spam folder or click resend.
+            Vous n&apos;avez pas reçu l&apos;email ? Vérifiez vos spams ou cliquez sur renvoyer.
           </p>
         </div>
       </div>
