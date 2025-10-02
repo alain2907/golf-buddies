@@ -1,0 +1,866 @@
+[
+  {
+    "__name__": "golf-la-baule",
+    "name": "Golf de La Baule",
+    "address": "Domaine de Saint-Denac",
+    "city": "Saint-André-des-Eaux",
+    "region": "Pays de la Loire",
+    "country": "France",
+    "coordinates": {
+      "latitude": 47.3200,
+      "longitude": -2.3500
+    },
+    "holes": 18,
+    "description": "Parcours technique près de La Baule",
+    "website": "https://www.golflabaule.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-pornic",
+    "name": "Golf de Pornic",
+    "address": "Route de la Bernerie",
+    "city": "Pornic",
+    "region": "Pays de la Loire",
+    "country": "France",
+    "coordinates": {
+      "latitude": 47.1100,
+      "longitude": -2.1100
+    },
+    "holes": 18,
+    "description": "Parcours côtier en Vendée",
+    "website": "https://www.golfpornic.fr",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-saint-jean-monts",
+    "name": "Golf de Saint-Jean-de-Monts",
+    "address": "Rue du Golf",
+    "city": "Saint-Jean-de-Monts",
+    "region": "Pays de la Loire",
+    "country": "France",
+    "coordinates": {
+      "latitude": 46.7900,
+      "longitude": -2.0700
+    },
+    "holes": 18,
+    "description": "Parcours dans la forêt vendéenne",
+    "website": "https://www.golfsaintjean.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-rochelle",
+    "name": "Golf de La Rochelle",
+    "address": "Avenue du Golf",
+    "city": "La Rochelle",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 46.1600,
+      "longitude": -1.1300
+    },
+    "holes": 18,
+    "description": "Parcours urbain à La Rochelle",
+    "website": "https://www.golflarochelle.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-royan",
+    "name": "Golf de Royan",
+    "address": "Route de la Grande Côte",
+    "city": "Royan",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.6200,
+      "longitude": -1.0300
+    },
+    "holes": 18,
+    "description": "Parcours en bord d'estuaire",
+    "website": "https://www.golfroyan.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-cognac",
+    "name": "Golf de Cognac",
+    "address": "Domaine de l'Échassier",
+    "city": "Saint-Brice",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.7000,
+      "longitude": -0.3500
+    },
+    "holes": 18,
+    "description": "Parcours au cœur du vignoble cognaçais",
+    "website": "https://www.golf-cognac.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-angouleme",
+    "name": "Golf de l'Hirondelle",
+    "address": "Route de Bordeaux",
+    "city": "Champniers",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.7100,
+      "longitude": 0.2100
+    },
+    "holes": 18,
+    "description": "Parcours vallonné près d'Angoulême",
+    "website": "https://www.golf-hirondelle.fr",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-perigueux",
+    "name": "Golf de Périgueux",
+    "address": "Château des Merles",
+    "city": "Mouleydier",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 44.8500,
+      "longitude": 0.5800
+    },
+    "holes": 18,
+    "description": "Parcours de château en Dordogne",
+    "website": "https://www.chateaudesmerles.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-sarlat",
+    "name": "Golf de Rochebois",
+    "address": "Route de Montfort",
+    "city": "Vitrac",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 44.8300,
+      "longitude": 1.2500
+    },
+    "holes": 9,
+    "description": "Parcours 9 trous près de Sarlat",
+    "website": "https://www.rochebois.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-cahors",
+    "name": "Golf de Cahors",
+    "address": "Route de Cahors",
+    "city": "Mercuès",
+    "region": "Occitanie",
+    "country": "France",
+    "coordinates": {
+      "latitude": 44.5000,
+      "longitude": 1.3900
+    },
+    "holes": 18,
+    "description": "Parcours dans la vallée du Lot",
+    "website": "https://www.golfcahors.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-albi",
+    "name": "Golf d'Albi",
+    "address": "Château de Lasbordes",
+    "city": "Albi",
+    "region": "Occitanie",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.9200,
+      "longitude": 2.1800
+    },
+    "holes": 18,
+    "description": "Parcours de château près d'Albi",
+    "website": "https://www.golfalbi.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-carcassonne",
+    "name": "Golf de Carcassonne",
+    "address": "Route de Saint-Hilaire",
+    "city": "Carcassonne",
+    "region": "Occitanie",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.2000,
+      "longitude": 2.3200
+    },
+    "holes": 18,
+    "description": "Parcours avec vue sur la Cité",
+    "website": "https://www.golfcarcassonne.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-perpignan",
+    "name": "Golf de Saint-Cyprien",
+    "address": "Route de Perpignan",
+    "city": "Saint-Cyprien",
+    "region": "Occitanie",
+    "country": "France",
+    "coordinates": {
+      "latitude": 42.6300,
+      "longitude": 3.0100
+    },
+    "holes": 18,
+    "description": "Parcours près de Perpignan",
+    "website": "https://www.golf-saintcyprien.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-beziers",
+    "name": "Golf de Saint-Thomas",
+    "address": "Château de Raissac",
+    "city": "Béziers",
+    "region": "Occitanie",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.3600,
+      "longitude": 3.2600
+    },
+    "holes": 18,
+    "description": "Parcours vallonné près de Béziers",
+    "website": "https://www.golf-saintthomas.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-avignon",
+    "name": "Golf Grand Avignon",
+    "address": "Chemin des Crès",
+    "city": "Vedène",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.9800,
+      "longitude": 4.9000
+    },
+    "holes": 18,
+    "description": "Parcours près d'Avignon",
+    "website": "https://www.golf-avignon.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-pont-royal",
+    "name": "Golf de Pont Royal",
+    "address": "Domaine de Pont Royal",
+    "city": "Mallemort",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.7300,
+      "longitude": 5.1800
+    },
+    "holes": 18,
+    "description": "Parcours en Provence",
+    "website": "https://www.pontroyalgolfresort.com",
+    "phone": "",
+    "rating": 4.4,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-servanes",
+    "name": "Golf de Servanes",
+    "address": "Domaine de Servanes",
+    "city": "Mouriès",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.6800,
+      "longitude": 4.8700
+    },
+    "holes": 18,
+    "description": "Parcours au pied des Alpilles",
+    "website": "https://www.golf-de-servanes.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-toulon",
+    "name": "Golf de la Valdaine",
+    "address": "Route de la Crau",
+    "city": "La Valette-du-Var",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.1400,
+      "longitude": 6.0000
+    },
+    "holes": 18,
+    "description": "Parcours près de Toulon",
+    "website": "https://www.golf-valdaine.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-hyeres",
+    "name": "Golf de Valcros",
+    "address": "Avenue des Iles d'Or",
+    "city": "La Londe-les-Maures",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.1500,
+      "longitude": 6.2700
+    },
+    "holes": 18,
+    "description": "Parcours en bord de mer",
+    "website": "https://www.golfvalcros.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-sainte-maxime",
+    "name": "Golf de Sainte-Maxime",
+    "address": "Route du Débarquement",
+    "city": "Sainte-Maxime",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.3200,
+      "longitude": 6.6400
+    },
+    "holes": 18,
+    "description": "Parcours face au golfe de Saint-Tropez",
+    "website": "https://www.golfsaintemaxime.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-saint-tropez",
+    "name": "Golf de Gassin",
+    "address": "Route de Ramatuelle",
+    "city": "Gassin",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.2400,
+      "longitude": 6.6000
+    },
+    "holes": 18,
+    "description": "Parcours près de Saint-Tropez",
+    "website": "https://www.golfgassin.com",
+    "phone": "",
+    "rating": 4.4,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-barbaroux",
+    "name": "Golf de Barbaroux",
+    "address": "Route de Cabasse",
+    "city": "Brignoles",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.4100,
+      "longitude": 6.0500
+    },
+    "holes": 18,
+    "description": "Parcours dans le Var",
+    "website": "https://www.barbaroux.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-frejus",
+    "name": "Golf de Roquebrune",
+    "address": "Route de Bagnols",
+    "city": "Roquebrune-sur-Argens",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.4400,
+      "longitude": 6.6300
+    },
+    "holes": 18,
+    "description": "Parcours près de Fréjus",
+    "website": "https://www.golf-roquebrune.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-grasse",
+    "name": "Golf de la Grande Bastide",
+    "address": "Route de Golf",
+    "city": "Châteauneuf-Grasse",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.6600,
+      "longitude": 6.9700
+    },
+    "holes": 18,
+    "description": "Parcours vallonné près de Grasse",
+    "website": "https://www.golf-grasse.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-antibes",
+    "name": "Golf d'Antibes",
+    "address": "Route de la Colle",
+    "city": "Biot",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.6300,
+      "longitude": 7.0900
+    },
+    "holes": 9,
+    "description": "Parcours 9 trous près d'Antibes",
+    "website": "https://www.golfdantibes.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-saint-raphael",
+    "name": "Golf d'Esterel Latitudes",
+    "address": "Avenue du Golf",
+    "city": "Saint-Raphaël",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.4500,
+      "longitude": 6.7900
+    },
+    "holes": 18,
+    "description": "Parcours dans le massif de l'Estérel",
+    "website": "https://www.esterel-latitude.com",
+    "phone": "",
+    "rating": 4.4,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-gap",
+    "name": "Golf de Gap-Bayard",
+    "address": "Col Bayard",
+    "city": "Gap",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 44.5800,
+      "longitude": 6.1100
+    },
+    "holes": 18,
+    "description": "Parcours de montagne à 1200m d'altitude",
+    "website": "https://www.golfgapbayard.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-embrun",
+    "name": "Golf des Orres",
+    "address": "Les Orres 1800",
+    "city": "Les Orres",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 44.5100,
+      "longitude": 6.5500
+    },
+    "holes": 9,
+    "description": "Parcours 9 trous en altitude",
+    "website": "https://www.lesorres.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-valence",
+    "name": "Golf de la Drôme Provençale",
+    "address": "Route de Montélimar",
+    "city": "Montélier",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 44.9200,
+      "longitude": 4.9800
+    },
+    "holes": 18,
+    "description": "Parcours près de Valence",
+    "website": "https://www.golf-valence.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-montelimar",
+    "name": "Golf de la Valdaine Montélimar",
+    "address": "Route de Donzère",
+    "city": "Montélimar",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 44.5400,
+      "longitude": 4.7400
+    },
+    "holes": 18,
+    "description": "Parcours en Drôme provençale",
+    "website": "https://www.golf-montelimar.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-lyon-verger",
+    "name": "Golf du Gouverneur",
+    "address": "Château de Verger",
+    "city": "Monthieux",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.9100,
+      "longitude": 4.9600
+    },
+    "holes": 18,
+    "description": "Parcours de château près de Lyon",
+    "website": "https://www.golfgouverneur.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-villeurbanne",
+    "name": "Golf de Lyon Chassieu",
+    "address": "Chemin du Garet",
+    "city": "Chassieu",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.7400,
+      "longitude": 4.9700
+    },
+    "holes": 27,
+    "description": "Complexe de 27 trous près de Lyon",
+    "website": "https://www.golf-chassieu.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-bourg-en-bresse",
+    "name": "Golf de la Bresse",
+    "address": "Route de Lyon",
+    "city": "Condeissiat",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 46.1800,
+      "longitude": 5.1600
+    },
+    "holes": 18,
+    "description": "Parcours en Bresse",
+    "website": "https://www.golfbresse.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-chambery",
+    "name": "Golf de Chambéry",
+    "address": "Allée du Golf",
+    "city": "Voglans",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.6200,
+      "longitude": 5.8700
+    },
+    "holes": 18,
+    "description": "Parcours près de Chambéry",
+    "website": "https://www.golfchambery.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-courchevel",
+    "name": "Golf de Courchevel",
+    "address": "Route de l'Altiport",
+    "city": "Courchevel",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.4000,
+      "longitude": 6.6300
+    },
+    "holes": 18,
+    "description": "Parcours de montagne à 1700m d'altitude",
+    "website": "https://www.golfcourchevel.com",
+    "phone": "",
+    "rating": 4.7,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-meribel",
+    "name": "Golf de Méribel",
+    "address": "Route de la Renarde",
+    "city": "Méribel",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.4000,
+      "longitude": 6.5700
+    },
+    "holes": 18,
+    "description": "Parcours alpin prestigieux",
+    "website": "https://www.golfmeribel.com",
+    "phone": "",
+    "rating": 4.6,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-alpe-huez",
+    "name": "Golf de l'Alpe d'Huez",
+    "address": "Avenue de Brandes",
+    "city": "L'Alpe-d'Huez",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.0900,
+      "longitude": 6.0700
+    },
+    "holes": 9,
+    "description": "Plus haut golf d'Europe à 2600m",
+    "website": "https://www.alpedhuez.com",
+    "phone": "",
+    "rating": 4.5,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-le-puy",
+    "name": "Golf de Vals-près-le-Puy",
+    "address": "Raynaudet",
+    "city": "Vals-près-le-Puy",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.0700,
+      "longitude": 3.8900
+    },
+    "holes": 18,
+    "description": "Parcours volcanique près du Puy",
+    "website": "https://www.golf-vals.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-macon",
+    "name": "Golf de Mâcon La Salle",
+    "address": "Route de Lyon",
+    "city": "La Salle",
+    "region": "Bourgogne-Franche-Comté",
+    "country": "France",
+    "coordinates": {
+      "latitude": 46.3000,
+      "longitude": 4.8100
+    },
+    "holes": 18,
+    "description": "Parcours en Bourgogne",
+    "website": "https://www.golfmacon.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-beaune",
+    "name": "Golf de Beaune Levernois",
+    "address": "Rue du Golf",
+    "city": "Levernois",
+    "region": "Bourgogne-Franche-Comté",
+    "country": "France",
+    "coordinates": {
+      "latitude": 47.0200,
+      "longitude": 4.8800
+    },
+    "holes": 18,
+    "description": "Parcours au cœur des vignes bourguignonnes",
+    "website": "https://www.golfbeaune.com",
+    "phone": "",
+    "rating": 4.4,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-chalon",
+    "name": "Golf de Chalon-sur-Saône",
+    "address": "Le Bois de Menuse",
+    "city": "Chalon-sur-Saône",
+    "region": "Bourgogne-Franche-Comté",
+    "country": "France",
+    "coordinates": {
+      "latitude": 46.7800,
+      "longitude": 4.8400
+    },
+    "holes": 18,
+    "description": "Parcours près de Chalon",
+    "website": "https://www.golfchalon.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-nevers",
+    "name": "Golf de Nevers Challuy",
+    "address": "Route de Sermoise",
+    "city": "Challuy",
+    "region": "Bourgogne-Franche-Comté",
+    "country": "France",
+    "coordinates": {
+      "latitude": 47.0000,
+      "longitude": 3.1300
+    },
+    "holes": 18,
+    "description": "Parcours près de Nevers",
+    "website": "https://www.golfnevers.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-colmar",
+    "name": "Golf d'Ammerschwihr",
+    "address": "Route de Trois-Épis",
+    "city": "Ammerschwihr",
+    "region": "Grand Est",
+    "country": "France",
+    "coordinates": {
+      "latitude": 48.1200,
+      "longitude": 7.2800
+    },
+    "holes": 18,
+    "description": "Parcours dans le vignoble alsacien",
+    "website": "https://www.golf-ammerschwihr.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-mulhouse",
+    "name": "Golf de Rhin-Mulhouse",
+    "address": "Rue du Golf",
+    "city": "Rixheim",
+    "region": "Grand Est",
+    "country": "France",
+    "coordinates": {
+      "latitude": 47.7500,
+      "longitude": 7.4000
+    },
+    "holes": 18,
+    "description": "Parcours près de Mulhouse",
+    "website": "https://www.golfrhinmulhouse.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-epinal",
+    "name": "Golf d'Épinal",
+    "address": "Route de Rambervillers",
+    "city": "Épinal",
+    "region": "Grand Est",
+    "country": "France",
+    "coordinates": {
+      "latitude": 48.1900,
+      "longitude": 6.4700
+    },
+    "holes": 18,
+    "description": "Parcours vosgien",
+    "website": "https://www.golfepinal.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-troyes",
+    "name": "Golf de la Cordelière",
+    "address": "Route de Souligny",
+    "city": "Chaource",
+    "region": "Grand Est",
+    "country": "France",
+    "coordinates": {
+      "latitude": 48.0600,
+      "longitude": 4.1400
+    },
+    "holes": 18,
+    "description": "Parcours en Champagne",
+    "website": "https://www.golf-cordeliere.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-charleville",
+    "name": "Golf des Poursaudes",
+    "address": "Route de Signy",
+    "city": "Signy-l'Abbaye",
+    "region": "Grand Est",
+    "country": "France",
+    "coordinates": {
+      "latitude": 49.7000,
+      "longitude": 4.4200
+    },
+    "holes": 18,
+    "description": "Parcours ardennais",
+    "website": "https://www.golf-poursaudes.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-blois",
+    "name": "Golf de la Bosse",
+    "address": "Route de Chambord",
+    "city": "Vineuil",
+    "region": "Centre-Val de Loire",
+    "country": "France",
+    "coordinates": {
+      "latitude": 47.5800,
+      "longitude": 1.3800
+    },
+    "holes": 18,
+    "description": "Parcours près de Chambord",
+    "website": "https://www.golf-labosse.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  }
+]

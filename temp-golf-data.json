@@ -1,0 +1,272 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   199    0     0  100   199      0    164  0:00:01  0:00:01 --:--:--   164{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.8 e802775f",
+  "osm3s": {
+    "timestamp_osm_base": "2025-10-02T17:47:45Z",
+    "timestamp_areas_base": "2025-10-02T10:06:21Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 488555602,
+  "lat": 47.3803715,
+  "lon": -3.2443880,
+  "tags": {
+    "leisure": "golf_course",
+    "name": "Golf de Belle-Isle en Mer",
+    "name:br": "Golf ar Gerveur",
+    "source:name:br": "ofis publik ar brezhoneg",
+    "sport": "golf"
+  }
+},
+{
+  "type": "node",
+  "id": 1332130473,
+  "lat": 44.8147137,
+  "lon": 5.1053523,
+  "tags": {
+    "leisure": "golf_course"
+  }
+},
+{
+  "type": "node",
+  "id": 1773110063,
+  "lat": 43.6126922,
+  "lon": 0.0508006,
+  "tags": {
+    "leisure": "golf_course",
+    "name": "Plaisance Swin-Golf"
+  }
+},
+{
+  "type": "node",
+  "id": 2113419941,
+  "lat": 49.5139694,
+  "lon": 0.2188378,
+  "tags": {
+    "addr:city": "Gonfreville-l'Orcher",
+    "addr:postcode": "76700",
+    "addr:street": "RD 6015",
+    "email": "manoirdebevilliers@gmail.com",
+    "leisure": "golf_course",
+    "name": "Golf de Bévilliers",
+    "phone": "+33 2 77 15 92 05",
+    "website": "https://golfdebevilliers.fr/"
+  }
+},
+{
+  "type": "node",
+  "id": 2255042850,
+  "lat": 47.9133305,
+  "lon": 0.4076816,
+  "tags": {
+    "leisure": "golf_course",
+    "name": "Swin-golf d'Yvrelle",
+    "source": "cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2013",
+    "sport": "swin_golf"
+  }
+},
+{
+  "type": "node",
+  "id": 3384036584,
+  "lat": 48.4435500,
+  "lon": 1.8066000,
+  "tags": {
+    "leisure": "golf_course",
+    "source": "data.gouv.fr:Le ministère des droits des femmes, de la ville, de la jeunesse et des sports - 2014",
+    "sport": "golf",
+    "surface": "grass"
+  }
+},
+{
+  "type": "node",
+  "id": 4383886281,
+  "lat": 49.0813700,
+  "lon": 1.9840600,
+  "tags": {
+    "leisure": "golf_course",
+    "name": "Le Vexin",
+    "source": "data.gouv.fr:Le ministère des droits des femmes, de la ville, de la jeunesse et des sports - 11/2015",
+    "sport": "golf",
+    "surface": "grass"
+  }
+},
+{
+  "type": "node",
+  "id": 4383886282,
+  "lat": 49.0861000,
+  "lon": 1.9836500,
+  "tags": {
+    "leisure": "golf_course",
+    "name": "Les Étangs",
+    "source": "data.gouv.fr:Le ministère des droits des femmes, de la ville, de la jeunesse et des sports - 11/2015",
+    "sport": "golf",
+    "surface": "grass"
+  }
+},
+{
+  "type": "node",
+  "id": 4399004141,
+  "lat": 46.3244244,
+  "lon": -1.3113816,
+  "tags": {
+    "leisure": "golf_course",
+    "name": "Golf 9 trous de la Presqu'île",
+    "operator": "en travaux"
+  }
+},
+{
+  "type": "node",
+  "id": 4512617940,
+  "lat": 47.8348229,
+  "lon": 3.5748549,
+  "tags": {
+    "leisure": "golf_course",
+    "name": "Practice de Golf des 4 Arpents"
+  }
+},
+{
+  "type": "node",
+  "id": 4829087300,
+  "lat": 50.8634617,
+  "lon": 1.6512947,
+  "tags": {
+    "leisure": "golf_course",
+    "sport": "swin_golf",
+    "surface": "grass"
+  }
+},
+{
+  "type": "node",
+  "id": 4947583128,
+  "lat": 43.8317525,
+  "lon": 4.6010945,
+  "tags": {
+    "leisure": "golf_course"
+  }
+},
+{
+  "type": "node",
+  "id": 6293548885,
+  "lat": 48.0493985,
+  "lon": 3.2970732,
+  "tags": {
+    "leisure": "golf_course",
+    "name": "golf éducatif de la Maladrerie",
+    "sport": "golf"
+  }
+},
+{
+  "type": "node",
+  "id": 6715288286,
+  "lat": 43.7331026,
+  "lon": 4.8012254,
+  "tags": {
+    "addr:city": "Les Baux-de-Provence",
+    "addr:postcode": "13520",
+    "leisure": "golf_course",
+    "name": "Golf Du Domaine De Manville",
+    "phone": "+33 4 90 54 40 20",
+    "website": "https://www.domainedemanville.fr/fr/golf/accueil-du-golf/"
+  }
+},
+{
+  "type": "node",
+  "id": 7717625731,
+  "lat": 49.3666938,
+  "lon": 0.4835218,
+  "tags": {
+    "leisure": "golf_course",
+    "name": "Pont Au Golf"
+  }
+},
+{
+  "type": "node",
+  "id": 9508246945,
+  "lat": 43.7643773,
+  "lon": 4.3844680,
+  "tags": {
+    "leisure": "golf_course",
+    "name": "Golf Nîmes Campagne"
+  }
+},
+{
+  "type": "node",
+  100  5857    0  5658  100   199   2924    102  0:00:01  0:00:01 --:--:--  3028
+"id": 11292962244,
+  "lat": 48.1771200,
+  "lon": 2.9309265,
+  "tags": {
+    "leisure": "golf_course",
+    "name": "Golf des Bruyeres",
+    "website": "https://www.golfdesbruyeres.fr/"
+  }
+},
+{
+  "type": "node",
+  "id": 11293062687,
+  "lat": 47.5341366,
+  "lon": 3.5814794,
+  "tags": {
+    "leisure": "golf_course",
+    "name": "Golf de Misery"
+  }
+},
+{
+  "type": "node",
+  "id": 12056717394,
+  "lat": 46.8099677,
+  "lon": 5.3845020,
+  "tags": {
+    "alt_name": "Swin Foot Golf Chapelle-Voland",
+    "contact:instagram": "https://www.instagram.com/swingolfchapellevoland",
+    "email": "swingolfchapelle@gmail.com",
+    "facebook": "https://www.facebook.com/swingolfchapellevoland",
+    "leisure": "golf_course",
+    "name": "SwinGolf et FootGolf",
+    "phone": "+33 7 49 32 65 00",
+    "website": "https://www.swinfootgolf39.fr"
+  }
+},
+{
+  "type": "node",
+  "id": 12112286736,
+  "lat": 47.0410029,
+  "lon": -1.6397336,
+  "tags": {
+    "golf": "driving_range",
+    "leisure": "golf_course",
+    "name": "Grand Lieu Swin Golf",
+    "source": "Le ministère de la ville, de la jeunesse et des sports - 2024-07",
+    "sport": "golf",
+    "surface": "grass",
+    "website": "https://grandlieuswingolf.123siteweb.fr"
+  }
+},
+{
+  "type": "node",
+  "id": 12117925192,
+  "lat": 46.3193438,
+  "lon": -1.3074456,
+  "tags": {
+    "leisure": "golf_course",
+    "name": "Pitch And Putt de la Presqu'île"
+  }
+},
+{
+  "type": "node",
+  "id": 12120443875,
+  "lat": 49.4821870,
+  "lon": 1.1363692,
+  "tags": {
+    "golf": "driving_range",
+    "leisure": "golf_course"
+  }
+}
+
+  ]
+}

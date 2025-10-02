@@ -43,4 +43,5 @@ next-env.d.ts
 # Firebase
 firebase-debug.log
 firestore-debug.log
-ui-debug.log
+ui-debug.logserviceAccountKey.json
+smaaks-1-firebase-adminsdk-fbsvc-d4f55b6723.json

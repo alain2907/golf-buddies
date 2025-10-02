@@ -1,0 +1,866 @@
+[
+  {
+    "__name__": "golf-hardelot",
+    "name": "Golf d'Hardelot",
+    "address": "Avenue du Golf",
+    "city": "Neufchâtel-Hardelot",
+    "region": "Hauts-de-France",
+    "country": "France",
+    "coordinates": {
+      "latitude": 50.6300,
+      "longitude": 1.5800
+    },
+    "holes": 36,
+    "description": "Complexe de golf prestigieux avec 2 parcours 18 trous dans les dunes",
+    "website": "https://www.golf-hardelot.com",
+    "phone": "",
+    "rating": 4.6,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-chiberta",
+    "name": "Golf de Chiberta",
+    "address": "104 Boulevard des Plages",
+    "city": "Anglet",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.5100,
+      "longitude": -1.5200
+    },
+    "holes": 18,
+    "description": "Parcours links en bord de mer au Pays Basque",
+    "website": "https://www.golfchiberta.com",
+    "phone": "",
+    "rating": 4.5,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-lyon-salvagny",
+    "name": "Golf de Lyon Salvagny",
+    "address": "Chemin de la Croix Pivort",
+    "city": "Salvagny",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.8100,
+      "longitude": 4.7300
+    },
+    "holes": 18,
+    "description": "Parcours technique près de Lyon",
+    "website": "https://www.golflyon.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-nice",
+    "name": "Golf de Nice",
+    "address": "Route de Grenoble",
+    "city": "Nice",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.7300,
+      "longitude": 7.2400
+    },
+    "holes": 18,
+    "description": "Parcours panoramique sur les hauteurs de Nice",
+    "website": "https://www.golfdenice.org",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "monte-carlo-golf",
+    "name": "Monte-Carlo Golf Club",
+    "address": "Route du Mont-Agel",
+    "city": "La Turbie",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.7600,
+      "longitude": 7.4100
+    },
+    "holes": 18,
+    "description": "Parcours de montagne avec vue sur Monaco",
+    "website": "https://www.montecarlogolf.mc",
+    "phone": "",
+    "rating": 4.7,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-deauville",
+    "name": "Golf Barrière de Deauville",
+    "address": "Avenue du Golf",
+    "city": "Saint-Arnoult",
+    "region": "Normandie",
+    "country": "France",
+    "coordinates": {
+      "latitude": 49.3400,
+      "longitude": 0.1200
+    },
+    "holes": 27,
+    "description": "Parcours prestigieux de 27 trous en Normandie",
+    "website": "https://www.lucienbarriere.com",
+    "phone": "",
+    "rating": 4.5,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-omaha-beach",
+    "name": "Golf d'Omaha Beach",
+    "address": "La Ferme Saint-Sauveur",
+    "city": "Port-en-Bessin",
+    "region": "Normandie",
+    "country": "France",
+    "coordinates": {
+      "latitude": 49.3500,
+      "longitude": -0.7600
+    },
+    "holes": 18,
+    "description": "Parcours historique face à la plage du débarquement",
+    "website": "https://www.golfdomahabeach.com",
+    "phone": "",
+    "rating": 4.4,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-wimereux",
+    "name": "Golf de Wimereux",
+    "address": "Route d'Ambleteuse",
+    "city": "Wimereux",
+    "region": "Hauts-de-France",
+    "country": "France",
+    "coordinates": {
+      "latitude": 50.7700,
+      "longitude": 1.6100
+    },
+    "holes": 18,
+    "description": "Links historique face à la Manche",
+    "website": "https://www.golfwimereux.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-moliets",
+    "name": "Golf de Moliets",
+    "address": "Route de Huchet",
+    "city": "Moliets-et-Maa",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.8500,
+      "longitude": -1.3800
+    },
+    "holes": 18,
+    "description": "Parcours dans la forêt de pins landaise",
+    "website": "https://www.golfmoliets.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-toulouse-seilh",
+    "name": "Golf de Toulouse Seilh",
+    "address": "2 Impasse Éole",
+    "city": "Seilh",
+    "region": "Occitanie",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.6900,
+      "longitude": 1.3600
+    },
+    "holes": 18,
+    "description": "Parcours technique près de Toulouse",
+    "website": "https://www.golftoulouseseilh.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-nantes",
+    "name": "Golf de Nantes",
+    "address": "Route de Gachet",
+    "city": "Vigneux-de-Bretagne",
+    "region": "Pays de la Loire",
+    "country": "France",
+    "coordinates": {
+      "latitude": 47.3200,
+      "longitude": -1.6400
+    },
+    "holes": 27,
+    "description": "Complexe de golf avec 27 trous",
+    "website": "https://www.golfdenantes.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-rennes",
+    "name": "Golf de Rennes",
+    "address": "Domaine de Cicé-Blossac",
+    "city": "Bruz",
+    "region": "Bretagne",
+    "country": "France",
+    "coordinates": {
+      "latitude": 48.0200,
+      "longitude": -1.7400
+    },
+    "holes": 27,
+    "description": "Golf du domaine de Cicé-Blossac",
+    "website": "https://www.golfderennes.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-bordeaux-lac",
+    "name": "Golf Bordelais",
+    "address": "Avenue de Pernon",
+    "city": "Bordeaux",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 44.8700,
+      "longitude": -0.5900
+    },
+    "holes": 18,
+    "description": "Golf urbain au bord du lac de Bordeaux",
+    "website": "https://www.golfbordelais.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-medoc",
+    "name": "Golf du Médoc",
+    "address": "Chemin de Courmateau",
+    "city": "Le Pian-Médoc",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.0500,
+      "longitude": -0.6700
+    },
+    "holes": 36,
+    "description": "Complexe de 36 trous au cœur du vignoble",
+    "website": "https://www.bluegreen.com",
+    "phone": "",
+    "rating": 4.4,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-arcachon",
+    "name": "Golf d'Arcachon",
+    "address": "35 Boulevard d'Arcachon",
+    "city": "La Teste-de-Buch",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 44.6200,
+      "longitude": -1.1500
+    },
+    "holes": 27,
+    "description": "Parcours vallonné près du Bassin d'Arcachon",
+    "website": "https://www.golfdarcachon.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-seignosse",
+    "name": "Golf de Seignosse",
+    "address": "Avenue du Bellevue",
+    "city": "Seignosse",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.7000,
+      "longitude": -1.3900
+    },
+    "holes": 18,
+    "description": "Parcours dans la forêt landaise",
+    "website": "https://www.seignosse-golf.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-pau",
+    "name": "Golf de Pau",
+    "address": "Avenue du Golf",
+    "city": "Billère",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.2900,
+      "longitude": -0.3900
+    },
+    "holes": 18,
+    "description": "Plus ancien golf continental de France (1856)",
+    "website": "https://www.golfpau.com",
+    "phone": "",
+    "rating": 4.5,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-biarritz-ilbarritz",
+    "name": "Golf d'Ilbarritz",
+    "address": "Avenue du Château",
+    "city": "Bidart",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.4300,
+      "longitude": -1.5700
+    },
+    "holes": 9,
+    "description": "Parcours 9 trous en bord de mer",
+    "website": "https://www.ilbarritz.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-cote-basque",
+    "name": "Golf de la Côte Basque",
+    "address": "Avenue de Biarritz",
+    "city": "Bassussarry",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.4600,
+      "longitude": -1.5000
+    },
+    "holes": 18,
+    "description": "Parcours vallonné au Pays Basque",
+    "website": "https://www.golfcotebasque.fr",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-nimes-campagne",
+    "name": "Golf de Nîmes Campagne",
+    "address": "Route de Saint-Gilles",
+    "city": "Nîmes",
+    "region": "Occitanie",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.8000,
+      "longitude": 4.3300
+    },
+    "holes": 18,
+    "description": "Parcours technique en Camargue",
+    "website": "https://www.golfdenimes.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-montpellier-massane",
+    "name": "Golf de Montpellier Massane",
+    "address": "Avenue du Golf",
+    "city": "Baillargues",
+    "region": "Occitanie",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.6600,
+      "longitude": 4.0200
+    },
+    "holes": 18,
+    "description": "Parcours près de Montpellier",
+    "website": "https://www.golfmontpellier.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-saint-cyprien",
+    "name": "Golf de Saint-Cyprien",
+    "address": "Boulevard de l'Almandin",
+    "city": "Saint-Cyprien",
+    "region": "Occitanie",
+    "country": "France",
+    "coordinates": {
+      "latitude": 42.6200,
+      "longitude": 3.0200
+    },
+    "holes": 27,
+    "description": "Complexe de 27 trous en bord de mer",
+    "website": "https://www.golfsaintcyprien.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-grande-motte",
+    "name": "Golf de la Grande Motte",
+    "address": "Avenue du Golf",
+    "city": "La Grande-Motte",
+    "region": "Occitanie",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.5600,
+      "longitude": 4.0700
+    },
+    "holes": 18,
+    "description": "Parcours en bord de Méditerranée",
+    "website": "https://www.golfdelagrandemotte.fr",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-aix-marseille",
+    "name": "Golf d'Aix-Marseille",
+    "address": "Domaine de Riquetti",
+    "city": "Les Pennes-Mirabeau",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.4100,
+      "longitude": 5.3200
+    },
+    "holes": 18,
+    "description": "Parcours vallonné entre Aix et Marseille",
+    "website": "https://www.golfaixmarseille.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-sainte-baume",
+    "name": "Golf de la Sainte Baume",
+    "address": "Quartier le Plant du Castellet",
+    "city": "Nans-les-Pins",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.3700,
+      "longitude": 5.7800
+    },
+    "holes": 18,
+    "description": "Parcours au pied de la Sainte-Baume",
+    "website": "https://www.golfsaintebaume.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-cannes-mandelieu",
+    "name": "Old Course Cannes-Mandelieu",
+    "address": "Route du Golf",
+    "city": "Mandelieu-la-Napoule",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.5300,
+      "longitude": 6.9300
+    },
+    "holes": 18,
+    "description": "Parcours historique de la Côte d'Azur",
+    "website": "https://www.golfoldcourse.com",
+    "phone": "",
+    "rating": 4.4,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-royal-mougins",
+    "name": "Golf de Cannes Mougins",
+    "address": "175 Avenue du Golf",
+    "city": "Mougins",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.5900,
+      "longitude": 7.0000
+    },
+    "holes": 18,
+    "description": "Parcours technique à Mougins",
+    "website": "https://www.golfcannesmougins.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-opio-valbonne",
+    "name": "Golf d'Opio Valbonne",
+    "address": "Route de Roquefort-les-Pins",
+    "city": "Opio",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.6700,
+      "longitude": 6.9800
+    },
+    "holes": 18,
+    "description": "Parcours vallonné dans l'arrière-pays cannois",
+    "website": "https://www.golf-opio-valbonne.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-terre-blanche",
+    "name": "Terre Blanche Golf Club",
+    "address": "Domaine de Terre Blanche",
+    "city": "Tourrettes",
+    "region": "Provence-Alpes-Côte d'Azur",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.6100,
+      "longitude": 6.6900
+    },
+    "holes": 36,
+    "description": "Resort 5 étoiles avec 2 parcours 18 trous",
+    "website": "https://www.terre-blanche.com",
+    "phone": "",
+    "rating": 4.8,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-saint-donat",
+    "name": "Golf de Saint-Donat",
+    "address": "Quartier Bramefan",
+    "city": "Saint-Donat-sur-l'Herbasse",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.1200,
+      "longitude": 4.9800
+    },
+    "holes": 18,
+    "description": "Parcours en Drôme des Collines",
+    "website": "https://www.golfsaintdonat.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-grenoble-bresson",
+    "name": "Golf de Grenoble Bresson",
+    "address": "38 Chemin du Golf",
+    "city": "Bresson",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.1400,
+      "longitude": 5.7400
+    },
+    "holes": 18,
+    "description": "Parcours avec vue sur les montagnes",
+    "website": "https://www.golfgrenoble.fr",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-aix-les-bains",
+    "name": "Golf du Lac d'Aix-les-Bains",
+    "address": "Avenue du Golf",
+    "city": "Aix-les-Bains",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.6900,
+      "longitude": 5.9000
+    },
+    "holes": 18,
+    "description": "Parcours au bord du lac du Bourget",
+    "website": "https://www.golflacaixlesbains.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-annecy",
+    "name": "Golf du Lac d'Annecy",
+    "address": "Chemin des Grands Champs",
+    "city": "Talloires-Montmin",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.8300,
+      "longitude": 6.2100
+    },
+    "holes": 18,
+    "description": "Parcours avec vue sur le lac d'Annecy",
+    "website": "https://www.golf-lacannecy.com",
+    "phone": "",
+    "rating": 4.5,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-chamonix",
+    "name": "Golf de Chamonix",
+    "address": "35 Route du Golf",
+    "city": "Chamonix-Mont-Blanc",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.9300,
+      "longitude": 6.8700
+    },
+    "holes": 18,
+    "description": "Parcours le plus haut d'Europe avec vue sur le Mont-Blanc",
+    "website": "https://www.golfchamonix.com",
+    "phone": "",
+    "rating": 4.6,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-megeve",
+    "name": "Golf de Megève",
+    "address": "Route du Golf",
+    "city": "Megève",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.8500,
+      "longitude": 6.6200
+    },
+    "holes": 18,
+    "description": "Parcours de montagne prestigieux",
+    "website": "https://www.golfmegeve.com",
+    "phone": "",
+    "rating": 4.5,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-divonne",
+    "name": "Golf de Divonne",
+    "address": "Avenue des Thermes",
+    "city": "Divonne-les-Bains",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 46.3600,
+      "longitude": 6.1400
+    },
+    "holes": 18,
+    "description": "Parcours à la frontière suisse",
+    "website": "https://www.golfdivonne.com",
+    "phone": "",
+    "rating": 4.4,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-clermont-ferrand",
+    "name": "Golf des Volcans",
+    "address": "Les Quatre Routes",
+    "city": "Orcines",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 45.7900,
+      "longitude": 3.0200
+    },
+    "holes": 18,
+    "description": "Parcours au pied du Puy de Dôme",
+    "website": "https://www.golf-des-volcans.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-vichy",
+    "name": "Golf de Vichy",
+    "address": "Boulevard Kennedy",
+    "city": "Bellerive-sur-Allier",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 46.1200,
+      "longitude": 3.4100
+    },
+    "holes": 18,
+    "description": "Parcours urbain à Vichy",
+    "website": "https://www.golfdevichy.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-strasbourg",
+    "name": "Golf de Strasbourg",
+    "address": "Rue du Golf",
+    "city": "Illkirch-Graffenstaden",
+    "region": "Grand Est",
+    "country": "France",
+    "coordinates": {
+      "latitude": 48.5300,
+      "longitude": 7.7200
+    },
+    "holes": 27,
+    "description": "Complexe de 27 trous près de Strasbourg",
+    "website": "https://www.golf-strasbourg.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-reims",
+    "name": "Golf de Reims-Champagne",
+    "address": "Château des Dames de France",
+    "city": "Gueux",
+    "region": "Grand Est",
+    "country": "France",
+    "coordinates": {
+      "latitude": 49.2500,
+      "longitude": 3.9100
+    },
+    "holes": 18,
+    "description": "Parcours au cœur du vignoble champenois",
+    "website": "https://www.golfchampagne.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-nancy",
+    "name": "Golf de Nancy-Aingeray",
+    "address": "Château d'Aingeray",
+    "city": "Aingeray",
+    "region": "Grand Est",
+    "country": "France",
+    "coordinates": {
+      "latitude": 48.7400,
+      "longitude": 6.0000
+    },
+    "holes": 18,
+    "description": "Parcours dans un domaine historique",
+    "website": "https://www.golfdenancy.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-metz-technopole",
+    "name": "Golf de Metz Technopole",
+    "address": "Allée du Golf",
+    "city": "Metz",
+    "region": "Grand Est",
+    "country": "France",
+    "coordinates": {
+      "latitude": 49.1000,
+      "longitude": 6.2200
+    },
+    "holes": 18,
+    "description": "Parcours technique à Metz",
+    "website": "https://www.golfmetz.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-dijon-bourgogne",
+    "name": "Golf de Dijon Bourgogne",
+    "address": "Norges",
+    "city": "Norges-la-Ville",
+    "region": "Bourgogne-Franche-Comté",
+    "country": "France",
+    "coordinates": {
+      "latitude": 47.4200,
+      "longitude": 5.1100
+    },
+    "holes": 27,
+    "description": "Complexe de 27 trous en Bourgogne",
+    "website": "https://www.golfdijonbourgogne.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-besancon",
+    "name": "Golf de Besançon",
+    "address": "Chemin de la Malcombe",
+    "city": "Besançon",
+    "region": "Bourgogne-Franche-Comté",
+    "country": "France",
+    "coordinates": {
+      "latitude": 47.2700,
+      "longitude": 6.0400
+    },
+    "holes": 18,
+    "description": "Parcours vallonné près de Besançon",
+    "website": "https://www.golfbesancon.com",
+    "phone": "",
+    "rating": 4.1,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-tours",
+    "name": "Golf d'Ardrée",
+    "address": "Château d'Ardrée",
+    "city": "Saint-Antoine-du-Rocher",
+    "region": "Centre-Val de Loire",
+    "country": "France",
+    "coordinates": {
+      "latitude": 47.5000,
+      "longitude": 0.6300
+    },
+    "holes": 18,
+    "description": "Parcours de château près de Tours",
+    "website": "https://www.golfardree.com",
+    "phone": "",
+    "rating": 4.2,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-orleans",
+    "name": "Golf du Château de la Source",
+    "address": "Avenue du Golf",
+    "city": "Orléans",
+    "region": "Centre-Val de Loire",
+    "country": "France",
+    "coordinates": {
+      "latitude": 47.8500,
+      "longitude": 1.9300
+    },
+    "holes": 18,
+    "description": "Parcours universitaire à Orléans",
+    "website": "https://www.golf-orleans.com",
+    "phone": "",
+    "rating": 4.0,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-dinard",
+    "name": "Golf de Dinard",
+    "address": "Boulevard de la Houle",
+    "city": "Saint-Briac-sur-Mer",
+    "region": "Bretagne",
+    "country": "France",
+    "coordinates": {
+      "latitude": 48.6200,
+      "longitude": -2.1400
+    },
+    "holes": 18,
+    "description": "Links historique en bord de mer",
+    "website": "https://www.golfdinard.com",
+    "phone": "",
+    "rating": 4.4,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-saint-malo",
+    "name": "Golf de Saint-Malo Le Tronchet",
+    "address": "Domaine des Ormes",
+    "city": "Le Tronchet",
+    "region": "Bretagne",
+    "country": "France",
+    "coordinates": {
+      "latitude": 48.4700,
+      "longitude": -1.8200
+    },
+    "holes": 27,
+    "description": "Complexe de 27 trous près de Saint-Malo",
+    "website": "https://www.golfletronchet.com",
+    "phone": "",
+    "rating": 4.3,
+    "source": "Manuel"
+  }
+]

@@ -1,0 +1,182 @@
+[
+  {
+    "__name__": "golf-fontainebleau",
+    "name": "Golf de Fontainebleau",
+    "address": "Route d'Orléans",
+    "city": "Fontainebleau",
+    "region": "Île-de-France",
+    "country": "France",
+    "coordinates": {
+      "latitude": 48.4085,
+      "longitude": 2.7000
+    },
+    "holes": 18,
+    "description": "Parcours de golf de 18 trous dans la forêt de Fontainebleau",
+    "website": "",
+    "phone": "",
+    "rating": 4.5,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-evian",
+    "name": "Evian Resort Golf Club",
+    "address": "Avenue des Grottes",
+    "city": "Évian-les-Bains",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "coordinates": {
+      "latitude": 46.4000,
+      "longitude": 6.5900
+    },
+    "holes": 18,
+    "description": "Parcours de golf de 18 trous avec vue sur le Lac Léman",
+    "website": "https://www.evianresort.com/golf",
+    "phone": "",
+    "rating": 5,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-chantilly",
+    "name": "Golf de Chantilly",
+    "address": "Allée de la Ménagerie",
+    "city": "Vineuil-Saint-Firmin",
+    "region": "Hauts-de-France",
+    "country": "France",
+    "coordinates": {
+      "latitude": 49.2000,
+      "longitude": 2.4700
+    },
+    "holes": 18,
+    "description": "Parcours de golf de 18 trous près du château de Chantilly",
+    "website": "",
+    "phone": "",
+    "rating": 4.8,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-saint-nom-la-breteche",
+    "name": "Golf de Saint-Nom-la-Bretèche",
+    "address": "Avenue du Golf",
+    "city": "Saint-Nom-la-Bretèche",
+    "region": "Île-de-France",
+    "country": "France",
+    "coordinates": {
+      "latitude": 48.8600,
+      "longitude": 2.0200
+    },
+    "holes": 36,
+    "description": "2 parcours de golf (Rouge et Bleu) totalisant 36 trous",
+    "website": "",
+    "phone": "",
+    "rating": 4.7,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-sperone",
+    "name": "Golf de Sperone",
+    "address": "Domaine de Sperone",
+    "city": "Bonifacio",
+    "region": "Corse",
+    "country": "France",
+    "coordinates": {
+      "latitude": 41.3800,
+      "longitude": 9.1800
+    },
+    "holes": 18,
+    "description": "Parcours de golf de 18 trous en bord de mer en Corse",
+    "website": "",
+    "phone": "",
+    "rating": 5,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-national",
+    "name": "Le Golf National",
+    "address": "Avenue du Golf",
+    "city": "Guyancourt",
+    "region": "Île-de-France",
+    "country": "France",
+    "coordinates": {
+      "latitude": 48.7700,
+      "longitude": 2.0700
+    },
+    "holes": 45,
+    "description": "Complexe de golf comprenant l'Albatros (18 trous), l'Aigle (18 trous) et l'Oiselet (9 trous)",
+    "website": "https://www.golf-national.com",
+    "phone": "",
+    "rating": 5,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-belle-dune",
+    "name": "Golf de Belle Dune",
+    "address": "Avenue du Golf",
+    "city": "Fort-Mahon-Plage",
+    "region": "Hauts-de-France",
+    "country": "France",
+    "coordinates": {
+      "latitude": 50.3400,
+      "longitude": 1.5600
+    },
+    "holes": 27,
+    "description": "27 trous en bord de mer dans la Baie de Somme",
+    "website": "",
+    "phone": "",
+    "rating": 4.5,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-morfontaine",
+    "name": "Golf de Morfontaine",
+    "address": "Château de Morfontaine",
+    "city": "Morfontaine",
+    "region": "Hauts-de-France",
+    "country": "France",
+    "coordinates": {
+      "latitude": 49.1300,
+      "longitude": 2.6100
+    },
+    "holes": 18,
+    "description": "Parcours de golf de 18 trous prestigieux",
+    "website": "",
+    "phone": "",
+    "rating": 5,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-hossegor",
+    "name": "Golf d'Hossegor",
+    "address": "Avenue du Golf",
+    "city": "Soorts-Hossegor",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.6600,
+      "longitude": -1.4200
+    },
+    "holes": 18,
+    "description": "Parcours de golf de 18 trous dans les Landes",
+    "website": "",
+    "phone": "",
+    "rating": 4.6,
+    "source": "Manuel"
+  },
+  {
+    "__name__": "golf-biarritz",
+    "name": "Golf de Biarritz Le Phare",
+    "address": "Avenue Edith Cavell",
+    "city": "Biarritz",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "coordinates": {
+      "latitude": 43.4900,
+      "longitude": -1.5600
+    },
+    "holes": 18,
+    "description": "Parcours de golf de 18 trous avec vue sur l'océan",
+    "website": "",
+    "phone": "",
+    "rating": 4.7,
+    "source": "Manuel"
+  }
+]
