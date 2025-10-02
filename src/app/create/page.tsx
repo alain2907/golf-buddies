@@ -4,9 +4,9 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
 import { useEvents } from '@/hooks/useEvents'
 import { useNotifications } from '@/hooks/useNotifications'
+import { useCourses } from '@/hooks/useCourses'
 import { processEventCompatibility } from '@/services/compatibilityService'
 import Footer from '@/components/Footer'
-import { golfCourses } from '@/data/golf-courses'
 import { Search } from 'lucide-react'
 
 export default function CreateEventPage() {
@@ -15,6 +15,7 @@ export default function CreateEventPage() {
   const { user } = useAuth()
   const { createEvent } = useEvents()
   const { scheduleEventReminders } = useNotifications()
+  const { courses, loading: coursesLoading } = useCourses()
   const [loading, setLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [showCourseDropdown, setShowCourseDropdown] = useState(false)
@@ -51,7 +52,7 @@ export default function CreateEventPage() {
   })
 
   // Filtrer les golfs selon la recherche et la proximité
-  const filteredCourses = golfCourses.filter(course => {
+  const filteredCourses = courses.filter(course => {
     const matchesSearch = searchTerm === '' ||
       course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       course.city.toLowerCase().includes(searchTerm.toLowerCase())
