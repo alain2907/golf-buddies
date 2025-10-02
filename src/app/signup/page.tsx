@@ -308,7 +308,7 @@ export default function SignupPage() {
               }
             }}
           >
-            {isSubmitting ? 'Chargement...' : 'S&apos;inscrire'}
+            {isSubmitting ? 'Chargement...' : "S'inscrire"}
           </button>
         </form>
 
