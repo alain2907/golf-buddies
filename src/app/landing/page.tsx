@@ -78,7 +78,7 @@ export default function LandingPage() {
           </p>
           <div className={styles.heroButtons}>
             <Link href="/login" className={styles.heroLoginButton}>
-              Commencer gratuitement
+              Commencer maintenant
             </Link>
             <Link href="/search" className={styles.heroEventsButton}>
               Parcourir les events
@@ -133,13 +133,13 @@ export default function LandingPage() {
             Prêt à transformer votre expérience golf ?
           </h2>
           <p className={styles.ctaSubtitle}>
-            Trouvez facilement des partenaires pour vos prochaines parties de golf
+            Trouvez facilement et rapidement des partenaires pour vos prochaines parties
           </p>
           <Link href="/login" className={styles.ctaButton}>
-            Commencez à jouer aujourd'hui - C'est gratuit !
+            Rejoignez Golf Buddies aujourd'hui
           </Link>
           <p className={styles.ctaNote}>
-            Aucune carte de crédit requise • Plan gratuit à vie disponible
+            Simple • Rapide • Efficace
           </p>
         </div>
       </div>
