@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { Calendar, Users, Trophy, MapPin, Clock, Target, TrendingUp, Zap, Menu, X } from 'lucide-react'
+import { Calendar, Users, Trophy, Zap, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import styles from './landing.module.css'
 import SiteFooter from '@/components/SiteFooter'
@@ -100,29 +100,29 @@ export default function LandingPage() {
         </div>
 
         <div className={styles.featuresGrid}>
-          <div className={styles.featureCard}>
+          <Link href="/login" className={styles.featureCard}>
             <div className={styles.featureIcon} style={{ background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)' }}>
               <Users style={{ width: '32px', height: '32px' }} />
             </div>
             <h3 className={styles.featureTitle}>Trouvez des partenaires</h3>
             <p className={styles.featureDescription}>Connectez-vous avec d&apos;autres golfeurs et organisez des parties ensemble</p>
-          </div>
+          </Link>
 
-          <div className={styles.featureCard}>
+          <Link href="/login" className={styles.featureCard}>
             <div className={styles.featureIcon} style={{ background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}>
               <Calendar style={{ width: '32px', height: '32px' }} />
             </div>
             <h3 className={styles.featureTitle}>Créez des événements</h3>
             <p className={styles.featureDescription}>Organisez vos parties de golf et invitez d&apos;autres joueurs à vous rejoindre</p>
-          </div>
+          </Link>
 
-          <div className={styles.featureCard}>
+          <Link href="/login" className={styles.featureCard}>
             <div className={styles.featureIcon} style={{ background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)' }}>
               <Zap style={{ width: '32px', height: '32px' }} />
             </div>
             <h3 className={styles.featureTitle}>Chat de groupe</h3>
             <p className={styles.featureDescription}>Communiquez avec les participants de vos événements via la messagerie intégrée</p>
-          </div>
+          </Link>
         </div>
       </div>
 
