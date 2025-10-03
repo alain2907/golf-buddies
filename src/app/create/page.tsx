@@ -81,7 +81,7 @@ export default function CreateEventPage() {
       city: course.city
     })
     setShowCourseDropdown(false)
-    setSearchTerm('')
+    setSearchTerm(course.name)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -295,9 +295,8 @@ export default function CreateEventPage() {
               <div ref={dropdownRef} style={{ position: 'relative' }}>
                 <input
                   type="text"
-                  value={formData.course}
+                  value={searchTerm}
                   onChange={(e) => {
-                    setFormData({...formData, course: e.target.value, courseId: ''})
                     setSearchTerm(e.target.value)
                     setShowCourseDropdown(true)
                   }}
