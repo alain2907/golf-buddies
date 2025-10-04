@@ -1,0 +1,529 @@
+[
+  {
+    "__name__": "golf-lille-bondues",
+    "name": "Golf de Bondues",
+    "city": "Bondues",
+    "region": "Hauts-de-France",
+    "country": "France",
+    "address": "Avenue du Golf",
+    "coordinates": {
+      "latitude": 50.7069,
+      "longitude": 3.1039
+    },
+    "holes": 18,
+    "description": "Parcours vallonné près de Lille",
+    "website": "https://www.golfbondues.com",
+    "phone": "03 20 23 20 62",
+    "rating": 4.3
+  },
+  {
+    "__name__": "golf-lille-sart",
+    "name": "Golf du Sart",
+    "city": "Villeneuve-d'Ascq",
+    "region": "Hauts-de-France",
+    "country": "France",
+    "address": "Avenue du Golf",
+    "coordinates": {
+      "latitude": 50.6394,
+      "longitude": 3.1361
+    },
+    "holes": 18,
+    "description": "Golf urbain à Lille métropole",
+    "website": "https://www.golfdusart.com",
+    "phone": "03 20 72 02 51",
+    "rating": 4.1
+  },
+  {
+    "__name__": "golf-saint-etienne",
+    "name": "Golf de Saint-Étienne",
+    "city": "La Fouillouse",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "address": "Route de la Tour",
+    "coordinates": {
+      "latitude": 45.4983,
+      "longitude": 4.3117
+    },
+    "holes": 18,
+    "description": "Parcours dans les Monts du Forez",
+    "website": "https://www.golf-saint-etienne.com",
+    "phone": "04 77 30 84 60",
+    "rating": 4.2
+  },
+  {
+    "__name__": "golf-rouen-mont-saint-aignan",
+    "name": "Golf de Rouen Mont-Saint-Aignan",
+    "city": "Mont-Saint-Aignan",
+    "region": "Normandie",
+    "country": "France",
+    "address": "Route de l'Abbaye",
+    "coordinates": {
+      "latitude": 49.4639,
+      "longitude": 1.0792
+    },
+    "holes": 18,
+    "description": "Golf en forêt près de Rouen",
+    "website": "https://www.golfderouen.fr",
+    "phone": "02 35 76 38 65",
+    "rating": 4.4
+  },
+  {
+    "__name__": "golf-limoges-saint-lazare",
+    "name": "Golf de Limoges Saint-Lazare",
+    "city": "Limoges",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "address": "Avenue du Golf",
+    "coordinates": {
+      "latitude": 45.8667,
+      "longitude": 1.2833
+    },
+    "holes": 18,
+    "description": "Parcours technique près de Limoges",
+    "website": "https://www.golf-limoges.com",
+    "phone": "05 55 06 05 35",
+    "rating": 4.0
+  },
+  {
+    "__name__": "golf-poitiers",
+    "name": "Golf de Poitiers",
+    "city": "Saint-Cyr",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "address": "Domaine de Lavaud",
+    "coordinates": {
+      "latitude": 46.6333,
+      "longitude": 0.3833
+    },
+    "holes": 18,
+    "description": "Golf dans le parc du Futuroscope",
+    "website": "https://www.golf-poitiers.com",
+    "phone": "05 49 52 00 64",
+    "rating": 4.3
+  },
+  {
+    "__name__": "golf-evreux",
+    "name": "Golf d'Évreux",
+    "city": "Saint-Sébastien-de-Morsent",
+    "region": "Normandie",
+    "country": "France",
+    "address": "Chemin de la Garenne",
+    "coordinates": {
+      "latitude": 49.0158,
+      "longitude": 1.0964
+    },
+    "holes": 18,
+    "description": "Parcours normand vallonné",
+    "website": "https://www.golf-evreux.fr",
+    "phone": "02 32 33 06 00",
+    "rating": 4.1
+  },
+  {
+    "__name__": "golf-chartres",
+    "name": "Golf de Chartres",
+    "city": "Coudray",
+    "region": "Centre-Val de Loire",
+    "country": "France",
+    "address": "Rue du Bois Paris",
+    "coordinates": {
+      "latitude": 48.4333,
+      "longitude": 1.5000
+    },
+    "holes": 18,
+    "description": "Golf de la région chartraine",
+    "website": "https://www.golf-chartres.com",
+    "phone": "02 37 26 04 77",
+    "rating": 4.0
+  },
+  {
+    "__name__": "golf-auch",
+    "name": "Golf d'Auch Embats",
+    "city": "Auch",
+    "region": "Occitanie",
+    "country": "France",
+    "address": "Domaine d'Embats",
+    "coordinates": {
+      "latitude": 43.6458,
+      "longitude": 0.5886
+    },
+    "holes": 18,
+    "description": "Parcours gersois vallonné",
+    "website": "https://www.golf-auch.com",
+    "phone": "05 62 61 12 80",
+    "rating": 4.2
+  },
+  {
+    "__name__": "golf-chateauroux",
+    "name": "Golf de la Brenne",
+    "city": "Villedieu-sur-Indre",
+    "region": "Centre-Val de Loire",
+    "country": "France",
+    "address": "Domaine de la Brenne",
+    "coordinates": {
+      "latitude": 46.8667,
+      "longitude": 1.5333
+    },
+    "holes": 18,
+    "description": "Golf au cœur du Berry",
+    "website": "https://www.golf-brenne.com",
+    "phone": "02 54 26 71 50",
+    "rating": 3.9
+  },
+  {
+    "__name__": "golf-lons-le-saunier",
+    "name": "Golf de la Chevalerie",
+    "city": "Saint-Germain-lès-Arlay",
+    "region": "Bourgogne-Franche-Comté",
+    "country": "France",
+    "address": "Domaine de la Chevalerie",
+    "coordinates": {
+      "latitude": 46.7544,
+      "longitude": 5.5272
+    },
+    "holes": 18,
+    "description": "Golf du Jura viticole",
+    "website": "https://www.golf-lachevalerie.com",
+    "phone": "03 84 44 80 35",
+    "rating": 4.1
+  },
+  {
+    "__name__": "golf-agen",
+    "name": "Golf d'Agen Bon-Encontre",
+    "city": "Bon-Encontre",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "address": "Domaine de Barbe",
+    "coordinates": {
+      "latitude": 44.1917,
+      "longitude": 0.6625
+    },
+    "holes": 18,
+    "description": "Parcours en Lot-et-Garonne",
+    "website": "https://www.golf-agen.fr",
+    "phone": "05 53 96 11 00",
+    "rating": 4.0
+  },
+  {
+    "__name__": "golf-mende",
+    "name": "Golf de la Canourgue",
+    "city": "La Canourgue",
+    "region": "Occitanie",
+    "country": "France",
+    "address": "Causse de Sauveterre",
+    "coordinates": {
+      "latitude": 44.4317,
+      "longitude": 3.2144
+    },
+    "holes": 9,
+    "description": "Golf en Lozère sur le Causse",
+    "website": "",
+    "phone": "04 66 32 84 42",
+    "rating": 3.8
+  },
+  {
+    "__name__": "golf-cherbourg",
+    "name": "Golf de la Glacerie",
+    "city": "La Glacerie",
+    "region": "Normandie",
+    "country": "France",
+    "address": "Route de Valognes",
+    "coordinates": {
+      "latitude": 49.6053,
+      "longitude": -1.5961
+    },
+    "holes": 18,
+    "description": "Golf du Cotentin",
+    "website": "https://www.golf-cherbourg.com",
+    "phone": "02 33 44 46 09",
+    "rating": 4.1
+  },
+  {
+    "__name__": "golf-laval",
+    "name": "Golf de Laval Changé",
+    "city": "Changé",
+    "region": "Pays de la Loire",
+    "country": "France",
+    "address": "Route de la Roche Pichemer",
+    "coordinates": {
+      "latitude": 48.1000,
+      "longitude": -0.7667
+    },
+    "holes": 18,
+    "description": "Golf mayennais vallonné",
+    "website": "https://www.golf-laval.fr",
+    "phone": "02 43 53 16 03",
+    "rating": 4.0
+  },
+  {
+    "__name__": "golf-gueret",
+    "name": "Golf de la Jonchère",
+    "city": "Saint-Sulpice-le-Guérétois",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "address": "Domaine de la Jonchère",
+    "coordinates": {
+      "latitude": 46.1667,
+      "longitude": 1.9000
+    },
+    "holes": 18,
+    "description": "Golf de la Creuse",
+    "website": "https://www.golf-gueret.com",
+    "phone": "05 55 81 90 00",
+    "rating": 3.9
+  },
+  {
+    "__name__": "golf-bar-le-duc",
+    "name": "Golf de Combles-en-Barrois",
+    "city": "Combles-en-Barrois",
+    "region": "Grand Est",
+    "country": "France",
+    "address": "Rue du Golf",
+    "coordinates": {
+      "latitude": 48.7833,
+      "longitude": 5.1667
+    },
+    "holes": 18,
+    "description": "Golf de la Meuse",
+    "website": "https://www.golf-combles.com",
+    "phone": "03 29 70 95 97",
+    "rating": 3.8
+  },
+  {
+    "__name__": "golf-privas",
+    "name": "Golf de Privas-Saint-Priest",
+    "city": "Saint-Priest",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "address": "Domaine de Combe Fages",
+    "coordinates": {
+      "latitude": 44.7333,
+      "longitude": 4.6000
+    },
+    "holes": 9,
+    "description": "Golf en Ardèche",
+    "website": "",
+    "phone": "04 75 64 54 36",
+    "rating": 3.7
+  },
+  {
+    "__name__": "golf-foix",
+    "name": "Golf de l'Ariège",
+    "city": "La Bastide-de-Sérou",
+    "region": "Occitanie",
+    "country": "France",
+    "address": "Domaine de Terride",
+    "coordinates": {
+      "latitude": 43.0167,
+      "longitude": 1.4333
+    },
+    "holes": 9,
+    "description": "Golf pyrénéen en Ariège",
+    "website": "https://www.golfariege.com",
+    "phone": "05 61 64 56 56",
+    "rating": 4.0
+  },
+  {
+    "__name__": "golf-rodez",
+    "name": "Golf d'Onet-le-Château",
+    "city": "Onet-le-Château",
+    "region": "Occitanie",
+    "country": "France",
+    "address": "Domaine de Vabre",
+    "coordinates": {
+      "latitude": 44.3667,
+      "longitude": 2.5833
+    },
+    "holes": 18,
+    "description": "Golf de l'Aveyron près de Rodez",
+    "website": "https://www.golf-rodez.com",
+    "phone": "05 65 67 09 27",
+    "rating": 4.1
+  },
+  {
+    "__name__": "golf-aurillac",
+    "name": "Golf d'Aurillac Arpajon",
+    "city": "Arpajon-sur-Cère",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "address": "Lieu-dit Vaysset",
+    "coordinates": {
+      "latitude": 44.9000,
+      "longitude": 2.4500
+    },
+    "holes": 9,
+    "description": "Golf du Cantal",
+    "website": "",
+    "phone": "04 71 64 54 95",
+    "rating": 3.8
+  },
+  {
+    "__name__": "golf-bourges",
+    "name": "Golf de Bourges",
+    "city": "Osmoy",
+    "region": "Centre-Val de Loire",
+    "country": "France",
+    "address": "Route de Charost",
+    "coordinates": {
+      "latitude": 47.0333,
+      "longitude": 2.4167
+    },
+    "holes": 18,
+    "description": "Golf du Cher en Berry",
+    "website": "https://www.golf-bourges.com",
+    "phone": "02 48 50 84 08",
+    "rating": 4.0
+  },
+  {
+    "__name__": "golf-montlucon",
+    "name": "Golf de Montluçon Villebret",
+    "city": "Villebret",
+    "region": "Auvergne-Rhône-Alpes",
+    "country": "France",
+    "address": "Domaine du Riau",
+    "coordinates": {
+      "latitude": 46.3333,
+      "longitude": 2.5667
+    },
+    "holes": 18,
+    "description": "Golf de l'Allier",
+    "website": "https://www.golf-montlucon.com",
+    "phone": "04 70 05 87 29",
+    "rating": 4.1
+  },
+  {
+    "__name__": "golf-chaumont",
+    "name": "Golf de la Cordelière",
+    "city": "Chaumont",
+    "region": "Grand Est",
+    "country": "France",
+    "address": "Avenue de la Cordelière",
+    "coordinates": {
+      "latitude": 48.1167,
+      "longitude": 5.1333
+    },
+    "holes": 18,
+    "description": "Golf de Haute-Marne",
+    "website": "https://www.golf-chaumont.com",
+    "phone": "03 25 03 87 65",
+    "rating": 3.9
+  },
+  {
+    "__name__": "golf-alençon",
+    "name": "Golf d'Alençon",
+    "city": "Champfleur",
+    "region": "Normandie",
+    "country": "France",
+    "address": "Château de Champfleur",
+    "coordinates": {
+      "latitude": 48.3833,
+      "longitude": 0.0833
+    },
+    "holes": 18,
+    "description": "Golf de l'Orne",
+    "website": "https://www.golf-alencon.com",
+    "phone": "02 33 26 48 48",
+    "rating": 4.2
+  },
+  {
+    "__name__": "golf-tarbes",
+    "name": "Golf de Tarbes Les Tumulus",
+    "city": "Aureilhan",
+    "region": "Occitanie",
+    "country": "France",
+    "address": "Route de l'Aérodrome",
+    "coordinates": {
+      "latitude": 43.2333,
+      "longitude": 0.0833
+    },
+    "holes": 18,
+    "description": "Golf pyrénéen près de Tarbes",
+    "website": "https://www.golf-tarbes.com",
+    "phone": "05 62 32 07 07",
+    "rating": 4.2
+  },
+  {
+    "__name__": "golf-luxeuil",
+    "name": "Golf de Luxeuil",
+    "city": "Baudoncourt",
+    "region": "Bourgogne-Franche-Comté",
+    "country": "France",
+    "address": "Domaine de Grammont",
+    "coordinates": {
+      "latitude": 47.8167,
+      "longitude": 6.3500
+    },
+    "holes": 18,
+    "description": "Golf de Haute-Saône",
+    "website": "https://www.golf-luxeuil.com",
+    "phone": "03 84 93 83 86",
+    "rating": 3.9
+  },
+  {
+    "__name__": "golf-niort",
+    "name": "Golf de Niort Romagné",
+    "city": "Romagné",
+    "region": "Nouvelle-Aquitaine",
+    "country": "France",
+    "address": "Domaine de Romagné",
+    "coordinates": {
+      "latitude": 46.3167,
+      "longitude": -0.4500
+    },
+    "holes": 18,
+    "description": "Golf des Deux-Sèvres",
+    "website": "https://www.golf-niort.fr",
+    "phone": "05 49 09 01 41",
+    "rating": 4.0
+  },
+  {
+    "__name__": "golf-montauban",
+    "name": "Golf de Montauban Sapiac",
+    "city": "Montauban",
+    "region": "Occitanie",
+    "country": "France",
+    "address": "Avenue de l'Europe",
+    "coordinates": {
+      "latitude": 44.0167,
+      "longitude": 1.3667
+    },
+    "holes": 18,
+    "description": "Golf du Tarn-et-Garonne",
+    "website": "https://www.golf-montauban.com",
+    "phone": "05 63 31 06 26",
+    "rating": 4.1
+  },
+  {
+    "__name__": "golf-auxerre",
+    "name": "Golf d'Auxerre",
+    "city": "Appoigny",
+    "region": "Bourgogne-Franche-Comté",
+    "country": "France",
+    "address": "Route de Vaux",
+    "coordinates": {
+      "latitude": 47.8667,
+      "longitude": 3.5333
+    },
+    "holes": 18,
+    "description": "Golf de l'Yonne",
+    "website": "https://www.golf-auxerre.com",
+    "phone": "03 86 53 20 80",
+    "rating": 4.0
+  },
+  {
+    "__name__": "golf-belfort",
+    "name": "Golf de Rougemont-le-Château",
+    "city": "Rougemont-le-Château",
+    "region": "Bourgogne-Franche-Comté",
+    "country": "France",
+    "address": "Route du Golf",
+    "coordinates": {
+      "latitude": 47.7500,
+      "longitude": 6.9667
+    },
+    "holes": 18,
+    "description": "Golf du Territoire de Belfort",
+    "website": "https://www.golf-belfort.fr",
+    "phone": "03 84 23 74 74",
+    "rating": 4.0
+  }
+]

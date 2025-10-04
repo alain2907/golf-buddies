@@ -3,14 +3,19 @@ import { useState, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { Search, MapPin, Star, Phone, Globe, ChevronRight } from 'lucide-react'
 import Footer from '@/components/Footer'
-import { golfCourses, getUniqueRegions, type GolfCourse } from '@/data/golf-courses'
+import { useCourses } from '@/hooks/useCourses'
 
 export default function CoursesPage() {
   const router = useRouter()
+  const { courses: golfCourses } = useCourses()
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedRegion, setSelectedRegion] = useState('all')
   const [selectedHoles, setSelectedHoles] = useState('all')
-  const regions = getUniqueRegions()
+
+  // Extraire les régions uniques depuis les golfs Firestore
+  const regions = useMemo(() => {
+    return [...new Set(golfCourses.map(course => course.region))].sort()
+  }, [golfCourses])
 
   const filteredCourses = useMemo(() => {
     return golfCourses.filter(course => {
@@ -28,7 +33,7 @@ export default function CoursesPage() {
     })
   }, [searchTerm, selectedRegion, selectedHoles])
 
-  const handleCourseClick = (course: GolfCourse) => {
+  const handleCourseClick = (course: any) => {
     // Pour l'instant, on redirige vers create avec le nom du golf pré-rempli
     router.push(`/create?course=${encodeURIComponent(course.name)}&city=${encodeURIComponent(course.city)}`)
   }
@@ -217,9 +222,8 @@ export default function CoursesPage() {
               <div style={{ padding: '20px' }}>
                 {/* Informations techniques */}
                 <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(3, 1fr)',
-                  gap: '12px',
+                  display: 'flex',
+                  justifyContent: 'center',
                   marginBottom: '16px',
                   paddingBottom: '16px',
                   borderBottom: '1px solid #e5e7eb'
@@ -229,18 +233,6 @@ export default function CoursesPage() {
                       {course.holes}
                     </div>
                     <div style={{ fontSize: '12px', color: '#6b7280' }}>Trous</div>
-                  </div>
-                  <div style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: '20px', fontWeight: '600', color: '#2D5016' }}>
-                      Par {course.par}
-                    </div>
-                    <div style={{ fontSize: '12px', color: '#6b7280' }}>Par</div>
-                  </div>
-                  <div style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: '20px', fontWeight: '600', color: '#2D5016' }}>
-                      {course.distance}m
-                    </div>
-                    <div style={{ fontSize: '12px', color: '#6b7280' }}>Distance</div>
                   </div>
                 </div>
 
@@ -256,37 +248,6 @@ export default function CoursesPage() {
                   </p>
                 )}
 
-                {/* Facilities */}
-                <div style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '6px',
-                  marginBottom: '16px'
-                }}>
-                  {course.facilities.slice(0, 4).map((facility, index) => (
-                    <span
-                      key={index}
-                      style={{
-                        fontSize: '12px',
-                        padding: '4px 8px',
-                        background: '#E8F5E9',
-                        color: '#2D5016',
-                        borderRadius: '6px'
-                      }}
-                    >
-                      {facility}
-                    </span>
-                  ))}
-                  {course.facilities.length > 4 && (
-                    <span style={{
-                      fontSize: '12px',
-                      padding: '4px 8px',
-                      color: '#6b7280'
-                    }}>
-                      +{course.facilities.length - 4} autres
-                    </span>
-                  )}
-                </div>
 
                 {/* Actions */}
                 <div style={{
