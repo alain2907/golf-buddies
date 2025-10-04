@@ -21,6 +21,8 @@ export default function CreateEventPage() {
   const [showCourseDropdown, setShowCourseDropdown] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const [currentStep, setCurrentStep] = useState(1)
+  const [showShareModal, setShowShareModal] = useState(false)
+  const [createdEventId, setCreatedEventId] = useState<string | null>(null)
 
   const [formData, setFormData] = useState({
     city: searchParams.get('city') || '',
@@ -149,7 +151,9 @@ export default function CreateEventPage() {
         console.error('Error processing compatibility:', error)
       }
 
-      router.push(`/events/${eventId}`)
+      // Afficher le modal de partage au lieu de rediriger immédiatement
+      setCreatedEventId(eventId)
+      setShowShareModal(true)
 
     } catch (error: any) {
       console.error('Error creating event:', error)
@@ -951,6 +955,216 @@ export default function CreateEventPage() {
       </div>
 
       <Footer />
+
+      {/* Modal de partage */}
+      {showShareModal && createdEventId && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0,0,0,0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+          padding: '20px'
+        }}>
+          <div style={{
+            background: 'white',
+            borderRadius: '24px',
+            maxWidth: '500px',
+            width: '100%',
+            padding: '32px',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+            animation: 'slideUp 0.3s ease'
+          }}>
+            <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+              <div style={{
+                width: '64px',
+                height: '64px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #4A7C2E 0%, #6B9F3F 100%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 16px',
+                fontSize: '32px'
+              }}>
+                ✓
+              </div>
+              <h2 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '8px', color: '#111827' }}>
+                Partie créée !
+              </h2>
+              <p style={{ color: '#6b7280', fontSize: '15px' }}>
+                Invitez vos amis à rejoindre la partie
+              </p>
+            </div>
+
+            <div style={{ marginBottom: '24px' }}>
+              {(() => {
+                const eventUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/events/${createdEventId}`
+                const appStoreUrl = 'https://play.google.com/store/apps/details?id=com.golf.buddies'
+                const shareText = `🏌️ Rejoins ma partie de golf "${formData.title || 'Partie golf'}" au ${formData.course} le ${formData.date} à ${formData.time} !\n\nVoir la partie : ${eventUrl}\n\nTélécharge Golf Buddies : ${appStoreUrl}`
+                const encodedText = encodeURIComponent(shareText)
+
+                return (
+                  <>
+                    <div style={{ marginBottom: '12px' }}>
+                      <button
+                        onClick={() => {
+                          window.open(`https://wa.me/?text=${encodedText}`, '_blank')
+                        }}
+                        style={{
+                          width: '100%',
+                          padding: '16px',
+                          background: '#25D366',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '12px',
+                          fontSize: '16px',
+                          fontWeight: '600',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '12px',
+                          transition: 'all 0.2s'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
+                        onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                      >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                        </svg>
+                        Partager sur WhatsApp
+                      </button>
+                    </div>
+
+                    <div style={{ marginBottom: '12px' }}>
+                      <button
+                        onClick={() => {
+                          window.location.href = `sms:?&body=${encodedText}`
+                        }}
+                        style={{
+                          width: '100%',
+                          padding: '16px',
+                          background: '#007AFF',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '12px',
+                          fontSize: '16px',
+                          fontWeight: '600',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '12px',
+                          transition: 'all 0.2s'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
+                        onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                      >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                        Partager par SMS
+                      </button>
+                    </div>
+
+                    <div style={{ marginBottom: '12px' }}>
+                      <button
+                        onClick={() => {
+                          window.location.href = `mailto:?subject=${encodeURIComponent(`🏌️ Partie de golf - ${formData.title || 'Golf Buddies'}`)}&body=${encodedText}`
+                        }}
+                        style={{
+                          width: '100%',
+                          padding: '16px',
+                          background: '#EA4335',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '12px',
+                          fontSize: '16px',
+                          fontWeight: '600',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '12px',
+                          transition: 'all 0.2s'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
+                        onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                      >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                        Partager par Email
+                      </button>
+                    </div>
+
+                    <div style={{ marginBottom: '20px' }}>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(eventUrl)
+                          alert('Lien copié !')
+                        }}
+                        style={{
+                          width: '100%',
+                          padding: '16px',
+                          background: '#f3f4f6',
+                          color: '#374151',
+                          border: 'none',
+                          borderRadius: '12px',
+                          fontSize: '16px',
+                          fontWeight: '600',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '12px',
+                          transition: 'all 0.2s'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = '#e5e7eb'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = '#f3f4f6'}
+                      >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                        </svg>
+                        Copier le lien
+                      </button>
+                    </div>
+                  </>
+                )
+              })()}
+            </div>
+
+            <button
+              onClick={() => {
+                setShowShareModal(false)
+                router.push(`/events/${createdEventId}`)
+              }}
+              style={{
+                width: '100%',
+                padding: '16px',
+                background: '#4A7C2E',
+                color: 'white',
+                border: 'none',
+                borderRadius: '12px',
+                fontSize: '16px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
+              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+            >
+              Voir ma partie
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
