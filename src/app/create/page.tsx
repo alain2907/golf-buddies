@@ -78,7 +78,7 @@ export default function CreateEventPage() {
     })
     setShowCourseDropdown(false)
     setSearchTerm(course.name)
-    setTimeout(() => setCurrentStep(2), 300)
+    setTimeout(() => setCurrentStep(4), 300)
   }
 
   const handleSubmit = async () => {
@@ -161,7 +161,118 @@ export default function CreateEventPage() {
 
   const renderStep = () => {
     switch (currentStep) {
+      // Étape 1: Ville
       case 1:
+        return (
+          <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <h2 style={{ fontSize: '28px', fontWeight: '600', marginBottom: '12px', textAlign: 'center', color: '#111827' }}>
+              🏙️ Dans quelle ville ?
+            </h2>
+            <p style={{ textAlign: 'center', color: '#6b7280', marginBottom: '32px', fontSize: '15px' }}>
+              Cela nous aide à filtrer les golfs proches
+            </p>
+            <input
+              type="text"
+              value={formData.city}
+              onChange={(e) => setFormData({...formData, city: e.target.value})}
+              placeholder="ex: Paris, Lyon, Marseille..."
+              autoFocus
+              style={{
+                width: '100%',
+                padding: '18px 20px',
+                border: '2px solid #e5e7eb',
+                borderRadius: '16px',
+                fontSize: '17px',
+                outline: 'none',
+                transition: 'all 0.2s',
+                marginBottom: '16px'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = '#4A7C2E'
+                e.target.style.boxShadow = '0 0 0 3px rgba(74, 124, 46, 0.1)'
+              }}
+              onBlur={(e) => {
+                e.target.style.boxShadow = 'none'
+              }}
+            />
+            <button
+              type="button"
+              onClick={() => formData.city && setCurrentStep(2)}
+              disabled={!formData.city}
+              style={{
+                padding: '18px',
+                background: formData.city ? 'linear-gradient(135deg, #4A7C2E 0%, #6B9F3F 100%)' : '#e5e7eb',
+                color: formData.city ? 'white' : '#9ca3af',
+                border: 'none',
+                borderRadius: '16px',
+                fontSize: '17px',
+                fontWeight: '600',
+                cursor: formData.city ? 'pointer' : 'not-allowed',
+                transition: 'all 0.2s'
+              }}
+            >
+              Continuer
+            </button>
+          </div>
+        )
+
+      // Étape 2: Nom de l'événement
+      case 2:
+        return (
+          <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <h2 style={{ fontSize: '28px', fontWeight: '600', marginBottom: '12px', textAlign: 'center', color: '#111827' }}>
+              📝 Nom de votre partie
+            </h2>
+            <p style={{ textAlign: 'center', color: '#6b7280', marginBottom: '32px', fontSize: '15px' }}>
+              Un titre accrocheur pour attirer des joueurs
+            </p>
+            <input
+              type="text"
+              value={formData.title}
+              onChange={(e) => setFormData({...formData, title: e.target.value})}
+              placeholder="ex: Partie amicale 18 trous"
+              autoFocus
+              style={{
+                width: '100%',
+                padding: '18px 20px',
+                border: '2px solid #e5e7eb',
+                borderRadius: '16px',
+                fontSize: '17px',
+                outline: 'none',
+                transition: 'all 0.2s',
+                marginBottom: '16px'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = '#4A7C2E'
+                e.target.style.boxShadow = '0 0 0 3px rgba(74, 124, 46, 0.1)'
+              }}
+              onBlur={(e) => {
+                e.target.style.boxShadow = 'none'
+              }}
+            />
+            <button
+              type="button"
+              onClick={() => formData.title && setCurrentStep(3)}
+              disabled={!formData.title}
+              style={{
+                padding: '18px',
+                background: formData.title ? 'linear-gradient(135deg, #4A7C2E 0%, #6B9F3F 100%)' : '#e5e7eb',
+                color: formData.title ? 'white' : '#9ca3af',
+                border: 'none',
+                borderRadius: '16px',
+                fontSize: '17px',
+                fontWeight: '600',
+                cursor: formData.title ? 'pointer' : 'not-allowed',
+                transition: 'all 0.2s'
+              }}
+            >
+              Continuer
+            </button>
+          </div>
+        )
+
+      // Étape 3: Parcours
+      case 3:
         return (
           <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <h2 style={{ fontSize: '28px', fontWeight: '600', marginBottom: '12px', textAlign: 'center', color: '#111827' }}>
@@ -249,7 +360,8 @@ export default function CreateEventPage() {
           </div>
         )
 
-      case 2:
+      // Étape 4: Date
+      case 4:
         return (
           <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <h2 style={{ fontSize: '28px', fontWeight: '600', marginBottom: '8px', textAlign: 'center', color: '#111827' }}>
@@ -264,7 +376,7 @@ export default function CreateEventPage() {
               onChange={(e) => {
                 setFormData({...formData, date: e.target.value})
                 if (e.target.value) {
-                  setTimeout(() => setCurrentStep(3), 300)
+                  setTimeout(() => setCurrentStep(5), 300)
                 }
               }}
               min={new Date().toISOString().split('T')[0]}
@@ -289,7 +401,8 @@ export default function CreateEventPage() {
           </div>
         )
 
-      case 3:
+      // Étape 5: Heure
+      case 5:
         return (
           <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <h2 style={{ fontSize: '28px', fontWeight: '600', marginBottom: '32px', textAlign: 'center', color: '#111827' }}>
@@ -314,7 +427,7 @@ export default function CreateEventPage() {
                   type="button"
                   onClick={() => {
                     setFormData({...formData, time})
-                    setTimeout(() => setCurrentStep(4), 300)
+                    setTimeout(() => setCurrentStep(6), 300)
                   }}
                   style={{
                     padding: '18px',
@@ -345,7 +458,8 @@ export default function CreateEventPage() {
           </div>
         )
 
-      case 4:
+      // Étape 6: Format de jeu
+      case 6:
         return (
           <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <h2 style={{ fontSize: '28px', fontWeight: '600', marginBottom: '32px', textAlign: 'center', color: '#111827' }}>
@@ -363,7 +477,7 @@ export default function CreateEventPage() {
                   type="button"
                   onClick={() => {
                     setFormData({...formData, gameFormat: format.value})
-                    setTimeout(() => setCurrentStep(5), 300)
+                    setTimeout(() => setCurrentStep(7), 300)
                   }}
                   style={{
                     padding: '20px 24px',
@@ -401,7 +515,8 @@ export default function CreateEventPage() {
           </div>
         )
 
-      case 5:
+      // Étape 7: Nombre de joueurs
+      case 7:
         return (
           <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <h2 style={{ fontSize: '28px', fontWeight: '600', marginBottom: '32px', textAlign: 'center', color: '#111827' }}>
@@ -414,7 +529,7 @@ export default function CreateEventPage() {
                   type="button"
                   onClick={() => {
                     setFormData({...formData, maxPlayers: num})
-                    setTimeout(() => setCurrentStep(6), 300)
+                    setTimeout(() => setCurrentStep(8), 300)
                   }}
                   style={{
                     padding: '40px 20px',
@@ -448,7 +563,187 @@ export default function CreateEventPage() {
           </div>
         )
 
-      case 6:
+      // Étape 8: Niveau recherché
+      case 8:
+        return (
+          <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <h2 style={{ fontSize: '28px', fontWeight: '600', marginBottom: '32px', textAlign: 'center', color: '#111827' }}>
+              🎯 Quel niveau recherchez-vous ?
+            </h2>
+            <div style={{ display: 'grid', gap: '14px' }}>
+              {[
+                { value: '', label: 'Tous niveaux', icon: '🌟', desc: 'Ouvert à tous' },
+                { value: 'beginner', label: 'Débutant', icon: '🌱', desc: 'Première année' },
+                { value: 'intermediate', label: 'Intermédiaire', icon: '⚡', desc: 'Quelques années' },
+                { value: 'advanced', label: 'Confirmé', icon: '🏆', desc: 'Joueur régulier' }
+              ].map(level => (
+                <button
+                  key={level.value}
+                  type="button"
+                  onClick={() => {
+                    setFormData({...formData, level: level.value})
+                    setTimeout(() => setCurrentStep(9), 300)
+                  }}
+                  style={{
+                    padding: '20px 24px',
+                    border: '2px solid #e5e7eb',
+                    borderRadius: '12px',
+                    fontSize: '17px',
+                    fontWeight: '500',
+                    background: 'white',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '16px',
+                    color: '#111827'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = '#4A7C2E'
+                    e.currentTarget.style.background = '#E8F5E9'
+                    e.currentTarget.style.transform = 'translateX(4px)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = '#e5e7eb'
+                    e.currentTarget.style.background = 'white'
+                    e.currentTarget.style.transform = 'translateX(0)'
+                  }}
+                >
+                  <span style={{ fontSize: '28px' }}>{level.icon}</span>
+                  <div style={{ flex: 1, textAlign: 'left' }}>
+                    <div style={{ fontWeight: '600', marginBottom: '2px' }}>{level.label}</div>
+                    <div style={{ fontSize: '13px', color: '#6b7280' }}>{level.desc}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )
+
+      // Étape 9: Index (optionnel)
+      case 9:
+        return (
+          <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <h2 style={{ fontSize: '28px', fontWeight: '600', marginBottom: '12px', textAlign: 'center', color: '#111827' }}>
+              🏆 Votre index ?
+            </h2>
+            <p style={{ textAlign: 'center', color: '#6b7280', marginBottom: '32px', fontSize: '15px' }}>
+              Optionnel - Vous pouvez passer cette étape
+            </p>
+            <input
+              type="number"
+              min="0"
+              max="54"
+              step="0.1"
+              value={formData.handicapIndex}
+              onChange={(e) => setFormData({...formData, handicapIndex: e.target.value})}
+              placeholder="ex: 18.5"
+              autoFocus
+              style={{
+                width: '100%',
+                padding: '18px 20px',
+                border: '2px solid #e5e7eb',
+                borderRadius: '16px',
+                fontSize: '17px',
+                outline: 'none',
+                transition: 'all 0.2s',
+                marginBottom: '16px'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = '#4A7C2E'
+                e.target.style.boxShadow = '0 0 0 3px rgba(74, 124, 46, 0.1)'
+              }}
+              onBlur={(e) => {
+                e.target.style.boxShadow = 'none'
+              }}
+            />
+            <button
+              type="button"
+              onClick={() => setCurrentStep(10)}
+              style={{
+                padding: '18px',
+                background: 'linear-gradient(135deg, #4A7C2E 0%, #6B9F3F 100%)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '16px',
+                fontSize: '17px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+            >
+              {formData.handicapIndex ? 'Continuer' : 'Passer cette étape'}
+            </button>
+          </div>
+        )
+
+      // Étape 10: Pour qui ?
+      case 10:
+        return (
+          <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <h2 style={{ fontSize: '28px', fontWeight: '600', marginBottom: '32px', textAlign: 'center', color: '#111827' }}>
+              👥 Qui peut rejoindre ?
+            </h2>
+            <div style={{ display: 'grid', gap: '14px' }}>
+              {[
+                {
+                  value: 'community',
+                  label: 'Ouvert à tous',
+                  icon: '🌟',
+                  desc: 'Visible dans la recherche publique'
+                },
+                {
+                  value: 'friends',
+                  label: 'Mes amis uniquement',
+                  icon: '🔒',
+                  desc: 'Invitation privée'
+                }
+              ].map(mode => (
+                <button
+                  key={mode.value}
+                  type="button"
+                  onClick={() => {
+                    setFormData({...formData, inviteMode: mode.value})
+                    setTimeout(() => setCurrentStep(11), 300)
+                  }}
+                  style={{
+                    padding: '20px 24px',
+                    border: '2px solid #e5e7eb',
+                    borderRadius: '12px',
+                    fontSize: '17px',
+                    fontWeight: '500',
+                    background: 'white',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '16px',
+                    color: '#111827'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = '#4A7C2E'
+                    e.currentTarget.style.background = '#E8F5E9'
+                    e.currentTarget.style.transform = 'translateX(4px)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = '#e5e7eb'
+                    e.currentTarget.style.background = 'white'
+                    e.currentTarget.style.transform = 'translateX(0)'
+                  }}
+                >
+                  <span style={{ fontSize: '28px' }}>{mode.icon}</span>
+                  <div style={{ flex: 1, textAlign: 'left' }}>
+                    <div style={{ fontWeight: '600', marginBottom: '2px' }}>{mode.label}</div>
+                    <div style={{ fontSize: '13px', color: '#6b7280' }}>{mode.desc}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )
+
+      // Étape 11: Récapitulatif
+      case 11:
         return (
           <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <h2 style={{ fontSize: '28px', fontWeight: '600', marginBottom: '32px', textAlign: 'center', color: '#111827' }}>
@@ -461,6 +756,10 @@ export default function CreateEventPage() {
               marginBottom: '28px',
               border: '1px solid #e5e7eb'
             }}>
+              <div style={{ marginBottom: '20px' }}>
+                <div style={{ color: '#6b7280', fontSize: '13px', fontWeight: '500', marginBottom: '4px' }}>Titre</div>
+                <div style={{ fontSize: '17px', fontWeight: '600', color: '#111827' }}>{formData.title}</div>
+              </div>
               <div style={{ marginBottom: '20px' }}>
                 <div style={{ color: '#6b7280', fontSize: '13px', fontWeight: '500', marginBottom: '4px' }}>Parcours</div>
                 <div style={{ fontSize: '17px', fontWeight: '600', color: '#111827' }}>{formData.course}</div>
@@ -484,9 +783,30 @@ export default function CreateEventPage() {
                    'Entraînement'}
                 </div>
               </div>
-              <div>
+              <div style={{ marginBottom: '20px' }}>
                 <div style={{ color: '#6b7280', fontSize: '13px', fontWeight: '500', marginBottom: '4px' }}>Joueurs</div>
                 <div style={{ fontSize: '17px', fontWeight: '600', color: '#111827' }}>{formData.maxPlayers} personnes</div>
+              </div>
+              <div style={{ marginBottom: '20px' }}>
+                <div style={{ color: '#6b7280', fontSize: '13px', fontWeight: '500', marginBottom: '4px' }}>Niveau</div>
+                <div style={{ fontSize: '17px', fontWeight: '600', color: '#111827' }}>
+                  {formData.level === 'beginner' ? 'Débutant' :
+                   formData.level === 'intermediate' ? 'Intermédiaire' :
+                   formData.level === 'advanced' ? 'Confirmé' :
+                   'Tous niveaux'}
+                </div>
+              </div>
+              {formData.handicapIndex && (
+                <div style={{ marginBottom: '20px' }}>
+                  <div style={{ color: '#6b7280', fontSize: '13px', fontWeight: '500', marginBottom: '4px' }}>Index</div>
+                  <div style={{ fontSize: '17px', fontWeight: '600', color: '#111827' }}>{formData.handicapIndex}</div>
+                </div>
+              )}
+              <div>
+                <div style={{ color: '#6b7280', fontSize: '13px', fontWeight: '500', marginBottom: '4px' }}>Visibilité</div>
+                <div style={{ fontSize: '17px', fontWeight: '600', color: '#111827' }}>
+                  {formData.inviteMode === 'community' ? 'Ouvert à tous' : 'Mes amis uniquement'}
+                </div>
               </div>
             </div>
             <button
@@ -567,7 +887,7 @@ export default function CreateEventPage() {
             gap: '6px',
             marginTop: '4px'
           }}>
-            {[1, 2, 3, 4, 5, 6].map(step => (
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(step => (
               <div
                 key={step}
                 style={{
