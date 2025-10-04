@@ -57,11 +57,13 @@ export default function SiteFooter() {
               { href: '/search', text: 'Découvrir des événements' },
               { href: '/dashboard', text: 'Mon tableau de bord' },
               { href: '/profile', text: 'Mon profil' },
-              { href: '/help', text: 'Centre d\'aide' }
+              { href: '/guide', text: 'Guide' },
+              { href: 'https://golf-buddies.fr', text: 'Blog', external: true }
             ].map((link, index) => (
               <li key={index} style={{ marginBottom: '8px' }}>
                 <Link
                   href={link.href}
+                  {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   style={{
                     fontSize: '14px',
                     color: '#d1d5db',
@@ -128,7 +130,7 @@ export default function SiteFooter() {
         fontSize: '12px',
         color: '#9ca3af'
       }}>
-        © 2025 Golf Buddies. Tous droits réservés. | contact@golfbuddies.fr
+        © 2025 Golf Buddies. Tous droits réservés. | contact@smaaks.fr
       </div>
     </footer>
   );
