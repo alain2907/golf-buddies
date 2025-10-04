@@ -279,7 +279,7 @@ export default function CreateEventPage() {
               📍 Quel parcours de golf ?
             </h2>
             <p style={{ textAlign: 'center', color: '#6b7280', marginBottom: '32px', fontSize: '15px' }}>
-              Recherchez et sélectionnez votre golf
+              Recherchez dans la liste ou saisissez le nom
             </p>
             <div ref={dropdownRef} style={{ position: 'relative' }}>
               <input
@@ -288,6 +288,8 @@ export default function CreateEventPage() {
                 onChange={(e) => {
                   setSearchTerm(e.target.value)
                   setShowCourseDropdown(true)
+                  // Mise à jour du nom du parcours même si pas dans la liste
+                  setFormData({...formData, course: e.target.value})
                 }}
                 placeholder="Rechercher un golf..."
                 autoFocus
@@ -299,7 +301,8 @@ export default function CreateEventPage() {
                   borderRadius: '16px',
                   fontSize: '17px',
                   outline: 'none',
-                  transition: 'all 0.2s'
+                  transition: 'all 0.2s',
+                  marginBottom: '16px'
                 }}
                 onFocus={(e) => {
                   setShowCourseDropdown(true)
@@ -313,8 +316,7 @@ export default function CreateEventPage() {
               <Search style={{
                 position: 'absolute',
                 left: '18px',
-                top: '50%',
-                transform: 'translateY(-50%)',
+                top: '18px',
                 width: '22px',
                 height: '22px',
                 color: '#9ca3af'
@@ -323,14 +325,14 @@ export default function CreateEventPage() {
               {showCourseDropdown && filteredCourses.length > 0 && (
                 <div style={{
                   position: 'absolute',
-                  top: '100%',
+                  top: '60px',
                   left: 0,
                   right: 0,
                   background: 'white',
                   border: '1px solid #e5e7eb',
                   borderRadius: '16px',
                   marginTop: '8px',
-                  maxHeight: '400px',
+                  maxHeight: '300px',
                   overflowY: 'auto',
                   zIndex: 10,
                   boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
@@ -357,6 +359,47 @@ export default function CreateEventPage() {
                 </div>
               )}
             </div>
+
+            {/* Bouton pour continuer avec un golf non listé */}
+            {searchTerm && filteredCourses.length === 0 && (
+              <div style={{
+                background: '#fef3c7',
+                border: '1px solid #f59e0b',
+                borderRadius: '12px',
+                padding: '16px',
+                marginBottom: '16px'
+              }}>
+                <p style={{ fontSize: '14px', color: '#92400e', margin: 0, marginBottom: '12px' }}>
+                  Golf non trouvé dans notre liste. Vous pouvez continuer avec "{searchTerm}"
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFormData({
+                      ...formData,
+                      course: searchTerm,
+                      courseId: '',
+                      city: formData.city
+                    })
+                    setShowCourseDropdown(false)
+                    setTimeout(() => setCurrentStep(4), 300)
+                  }}
+                  style={{
+                    padding: '12px 20px',
+                    background: '#f59e0b',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontSize: '15px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    width: '100%'
+                  }}
+                >
+                  Continuer avec ce golf
+                </button>
+              </div>
+            )}
           </div>
         )
 
