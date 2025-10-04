@@ -1,0 +1,87 @@
+[
+  {
+    "__name__": "golf-cabourg",
+    "name": "Golf de Cabourg le Home",
+    "city": "Cabourg",
+    "region": "Normandie",
+    "country": "France",
+    "address": "Avenue de l'Hippodrome",
+    "coordinates": {
+      "latitude": 49.2833,
+      "longitude": -0.1167
+    },
+    "holes": 18,
+    "description": "Parcours boisé en bord de mer",
+    "website": "https://www.golfcabourg.com",
+    "phone": "02 31 91 25 56",
+    "rating": 4.5
+  },
+  {
+    "__name__": "golf-caen-la-mer",
+    "name": "Golf de Caen la Mer",
+    "city": "Bénouville",
+    "region": "Normandie",
+    "country": "France",
+    "address": "Rue de l'Ancienne Gare",
+    "coordinates": {
+      "latitude": 49.2439,
+      "longitude": -0.2772
+    },
+    "holes": 18,
+    "description": "Parcours technique à 10 minutes de Caen",
+    "website": "https://www.golfcaen.com",
+    "phone": "02 31 44 79 09",
+    "rating": 4.3
+  },
+  {
+    "__name__": "golf-saint-julien",
+    "name": "Golf de Saint-Julien",
+    "city": "Saint-Julien-sur-Calonne",
+    "region": "Normandie",
+    "country": "France",
+    "address": "Route de Saint-Julien",
+    "coordinates": {
+      "latitude": 49.2667,
+      "longitude": 0.2167
+    },
+    "holes": 18,
+    "description": "Golf vallonné dans le Pays d'Auge",
+    "website": "https://www.golfsaintjulien.com",
+    "phone": "02 31 64 30 30",
+    "rating": 4.2
+  },
+  {
+    "__name__": "golf-clecy",
+    "name": "Golf de Clécy",
+    "city": "Clécy",
+    "region": "Normandie",
+    "country": "France",
+    "address": "Le Vey",
+    "coordinates": {
+      "latitude": 48.9167,
+      "longitude": -0.4833
+    },
+    "holes": 9,
+    "description": "Golf 9 trous au cœur de la Suisse Normande",
+    "website": "https://www.golfclecy.com",
+    "phone": "02 31 69 72 72",
+    "rating": 4.0
+  },
+  {
+    "__name__": "golf-etretat",
+    "name": "Golf d'Étretat",
+    "city": "Étretat",
+    "region": "Normandie",
+    "country": "France",
+    "address": "Route du Havre",
+    "coordinates": {
+      "latitude": 49.7072,
+      "longitude": 0.2042
+    },
+    "holes": 18,
+    "description": "Parcours spectaculaire sur les falaises d'Étretat",
+    "website": "https://www.golfetretat.com",
+    "phone": "02 35 27 04 89",
+    "rating": 4.8
+  }
+]
