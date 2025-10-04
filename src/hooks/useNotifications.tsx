@@ -42,6 +42,7 @@ export function useNotifications() {
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
+        const now = new Date()
         const notificationData = snapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
@@ -49,8 +50,13 @@ export function useNotifications() {
           scheduledFor: doc.data().scheduledFor?.toDate()
         })) as Notification[]
 
-        setNotifications(notificationData)
-        setUnreadCount(notificationData.filter(n => !n.read).length)
+        // Filtrer pour ne montrer que les notifications sans scheduledFor ou dont l'heure est passée
+        const activeNotifications = notificationData.filter(n =>
+          !n.scheduledFor || n.scheduledFor <= now
+        )
+
+        setNotifications(activeNotifications)
+        setUnreadCount(activeNotifications.filter(n => !n.read).length)
         setLoading(false)
         setError(null)
       },
