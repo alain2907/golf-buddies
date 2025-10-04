@@ -1006,7 +1006,8 @@ export default function CreateEventPage() {
               {(() => {
                 const eventUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/events/${createdEventId}`
                 const appStoreUrl = 'https://play.google.com/store/apps/details?id=com.golf.buddies'
-                const shareText = `🏌️ Rejoins ma partie de golf "${formData.title || 'Partie golf'}" au ${formData.course} le ${formData.date} à ${formData.time} !\n\nVoir la partie : ${eventUrl}\n\nTélécharge Golf Buddies : ${appStoreUrl}`
+                const formattedDate = formData.date ? new Date(formData.date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }) : formData.date
+                const shareText = `Salut ! Je prévois une partie de golf ${formattedDate} à ${formData.time} au ${formData.course}. Ça te dit de venir ?\n\n${eventUrl}\n\nSi tu n'as pas l'app : ${appStoreUrl}`
                 const encodedText = encodeURIComponent(shareText)
 
                 return (
